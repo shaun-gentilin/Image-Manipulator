@@ -1,6 +1,7 @@
 package Manipulation;
 
 import Image.IImage;
+import java.util.Arrays;
 
 public class BlurManip implements IManipulation {
 
@@ -51,16 +52,16 @@ public class BlurManip implements IManipulation {
       int color = image.getPixel(pixelValues[i][0], pixelValues[i][1])[channel];
       int blurColor = (int)(color * kernel[i]);
 
-      //Check that the value falls within the proper range (i.e. 0 and 255 for 8 bits).  If not,
-      //clamp the value.
-      if (blurColor < 0) {
-        blurColor = 0;
-      }
-      else if (blurColor > image.getMaxColorValue()) {
-        blurColor = image.getMaxColorValue();
-      }
-
       sum += blurColor;
+    }
+
+    //Check that the value falls within the proper range (i.e. 0 and 255 for 8 bits).  If not,
+    //clamp the value.
+    if (sum < 0) {
+      sum = 0;
+    }
+    else if (sum > image.getMaxColorValue()) {
+      sum = image.getMaxColorValue();
     }
 
     return sum;
@@ -74,7 +75,8 @@ public class BlurManip implements IManipulation {
 
     //create new pixel array to hold the new values after blurring (this way the new values will
     //not interfere with calculating the rest)
-    int [][][] newPixels = null;
+    int [][][] newPixels;
+    newPixels = new int [image.getWidth()][image.getHeight()][3];
 
     //get the blurred value for each channel of each pixel, create a new pixel and add it to the new
     //pixel array
