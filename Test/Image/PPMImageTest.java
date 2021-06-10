@@ -302,11 +302,7 @@ public class PPMImageTest {
   public void testExportImageValidImageFile() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
-    try {
-      image.exportImage();
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Bad file.");
-    }
+    image.exportImage();
     IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels-output.ppm");
     assertEquals(2, outputImage.getWidth());
@@ -324,5 +320,31 @@ public class PPMImageTest {
     assertEquals(24, outputImage.getPixel(1, 1)[0]);
     assertEquals(68, outputImage.getPixel(1, 1)[1]);
     assertEquals(255, outputImage.getPixel(1, 1)[2]);
+  }
+
+  //exception tests
+
+  /*
+  Test a case where an IllegalArgumentException is thrown for a bad filename.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testExportImageInvalidFile() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\Clege\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.exportImage();
+  }
+
+
+  //getMaxColorValue TESTS
+
+
+  /*
+  Test that it returns the correct max color value.
+   */
+  @Test
+  public void testGetMaxColorValue() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    assertEquals(255, image.getMaxColorValue());
   }
 }

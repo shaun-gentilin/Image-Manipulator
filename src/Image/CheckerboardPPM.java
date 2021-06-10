@@ -20,17 +20,27 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
   }
 
   @Override
-  public void exportImage() throws IOException {
+  public void exportImage() throws IllegalArgumentException {
     String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
     File output = new File(path);
-    boolean isFileCreated = output.createNewFile();
+    boolean isFileCreated = false;
+    try {
+      isFileCreated = output.createNewFile();
+    } catch (IOException ioException) {
+      throw new IllegalArgumentException("Bad filename.");
+    }
     if (isFileCreated) {
       System.out.println("File was created.");
     }
     else {
       System.out.println("File already existed and is being overwritten.");
     }
-    FileWriter writer = new FileWriter(output.getName(), false);
+    FileWriter writer = null;
+    try {
+      writer = new FileWriter(output.getName(), false);
+    } catch (IOException ioException) {
+      throw new IllegalArgumentException("Bad filename.");
+    }
     try {
       writer.write("P3\n");
       writer.write(tiles + " " + tiles + "\n");

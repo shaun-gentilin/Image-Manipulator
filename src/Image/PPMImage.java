@@ -151,13 +151,20 @@ public class PPMImage implements IImage {
 
   /**
    * Exports image to PPM format.
-   * @throws IOException if creating file / writing to file fails.
+   * @throws IllegalArgumentException if creating file / writing to file fails.
    */
   @Override
-  public void exportImage() throws IOException {
+  public void exportImage() throws IllegalArgumentException {
     String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
     File output = new File(path);
-    boolean isFileCreated = output.createNewFile();
+
+    boolean isFileCreated = false;
+
+    try {
+      isFileCreated = output.createNewFile();
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Bad filename.");
+    }
 
     if (isFileCreated) {
       System.out.println("File was created.");
@@ -166,7 +173,12 @@ public class PPMImage implements IImage {
       System.out.println("File already existed and is being overwritten.");
     }
 
-    FileWriter writer = new FileWriter(path, false);
+    FileWriter writer = null;
+    try {
+      writer = new FileWriter(path, false);
+    } catch (IOException ioException) {
+      throw new IllegalArgumentException("Bad file.");
+    }
     try {
       writer.write("P3\n");
       writer.write(width + " " + height + "\n");

@@ -49,7 +49,7 @@ public interface IImage {
   /**
    * Export this image to the existing file path.
    */
-  public void exportImage() throws IOException;
+  public void exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this image.
