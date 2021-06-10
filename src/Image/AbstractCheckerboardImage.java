@@ -21,7 +21,8 @@ public abstract class AbstractCheckerboardImage implements IImage {
     if (tiles < 1) {
       throw new IllegalArgumentException("Tiles in checkerboard height cannot be negative or 0.");
     }
-    if (color1 == null || color2 == null || color1.length != 3 || color2.length != 3) {
+    if (color1 == null || color2 == null || color1.length != 3 || color2.length != 3 ||
+        color1 == color2) {
       throw new IllegalArgumentException("Colors are invalid.");
     }
     if(maxColorValue <= 0 || maxColorValue >= 65536) {
@@ -72,7 +73,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
   }
 
   /**
-   * Gets width of square.
+   * Observes width of square.
    * @return width of square
    */
   @Override
@@ -81,7 +82,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
   }
 
   /**
-   * Gets height of board in squares
+   * Observes height of board in squares
    * @return height of board
    */
   @Override
@@ -90,7 +91,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
   }
 
   /**
-   * Setter method for pixel colors.
+   * Setting method for pixel colors.
    *
    * @param width  - the width of the pixels to be set in checkerboard.
    * @param height - the height of the pixels to be set in checkerboard.
@@ -100,7 +101,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
    */
   @Override
   public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
-    if (width < 0 || height < 0
+    if (width < 1 || height < 1
         || width > tiles
         || height > tiles) {
       throw new IllegalArgumentException("Invalid width or height.");
@@ -115,7 +116,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
   }
 
   /**
-   * Getter method for pixel colors.
+   * Observer method for pixel colors.
    *
    * @param width  - the width of the pixel to be obtained in checkerboard.
    * @param height - the height of the pixel to be obtained in checkerboard.
@@ -124,7 +125,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
    */
   @Override
   public int[] getPixel(int width, int height) {
-    if (width < 0 || height < 0
+    if (width < 1 || height < 1
         || width > tiles
         || height > tiles) {
       throw new IllegalArgumentException("Invalid width or height.");
@@ -141,7 +142,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
   public abstract void exportImage() throws IllegalArgumentException;
 
   /**
-   * Getter method to obtain maximum pixel color value.
+   * Observer method to obtain maximum pixel color value.
    * @return Maximum pixel color value.
    */
   @Override
