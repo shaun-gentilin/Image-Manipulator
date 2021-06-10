@@ -1,10 +1,8 @@
 package Image;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -14,13 +12,14 @@ import java.util.Scanner;
  */
 public class PPMImage implements IImage {
 
-  private String filePath;
+  private final String filePath;
   private int width;
   private int height;
   private int maxColorValue;
   private int[][][] pixels;
 
   public PPMImage(String filename) {
+    this.filePath = filename;
     loadImage(filename);
   }
 
@@ -169,13 +168,13 @@ public class PPMImage implements IImage {
     FileWriter writer = new FileWriter(output.getName());
     try {
       writer.write("P3\n");
-      writer.write(String.valueOf(width) + " " + String.valueOf(height) + "\n");
-      writer.write(String.valueOf(this.maxColorValue) + "\n");
+      writer.write(width + " " + height + "\n");
+      writer.write(this.maxColorValue + "\n");
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
           int[] pixel = pixels[j][i];
-          writer.write(" " + String.valueOf(pixel[0]) + "  " + String.valueOf(pixel[1]) + "  " +
-              String.valueOf(pixel[2]) + "\t");
+          writer.write(" " + pixel[0] + "  " + pixel[1] + "  " +
+              pixel[2] + "\t");
         }
         writer.write("\n");
       }

@@ -1,7 +1,5 @@
 package Image;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public abstract class AbstractCheckerboardImage implements IImage {
@@ -33,7 +31,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
     this.color1 = color1;
     this.color2 = color2;
     this.maxColorValue = maxColorValue;
-    loadImage(this.filePath);
+    loadImage(filePath);
   }
 
   @Override

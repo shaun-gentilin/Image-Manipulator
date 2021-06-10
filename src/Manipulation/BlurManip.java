@@ -1,7 +1,5 @@
 package Manipulation;
 
-import Image.IImage;
-
 public class BlurManip extends AbstractFilterManip {
   public BlurManip() {
     //pass the specific 3x3 blur kernel to the abstract class and let that class do the work.

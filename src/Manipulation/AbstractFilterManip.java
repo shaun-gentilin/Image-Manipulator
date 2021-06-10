@@ -37,22 +37,22 @@ public abstract class AbstractFilterManip implements IManipulation {
    * @return an int representing the blurred color for this pixel in the specified channel.
    */
   private int getFilterColor(IImage image, int channel, int width, int height) {
-    //get the values of the pixels (width and height) that will correspond to cells in the kernel and store them,
-    //ensuring that no pixel values are out of bounds
+    //get the values of the pixels (width and height) that will correspond to cells in the
+    // kernel and store them, ensuring that no pixel values are out of bounds
     int [][][] pixelValues;
     pixelValues = new int [this.kernelWidth][this.kernelHeight][2];
 
     //get the mid values for the kernel to do some math
-    int midWidth = (int)Math.ceil(this.kernelWidth/2.0);
-    int midHeight = (int)Math.ceil(this.kernelHeight/2.0);
+    int midWidth = this.kernelWidth/2;
+    int midHeight = this.kernelHeight/2;
 
     for (int i = 0; i < this.kernelHeight; i++) {
       for (int j = 0; j < this.kernelWidth; j++) {
         //get the width or height value of the pixel based on the kernel width or height
         //(e.g. if the kernel was 3x3, the top left value should be width - 1 because the width
         //is for this middle pixel).
-        pixelValues[j][i][0] = width + (i - (midWidth - 1));
-        pixelValues[j][i][1] = height + (i - (midHeight - 1));
+        pixelValues[j][i][0] = width + (i - midWidth);
+        pixelValues[j][i][1] = height + (i - midHeight);
       }
     }
 

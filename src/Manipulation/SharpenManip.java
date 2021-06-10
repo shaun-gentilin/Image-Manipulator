@@ -1,7 +1,5 @@
 package Manipulation;
 
-import Image.IImage;
-
 public class SharpenManip extends AbstractFilterManip {
   public SharpenManip() {
     //pass the specific 5x5 blur kernel to the abstract class and let that class do the work.

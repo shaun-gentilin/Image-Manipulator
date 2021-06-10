@@ -5,15 +5,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class CheckerboardPPM extends AbstractCheckerboardImage {
-  private String filePath;
-  private int[][][][][] pixels; //pixels in entire checkerboard
-  private int maxColorValue; // max Color value of the checkerboard
-  private int width; //width of square in pixels
-  private int tiles; //amount of tiles on top row
+  private final String filePath;
+  private final int maxColorValue; // max Color value of the checkerboard
+  private final int width; //width of square in pixels
+  private final int tiles; //amount of tiles on top row
 
   public CheckerboardPPM(String filePath, int width, int tiles, int[] color1,
       int[] color2, int maxColorValue) {
     super(filePath, width, tiles, color1, color2, maxColorValue);
+    this.filePath = filePath;
+    this.width = width;
+    this.tiles = tiles;
+    this.maxColorValue = maxColorValue;
   }
 
   @Override
