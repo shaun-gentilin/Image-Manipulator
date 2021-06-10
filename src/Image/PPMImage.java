@@ -45,7 +45,8 @@ public class PPMImage implements IImage {
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
       if (s.charAt(0) != '#') {
-        builder.append(s + System.lineSeparator());
+        builder.append(s);
+        builder.append(System.lineSeparator());
       }
     }
 
