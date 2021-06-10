@@ -3,17 +3,18 @@ package Image;
 import java.io.IOException;
 
 public abstract class AbstractCheckerboardImage implements IImage {
-  private String filePath; //filename the user wants to call checkerboard
-  private int width; //width of square in pixels
-  private int tiles; //amount of tiles on top row
-  private int[] color1; // color1 given in rgb array
-  private int[] color2; // color2 given in rgb array
+  private final int width; //width of square in pixels
+  private final int tiles; //amount of tiles on top row
+  private final int[] color1; // color1 given in rgb array
+  private final int[] color2; // color2 given in rgb array
   private int[][][][][] pixels; //pixels in entire checkerboard
-  private int maxColorValue; // max Color value of the checkerboard
+  private final int maxColorValue; // max Color value of the checkerboard
 
   public AbstractCheckerboardImage(String filePath, int width, int tiles, int[] color1,
       int[] color2, int maxColorValue) {
-    this.filePath = filePath;
+    if(filePath.equals("")) {
+      throw new IllegalArgumentException("Filepath name cannot be empty.");
+    }
     if (width < 1) {
       throw new IllegalArgumentException("Width of Squares cannot be negative or 0");
     }
