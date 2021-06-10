@@ -91,7 +91,7 @@ public class PPMImage implements IImage {
   }
 
   /**
-   * Getter method for width of image.
+   * Observer method for width of image.
    *
    * @return max width of Image.
    */
@@ -101,7 +101,7 @@ public class PPMImage implements IImage {
   }
 
   /**
-   * Getter method for height of image.
+   * Observer method for height of image.
    *
    * @return max height of Image.
    */
@@ -132,7 +132,7 @@ public class PPMImage implements IImage {
   }
 
   /**
-   * Getter method for pixel colors.
+   * Observer method for pixel colors.
    *
    * @param width  - the width of the pixel to be obtained.
    * @param height - the height of the pixel to be obtained.
@@ -184,6 +184,10 @@ public class PPMImage implements IImage {
     }
   }
 
+  /**
+   * Observer method for maxColorValue.
+   * @return returns MaxColorValue of image
+   */
   @Override
   public int getMaxColorValue() {
     return this.maxColorValue;

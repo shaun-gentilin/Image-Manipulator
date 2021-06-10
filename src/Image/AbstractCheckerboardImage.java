@@ -109,7 +109,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
     }
     for(int i = 0; i < getWidth(); i++) {
       for(int z = 0; z < getWidth(); z++) {
-        this.pixels[width][height][i][z] = pixel;
+        this.pixels[width][height][i][z] = pixel.clone();
       }
     }
   }
