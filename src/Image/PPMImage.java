@@ -128,7 +128,7 @@ public class PPMImage implements IImage {
     } else if (pixel.length != 3) {
       throw new IllegalArgumentException("Not a valid pixel to set.");
     }
-    this.pixels[width][height] = pixel;
+    this.pixels[width][height] = pixel.clone();
   }
 
   /**
@@ -155,17 +155,18 @@ public class PPMImage implements IImage {
    */
   @Override
   public void exportImage() throws IOException {
-    File output = new File("output" + this.filePath);
-    try {
-      if (output.createNewFile()) {
-        System.out.println("File created: " + output.getName());
-      } else {
-        System.out.println("File already exists.");
-      }
-    } catch (IOException error) {
-      System.out.println("Error occurred.");
+    String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
+    File output = new File(path);
+    boolean isFileCreated = output.createNewFile();
+
+    if (isFileCreated) {
+      System.out.println("File was created.");
     }
-    FileWriter writer = new FileWriter(output.getName());
+    else {
+      System.out.println("File already existed and is being overwritten.");
+    }
+
+    FileWriter writer = new FileWriter(path, false);
     try {
       writer.write("P3\n");
       writer.write(width + " " + height + "\n");

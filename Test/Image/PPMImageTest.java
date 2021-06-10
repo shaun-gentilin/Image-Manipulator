@@ -1,6 +1,9 @@
 package Image;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+import org.junit.Test;
 
 public class PPMImageTest {
 
@@ -8,13 +11,61 @@ public class PPMImageTest {
 
 
   /*
-   * TODO: Test the method with a valid filename (ensure that fields are set properly).
+   * Test the method with a valid filename (ensure that fields are set properly).
    */
+  @Test
+  public void testLoadImageValidImageFile() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.loadImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    assertEquals(2, image.getWidth());
+    assertEquals(2, image.getHeight());
+    assertEquals(255, image.getMaxColorValue());
+    assertEquals(101, image.getPixel(0, 0)[0]);
+    assertEquals(90, image.getPixel(0, 0)[1]);
+    assertEquals(58, image.getPixel(0, 0)[2]);
+    assertEquals(200, image.getPixel(1, 0)[0]);
+    assertEquals(44, image.getPixel(1, 0)[1]);
+    assertEquals(87, image.getPixel(1, 0)[2]);
+    assertEquals(56, image.getPixel(0, 1)[0]);
+    assertEquals(120, image.getPixel(0, 1)[1]);
+    assertEquals(43, image.getPixel(0, 1)[2]);
+    assertEquals(24, image.getPixel(1, 1)[0]);
+    assertEquals(68, image.getPixel(1, 1)[1]);
+    assertEquals(255, image.getPixel(1, 1)[2]);
+  }
+
+  /*
+  Test loading a different image after one has been loaded.
+   */
+  @Test
+  public void testLoadImageValidImageFileReload() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    image.loadImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    assertEquals(2, image.getWidth());
+    assertEquals(2, image.getHeight());
+    assertEquals(255, image.getMaxColorValue());
+    assertEquals(101, image.getPixel(0, 0)[0]);
+    assertEquals(90, image.getPixel(0, 0)[1]);
+    assertEquals(58, image.getPixel(0, 0)[2]);
+    assertEquals(200, image.getPixel(1, 0)[0]);
+    assertEquals(44, image.getPixel(1, 0)[1]);
+    assertEquals(87, image.getPixel(1, 0)[2]);
+    assertEquals(56, image.getPixel(0, 1)[0]);
+    assertEquals(120, image.getPixel(0, 1)[1]);
+    assertEquals(43, image.getPixel(0, 1)[2]);
+    assertEquals(24, image.getPixel(1, 1)[0]);
+    assertEquals(68, image.getPixel(1, 1)[1]);
+    assertEquals(255, image.getPixel(1, 1)[2]);
+  }
 
   //exception tests
 
   /*
-   * TODO: Test method with an invalid filename.
+   * Test method with an invalid filename.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testLoadImageInValidImageFile() {
@@ -23,7 +74,7 @@ public class PPMImageTest {
   }
 
   /*
-   * TODO: Test with file that has invalid format (does not start with P3).
+   * Test with file that has invalid format (does not start with P3).
    */
   @Test(expected = IllegalArgumentException.class)
   public void testLoadImageInvalidFormat() {
@@ -34,7 +85,7 @@ public class PPMImageTest {
   }
 
   /*
-   * TODO: Test with a max color value that is less than 0.
+   * Test with a max color value that is less than 0.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testLoadImageInvalidMaxColorLowerBound() {
@@ -81,8 +132,14 @@ public class PPMImageTest {
 
 
   /*
-  TODO: Test that it returns the proper width from the image.
+  Test that it returns the proper width from the image.
    */
+  @Test
+  public void testGetWidth() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    assertEquals(1024, image.getWidth());
+  }
 
   //getHeight TESTS
 
@@ -101,13 +158,31 @@ public class PPMImageTest {
 
 
   /*
-  TODO: Test that the correct pixel is set if all inputs are valid.
+  Test that the correct pixel is set if all inputs are valid.
    */
+  @Test
+  public void testSetPixelValidInputs() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.setPixel(0, 0, new int[]{0, 0, 0});
+    assertEquals(0, image.getPixel(0, 0)[0]);
+    assertEquals(0, image.getPixel(0, 0)[1]);
+    assertEquals(0, image.getPixel(0, 0)[2]);
+    assertEquals(200, image.getPixel(1, 0)[0]);
+    assertEquals(44, image.getPixel(1, 0)[1]);
+    assertEquals(87, image.getPixel(1, 0)[2]);
+    assertEquals(56, image.getPixel(0, 1)[0]);
+    assertEquals(120, image.getPixel(0, 1)[1]);
+    assertEquals(43, image.getPixel(0, 1)[2]);
+    assertEquals(24, image.getPixel(1, 1)[0]);
+    assertEquals(68, image.getPixel(1, 1)[1]);
+    assertEquals(255, image.getPixel(1, 1)[2]);
+  }
 
   //exception tests
 
   /*
-  TODO: Test an invalid pixel (not an integer array of size 3).
+  Test an invalid pixel (not an integer array of size 3).
    */
   @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidPixel() {
@@ -117,7 +192,7 @@ public class PPMImageTest {
   }
 
   /*
-  TODO: Test an invalid width (negative).
+  Test an invalid width (negative).
    */
   @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidWidthNegative() {
@@ -136,7 +211,7 @@ public class PPMImageTest {
     image.setPixel(image.getWidth() + 1, 1, new int[]{1, 1, 1});
   }
     /*
-  TODO: Test an invalid height (negative).
+  Test an invalid height (negative).
    */
   @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidHeightNegative() {
@@ -145,7 +220,7 @@ public class PPMImageTest {
     image.setPixel(1, -1, new int [] {1, 1, 1});
   }
     /*
-  TODO: Test an invalid height (too large).
+  Test an invalid height (too large).
    */
     @Test(expected = IllegalArgumentException.class)
     public void testSetPixelInvalidHeightUpperbound() {
@@ -159,13 +234,30 @@ public class PPMImageTest {
 
 
   /*
-  TODO: Test that the proper pixel is returned if given the correct width and height.
+  Test that the proper pixel is returned if given the correct width and height.
    */
+  @Test
+  public void testGetPixelValidInputs() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    assertEquals(101, image.getPixel(0, 0)[0]);
+    assertEquals(90, image.getPixel(0, 0)[1]);
+    assertEquals(58, image.getPixel(0, 0)[2]);
+    assertEquals(200, image.getPixel(1, 0)[0]);
+    assertEquals(44, image.getPixel(1, 0)[1]);
+    assertEquals(87, image.getPixel(1, 0)[2]);
+    assertEquals(56, image.getPixel(0, 1)[0]);
+    assertEquals(120, image.getPixel(0, 1)[1]);
+    assertEquals(43, image.getPixel(0, 1)[2]);
+    assertEquals(24, image.getPixel(1, 1)[0]);
+    assertEquals(68, image.getPixel(1, 1)[1]);
+    assertEquals(255, image.getPixel(1, 1)[2]);
+  }
 
   //exception tests
 
   /*
-  TODO: Test an invalid width (negative).
+   Test an invalid width (negative).
    */
   @Test(expected=IllegalArgumentException.class)
   public void testGetPixelInvalidWidthNegative() {
@@ -174,7 +266,7 @@ public class PPMImageTest {
     image.getPixel(-1, 1);
   }
     /*
-  TODO: Test an invalid width (too large).
+    Test an invalid width (too large).
    */
     @Test(expected=IllegalArgumentException.class)
     public void testGetPixelInvalidWidthUpperBound() {
@@ -183,7 +275,7 @@ public class PPMImageTest {
       image.getPixel(image.getWidth()+1, 1);
     }
     /*
-  TODO: Test an invalid height (negative).
+    Test an invalid height (negative).
    */
     @Test(expected=IllegalArgumentException.class)
     public void testGetPixelInvalidHeightNegative() {
@@ -192,7 +284,7 @@ public class PPMImageTest {
       image.getPixel(1, -1);
     }
     /*
-  TODO: Test an invalid height (too large).
+  Test an invalid height (too large).
    */
     @Test(expected=IllegalArgumentException.class)
     public void testGetPixelInvalidHeightUpperBound() {
@@ -203,7 +295,34 @@ public class PPMImageTest {
   //exportImage TESTS
 
   /*
-  TODO: Test that data is properly exported to the proper file if a valid file path is given for the
-  image.
+  Test that data is properly exported to the proper file if a valid file path is given for
+  the image.
    */
+  @Test
+  public void testExportImageValidImageFile() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    try {
+      image.exportImage();
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Bad file.");
+    }
+    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels-output.ppm");
+    assertEquals(2, outputImage.getWidth());
+    assertEquals(2, outputImage.getHeight());
+    assertEquals(255, outputImage.getMaxColorValue());
+    assertEquals(101, outputImage.getPixel(0, 0)[0]);
+    assertEquals(90, outputImage.getPixel(0, 0)[1]);
+    assertEquals(58, outputImage.getPixel(0, 0)[2]);
+    assertEquals(200, outputImage.getPixel(1, 0)[0]);
+    assertEquals(44, outputImage.getPixel(1, 0)[1]);
+    assertEquals(87, outputImage.getPixel(1, 0)[2]);
+    assertEquals(56, outputImage.getPixel(0, 1)[0]);
+    assertEquals(120, outputImage.getPixel(0, 1)[1]);
+    assertEquals(43, outputImage.getPixel(0, 1)[2]);
+    assertEquals(24, outputImage.getPixel(1, 1)[0]);
+    assertEquals(68, outputImage.getPixel(1, 1)[1]);
+    assertEquals(255, outputImage.getPixel(1, 1)[2]);
+  }
 }
