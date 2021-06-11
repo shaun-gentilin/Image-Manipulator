@@ -1,7 +1,5 @@
 package Image;
 
-import java.io.IOException;
-
 /**
  * Interface to represent different types of images in different formats (e.g. PPM) and outline
  * what methods they should support.
@@ -13,19 +11,19 @@ public interface IImage {
    * @param filename - the path name of the image to be loaded into the image class.
    * @throws IllegalArgumentException if the file does not exist or is in the wrong format.
    */
-  public void loadImage(String filename) throws IllegalArgumentException;
+  void loadImage(String filename) throws IllegalArgumentException;
 
   /**
    * Get the width for the image.
    * @return an int representing the width of the image in question.
    */
-  public int getWidth();
+  int getWidth();
 
   /**
    * Get the height for the image.
    * @return an int representing the height of the image in question.
    */
-  public int getHeight();
+  int getHeight();
 
   /**
    * Set the colors of the pixel at the specified width and height to the given pixel colors.
@@ -35,7 +33,7 @@ public interface IImage {
    * @throws IllegalArgumentException if width or height are too low or too high, or if the pixel is 
    *     not valid for the type of image.
    */
-  public void setPixel(int width, int height, int [] pixel) throws IllegalArgumentException;
+  void setPixel(int width, int height, int [] pixel) throws IllegalArgumentException;
 
   /**
    * Get the pixel at the specified width and height.
@@ -44,16 +42,16 @@ public interface IImage {
    * @return an array of integers representing the r, g, and b values of the pixel.
    * @throws IllegalArgumentException if the width or height are too low or too high.
    */
-  public int [] getPixel(int width, int height);
+  int [] getPixel(int width, int height);
 
   /**
    * Export this image to the existing file path.
    */
-  public void exportImage() throws IllegalArgumentException;
+  void exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this image.
    * @return an int representing the max color value for this image.
    */
-  public int getMaxColorValue();
+  int getMaxColorValue();
 }

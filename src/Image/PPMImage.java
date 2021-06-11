@@ -158,7 +158,7 @@ public class PPMImage implements IImage {
     String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
     File output = new File(path);
 
-    boolean isFileCreated = false;
+    boolean isFileCreated;
 
     try {
       isFileCreated = output.createNewFile();
@@ -173,7 +173,7 @@ public class PPMImage implements IImage {
       System.out.println("File already existed and is being overwritten.");
     }
 
-    FileWriter writer = null;
+    FileWriter writer;
     try {
       writer = new FileWriter(path, false);
     } catch (IOException ioException) {

@@ -3,6 +3,7 @@ package Model;
 import Image.*;
 import Manipulation.IManipulation;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -59,5 +60,13 @@ public class ImageModelImpl implements ImageModel {
       throw new IllegalArgumentException("That is not a valid image.");
     }
     this.images.remove(imageNum);
+  }
+
+  @Override
+  public IImage getImage(int imageNum) throws IllegalArgumentException {
+    if (imageNum < 0 || imageNum >= images.size()) {
+      throw new IllegalArgumentException("That is not a valid image.");
+    }
+    return this.images.get(imageNum);
   }
 }

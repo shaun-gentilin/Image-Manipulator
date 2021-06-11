@@ -1,6 +1,7 @@
 package Model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import Image.IImage;
 import Image.PPMImage;
@@ -319,4 +320,216 @@ Test a case where the image number is negative.
   public void testExportImageImageNumTooHigh() {
     exportImageModel4.exportImage(10);
   }
+
+
+  //addImage TESTS
+
+
+  IImage addImageSimple1;
+  IImage addImageKoala1;
+  List<IImage> addImageImages1;
+  ImageModel addImageModel1;
+
+  List<IImage> addImageImages2;
+  ImageModel addImageModel2;
+
+  @Before
+  public void testAddImageInit() {
+    addImageSimple1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    addImageKoala1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    addImageImages1 = new ArrayList<>();
+    addImageImages1.add(addImageSimple1);
+    addImageImages1.add(addImageKoala1);
+    addImageModel1 = new ImageModelImpl(addImageImages1);
+
+    addImageImages2 = new ArrayList<>();
+    addImageModel2 = new ImageModelImpl(addImageImages2);
+  }
+
+  /*
+  Test a case where a valid image is successfully added to the list if the list was empty.
+   */
+  @Test
+  public void testAddImageValidImageToEmpty() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    int imgNum = addImageModel2.addImage(image);
+    assertEquals(image, addImageModel2.getImage(0));
+    assertEquals(0, imgNum);
+  }
+
+   /*
+  Test a case where a valid image is successfully added to the list if the list was not empty.
+   */
+   @Test
+   public void testAddImageValidImageToNonEmpty() {
+     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+         + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+     addImageModel1.addImage(image);
+     assertEquals(image, addImageModel1.getImage(2));
+   }
+
+  //exception tests
+
+  /*
+  Test a case where the given image is null.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddImageNullImage() {
+    addImageModel2.addImage(null);
+  }
+
+
+  //removeImage TESTS
+
+  IImage removeImageSimple1;
+  IImage removeImageKoala1;
+  List<IImage> removeImageImages1;
+  ImageModel removeImageModel1;
+
+  List<IImage> removeImageImages2;
+  ImageModel removeImageModel2;
+
+  IImage removeImageSimple3;
+  IImage removeImageKoala3;
+  List<IImage> removeImageImages3;
+  ImageModel removeImageModel3;
+
+  @Before
+  public void testRemoveImageInit() {
+    removeImageSimple1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    removeImageKoala1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    removeImageImages1 = new ArrayList<>();
+    removeImageImages1.add(removeImageSimple1);
+    removeImageImages1.add(removeImageKoala1);
+    removeImageModel1 = new ImageModelImpl(removeImageImages1);
+
+    removeImageImages2 = new ArrayList<>();
+    removeImageModel2 = new ImageModelImpl(removeImageImages2);
+
+    removeImageSimple3 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    removeImageKoala3 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    removeImageImages3 = new ArrayList<>();
+    removeImageImages3.add(removeImageSimple3);
+    removeImageImages3.add(removeImageKoala3);
+    removeImageModel3 = new ImageModelImpl(removeImageImages3);
+  }
+
+  /*
+  Test a case where the image is successfully removed.
+   */
+  @Test
+  public void testRemoveImageValidImage() {
+    IImage image = removeImageModel1.getImage(0);
+    removeImageModel1.removeImage(0);
+    assertNotEquals(image, removeImageModel1.getImage(0));
+  }
+
+  //exception tests
+
+  /*
+  Test a case where the requested image had a negative index.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testRemoveImageNegativeIndex() {
+    removeImageModel3.removeImage(-4);
+  }
+
+  /*
+  Test a case where the requested image had too large of an index.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testRemoveImageHighIndex() {
+    removeImageModel3.removeImage(10);
+  }
+
+  /*
+  Test a case where there are no images (the list is empty).
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testRemoveImageEmptyImageList() {
+    removeImageModel2.removeImage(0);
+  }
+
+
+  //getImage TESTS
+
+
+  IImage getImageSimple1;
+  IImage getImageKoala1;
+  List<IImage> getImageImages1;
+  ImageModel getImageModel1;
+
+  List<IImage> getImageImages2;
+  ImageModel getImageModel2;
+
+  IImage getImageSimple3;
+  IImage getImageKoala3;
+  List<IImage> getImageImages3;
+  ImageModel getImageModel3;
+
+  @Before
+  public void testGetImageInit() {
+    getImageSimple1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    getImageKoala1 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    getImageImages1 = new ArrayList<>();
+    getImageImages1.add(getImageSimple1);
+    getImageImages1.add(getImageKoala1);
+    getImageModel1 = new ImageModelImpl(getImageImages1);
+
+    getImageImages2 = new ArrayList<>();
+    getImageModel2 = new ImageModelImpl(getImageImages2);
+
+    getImageSimple3 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    getImageKoala3 = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    getImageImages3 = new ArrayList<>();
+    getImageImages3.add(getImageSimple3);
+    getImageImages3.add(getImageKoala3);
+    getImageModel3 = new ImageModelImpl(getImageImages3);
+  }
+
+  /*
+  Test getting a valid image from a non empty list.
+   */
+  @Test
+  public void testGetImageValidImageNonEmptyList() {
+    assertEquals(getImageSimple1, getImageModel1.getImage(0));
+    assertEquals(getImageKoala1, getImageModel1.getImage(1));
+  }
+
+  //exception tests
+  /*
+  Test a case where the requested image had a negative index.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetImageNegativeIndex() {
+    getImageModel3.removeImage(-4);
+  }
+
+  /*
+  Test a case where the requested image had too large of an index.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetImageHighIndex() {
+    getImageModel3.removeImage(10);
+  }
+
+  /*
+  Test a case where there are no images (the list is empty).
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetImageEmptyImageList() {
+    getImageModel2.removeImage(0);
+  }
+
 }

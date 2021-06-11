@@ -14,27 +14,34 @@ public interface ImageModel {
    * @return an image that is the result of the manipulation.
    * @throws IllegalArgumentException if the manipulation is null, or the image number is invalid.
    */
-  public IImage applyManipulation(IManipulation manip, int imageNum) throws IllegalArgumentException;
+  IImage applyManipulation(IManipulation manip, int imageNum) throws IllegalArgumentException;
 
   /**
    * Export the specified image.
    * @param imageNum - the number of the image to be exported.
    * @throws IllegalArgumentException if the imageNum is invalid.
    */
-  public void exportImage(int imageNum) throws IllegalArgumentException;
+  void exportImage(int imageNum) throws IllegalArgumentException;
 
   /**
    * Add the given image to the list of images in the model.
    * @param image - the image to be added to the model.
-   * @returns the number of the image that has just been added.
+   * @return the number of the image that has just been added.
    * @throws IllegalArgumentException if the image is not valid (i.e. if it is null).
    */
-  public int addImage(IImage image) throws IllegalArgumentException;
+  int addImage(IImage image) throws IllegalArgumentException;
 
   /**
    * Remove the specified image from the model.
    * @param imageNum - the image to be removed from the model.
    * @throws IllegalArgumentException if the number did not correspond to a valid image.
    */
-  public void removeImage(int imageNum) throws IllegalArgumentException;
+  void removeImage(int imageNum) throws IllegalArgumentException;
+
+  /**
+   * Get the specified image from the list of images for this model.
+   * @param imageNum - the image to be returned.
+   * @return the specified image.
+   */
+  IImage getImage(int imageNum) throws IllegalArgumentException;
 }
