@@ -37,7 +37,7 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
     }
     FileWriter writer = null;
     try {
-      writer = new FileWriter(output.getName(), false);
+      writer = new FileWriter(path, false);
     } catch (IOException ioException) {
       throw new IllegalArgumentException("Bad filename.");
     }
