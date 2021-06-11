@@ -51,7 +51,7 @@ public abstract class AbstractFilterManip implements IManipulation {
         //get the width or height value of the pixel based on the kernel width or height
         //(e.g. if the kernel was 3x3, the top left value should be width - 1 because the width
         //is for this middle pixel).
-        pixelValues[j][i][0] = width + (i - midWidth);
+        pixelValues[j][i][0] = width + (j - midWidth);
         pixelValues[j][i][1] = height + (i - midHeight);
       }
     }
@@ -63,8 +63,8 @@ public abstract class AbstractFilterManip implements IManipulation {
     int maxHeight = image.getHeight();
     for (int i = 0; i < this.kernelHeight; i++) {
       for (int j = 0; j < this.kernelWidth; j++) {
-        if (pixelValues[j][i][0] < 0 || pixelValues[j][i][0] > maxWidth
-            || pixelValues[j][i][1] < 0 || pixelValues[j][i][1] > maxHeight) {
+        if (pixelValues[j][i][0] < 0 || pixelValues[j][i][0] >= maxWidth
+            || pixelValues[j][i][1] < 0 || pixelValues[j][i][1] >= maxHeight) {
           pixelValues[j][i] = null;
         }
       }
@@ -115,7 +115,7 @@ public abstract class AbstractFilterManip implements IManipulation {
         int newG = this.getFilterColor(image,1, j, i);
         int newB = this.getFilterColor(image,2, j, i);
         int [] newColors = {newR, newG, newB};
-        newPixels[j][i] = newColors;
+        newPixels[j][i] = newColors.clone();
       }
     }
 
