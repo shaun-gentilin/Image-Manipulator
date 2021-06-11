@@ -73,14 +73,7 @@ public class CheckerboardPPMTest {
     IImage emptyFile = new CheckerboardPPM("TestName", 4, 4,
         new int [] {1, 1, 1},new int [] {2, 1, 1, 3}, 50);
   }
-  /*
-   Colors are same
-   */
-  @Test(expected=IllegalArgumentException.class)
-  public void constructorTestInvalidColorSame() {
-    IImage emptyFile = new CheckerboardPPM("TestName", 4, 4,
-        new int [] {1, 1, 1},new int [] {1, 1, 1}, 50);
-  }
+
   /*
   maxColorValue less than 0
    */
@@ -100,68 +93,210 @@ public class CheckerboardPPMTest {
 
   //LOADIMAGE
   /*
-  TODO: Ensure that it works properly
+ Ensure that it works properly
    */
+  @Test
+  public void testLoadImage() {
+    IImage board = new CheckerboardPPM("Game", 1, 2, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 25);
+    board.loadImage("Test Game");
+    assertEquals(1, board.getPixel(0, 0)[0]);
+    assertEquals(1, board.getPixel(0, 0)[1]);
+    assertEquals(1, board.getPixel(0, 0)[2]);
+   // assertEquals(2, board.getPixel(1, 0)[0]);
+    //assertEquals(2, board.getPixel(1, 0)[1]);
+    //assertEquals(2, board.getPixel(1, 0)[2]);
+    assertEquals(1, board.getPixel(1, 1)[0]);
+    assertEquals(1, board.getPixel(1, 1)[1]);
+    assertEquals(1, board.getPixel(1, 1)[2]);
+    assertEquals(2, board.getPixel(0, 1)[0]);
+    assertEquals(2, board.getPixel(0, 1)[1]);
+    assertEquals(2, board.getPixel(0, 1)[2]);
+
+  }
 
   //EXCEPTIONS
   /*
-  TODO: invalid filename
+   invalid filename
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testLoadImageInvalidFileName() {
+    IImage invalid = new CheckerboardPPM("", 4, 4, new int [] {1, 1, 1},
+        new int [] {1, 2, 1}, 50);
+    invalid.loadImage("");
+  }
 
   //GETWIDTH
   /*
-  TODO: get correct width
+   get correct width
    */
+  @Test
+  public void testGetWidth() {
+    IImage board = new CheckerboardPPM("Game", 4, 4, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    assertEquals(4, board.getWidth());
+  }
 
   //GETHEIGHT
   /*
-  TODO: get correct tiles
+   get correct tiles
    */
+  @Test
+  public void testGetHeightCorrectTiles() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    assertEquals(16, board.getHeight());
+  }
 
   //SETPIXEL
   /*
-  TODO: set correct pixel
+ set correct pixel
    */
+  @Test
+  public void testSetPixel() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    int [] pixel = {4, 5, 6};
+    board.setPixel(0, 0, pixel);
+    assertEquals(4, board.getPixel(0, 0)[0]);
+    assertEquals(5, board.getPixel(0, 0)[1]);
+    assertEquals(6, board.getPixel(0, 0)[2]);
+  }
 
   //EXCEPTIONS
 
   /*
-  TODO: width less than 1
+   width less than 1
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testSetPixelInvalidWidthLowerBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    board.setPixel(-1, 1, new int [] {4, 4, 4});
+  }
 
   /*
-  TODO: width greater than tiles
+   width greater than tiles
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testSetPixelInvalidWidthUpperBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    board.setPixel(board.getHeight()+1, 1, new int [] {4, 4, 4});
+  }
 
   /*
-  TODO: height less than 1
+ height less than 1
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testSetPixelInvalidHeightLowerBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    board.setPixel(1, -1, new int [] {4, 4, 4});
+  }
 
   /*
-  TODO: height greater than tiles
+ height greater than tiles
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testSetPixelInvalidHeightUpperBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 1, 1},
+        new int [] {2, 2, 2}, 50);
+    board.setPixel(1, board.getHeight()+1, new int [] {4, 4, 4});
+  }
 
   //GETPIXEL
   /*
-  TODO: ensure it gets correct pixel
+   ensure it gets correct pixel
    */
+  @Test
+  public void testGetPixel() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    board.loadImage("Game");
+    assertEquals(1, board.getPixel(0, 0)[0]);
+    assertEquals(2, board.getPixel(0, 0)[1]);
+    assertEquals(3, board.getPixel(0, 0)[2]);
+  }
 
   //EXCEPTIONS
   /*
-  TODO: width less than 1
+   width less than 1
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testGetPixelInvalidWidthLowerBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    board.getPixel(-1, 1);
+  }
   /*
-  TODO: width greater than tiles
+   width greater than tiles
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testGetPixelInvalidWidthUpperBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    board.getPixel(board.getHeight()+1, 1);
+  }
   /*
-  TODO: height less than 1
+   height less than 1
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testGetPixelInvalidHeightLowerBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    board.getPixel(1, -1);
+  }
   /*
-  TODO: height greater than tiles
+ height greater than tiles
    */
+  @Test(expected=IllegalArgumentException.class)
+  public void testGetPixelInvalidHeightUpperBound() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    board.getPixel(1, board.getHeight()+1);
+  }
 
   //GETMAXCOLORVALUE
   /*
-  TODO: ensure it gets max color value
+  ensure it gets max color value
    */
+  @Test
+  public void testGetMaxColorValue() {
+    IImage board = new CheckerboardPPM("Game", 4, 16, new int [] {1, 2, 3},
+        new int [] {2, 2, 2}, 50);
+    assertEquals(50, board.getMaxColorValue());
+  }
+
+  @Test
+  public void testExportImageValidImageFile() {
+    IImage image = new CheckerboardPPM("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard.ppm", 2, 5,
+        new int [] {1, 1, 1}, new int [] {2, 2, 2}, 25);
+
+    image.exportImage();
+    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard-output.ppm");
+
+    assertEquals(1, outputImage.getPixel(2, 2)[0]);
+    assertEquals(1, outputImage.getPixel(2, 2)[1]);
+    assertEquals(1, outputImage.getPixel(2, 2)[2]);
+    /*
+    assertEquals(2, outputImage.getWidth());
+    assertEquals(2, outputImage.getHeight());
+    assertEquals(25, outputImage.getMaxColorValue());
+    assertEquals(1, outputImage.getPixel(0, 0)[0]);
+    assertEquals(1, outputImage.getPixel(0, 0)[1]);
+    assertEquals(1, outputImage.getPixel(0, 0)[2]);
+    assertEquals(2, outputImage.getPixel(1, 0)[0]);
+    assertEquals(2, outputImage.getPixel(1, 0)[1]);
+    assertEquals(2, outputImage.getPixel(1, 0)[2]);
+    assertEquals(2, outputImage.getPixel(0, 1)[0]);
+    assertEquals(2, outputImage.getPixel(0, 1)[1]);
+    assertEquals(2, outputImage.getPixel(0, 1)[2]);
+    assertEquals(1, outputImage.getPixel(1, 1)[0]);
+    assertEquals(1, outputImage.getPixel(1, 1)[1]);
+    assertEquals(1, outputImage.getPixel(1, 1)[2]);
+  */
+  }
 }

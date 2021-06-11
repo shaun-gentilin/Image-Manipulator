@@ -21,8 +21,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
     if (tiles < 1) {
       throw new IllegalArgumentException("Tiles in checkerboard height cannot be negative or 0.");
     }
-    if (color1 == null || color2 == null || color1.length != 3 || color2.length != 3 ||
-        color1 == color2) {
+    if (color1 == null || color2 == null || color1.length != 3 || color2.length != 3) {
       throw new IllegalArgumentException("Colors are invalid.");
     }
     if(maxColorValue <= 0 || maxColorValue >= 65536) {
@@ -58,13 +57,13 @@ public abstract class AbstractCheckerboardImage implements IImage {
         }
       }
     }
-    for (int i = 1; i < tiles; i++) {
+    for (int i = 0; i < tiles; i++) {
       if (i % 2 == 1) {
-        for (int z = 1; z < tiles; z = z + 2) {
+        for (int z = 0; z < tiles; z = z + 2) {
           board[i][z] = square2;
         }
       } else {
-        for (int z = 0; z < tiles; z = z + 2) {
+        for (int z = 1; z < tiles; z = z + 2) {
           board[i][z] = square2;
         }
       }
@@ -101,7 +100,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
    */
   @Override
   public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
-    if (width < 1 || height < 1
+    if (width < 0 || height < 0
         || width > tiles
         || height > tiles) {
       throw new IllegalArgumentException("Invalid width or height.");
@@ -125,7 +124,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
    */
   @Override
   public int[] getPixel(int width, int height) {
-    if (width < 1 || height < 1
+    if (width < 0 || height < 0
         || width > tiles
         || height > tiles) {
       throw new IllegalArgumentException("Invalid width or height.");

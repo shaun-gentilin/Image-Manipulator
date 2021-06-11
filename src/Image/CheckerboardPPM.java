@@ -44,12 +44,12 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
     try {
       writer.write("P3\n");
       writer.write(tiles + " " + tiles + "\n");
-      writer.write(this.maxColorValue + "\n");
+      writer.write(maxColorValue + "\n");
       for (int i = 0; i < tiles; i++) {
         for (int j = 0; j < tiles; j++) {
           for(int x = 0; x < width; x++) {
             for(int y = 0; y < width; y++) {
-              int [] pixel = super.getPixel(i, j);
+              int [] pixel = this.getPixel(i, j);
               writer.write(" " + pixel[0] + "  " + pixel[1] + "  " + pixel[2] + "\n");
             }
           }
