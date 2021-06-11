@@ -46,25 +46,23 @@ public abstract class AbstractCheckerboardImage implements IImage {
         square2[i][z] = this.color2;
       }
     }
-    for (int i = 0; i < tiles; i++) {
-      if (i % 2 == 0) {
-        for (int z = 0; z < tiles; z = z + 2) {
+        for(int i = 0; i < tiles; i=i+2) { // populate even rows
+      for(int z = 0; z < tiles; z++) {
+        if(z % 2 == 0) {
           board[i][z] = square1;
         }
-      } else {
-        for (int z = 1; z < tiles; z = z + 2) {
-          board[i][z] = square1;
+        else {
+          board[i][z] = square2;
         }
       }
     }
-    for (int i = 0; i < tiles; i++) {
-      if (i % 2 == 1) {
-        for (int z = 0; z < tiles; z = z + 2) {
+    for(int i = 1; i < tiles; i = i + 2) { // populate odd rows
+      for(int z = 0; z < tiles; z++) {
+        if(z % 2 == 0) {
           board[i][z] = square2;
         }
-      } else {
-        for (int z = 1; z < tiles; z = z + 2) {
-          board[i][z] = square2;
+        else {
+          board[i][z] = square1;
         }
       }
     }
