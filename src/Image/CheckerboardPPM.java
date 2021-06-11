@@ -52,6 +52,7 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
               int [] pixel = this.getPixel(i, j);
               writer.write(" " + pixel[0] + "  " + pixel[1] + "  " + pixel[2] + "\n");
             }
+            writer.write("\t");
           }
           writer.write("\t");
         }
