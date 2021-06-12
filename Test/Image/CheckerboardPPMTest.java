@@ -97,15 +97,16 @@ public class CheckerboardPPMTest {
    */
   @Test
   public void testLoadImage() {
-    IImage board = new CheckerboardPPM("Game", 1, 2, new int [] {1, 1, 1},
+    IImage board = new CheckerboardPPM("Game", 1, 5, new int [] {1, 1, 1},
         new int [] {2, 2, 2}, 25);
     board.loadImage("Test Game");
+    assertEquals(2, board.getPixel(3, 2)[0]);
     assertEquals(1, board.getPixel(0, 0)[0]);
     assertEquals(1, board.getPixel(0, 0)[1]);
     assertEquals(1, board.getPixel(0, 0)[2]);
-   // assertEquals(2, board.getPixel(1, 0)[0]);
-    //assertEquals(2, board.getPixel(1, 0)[1]);
-    //assertEquals(2, board.getPixel(1, 0)[2]);
+    assertEquals(2, board.getPixel(1, 0)[0]);
+    assertEquals(2, board.getPixel(1, 0)[1]);
+    assertEquals(2, board.getPixel(1, 0)[2]);
     assertEquals(1, board.getPixel(1, 1)[0]);
     assertEquals(1, board.getPixel(1, 1)[1]);
     assertEquals(1, board.getPixel(1, 1)[2]);
@@ -270,33 +271,16 @@ public class CheckerboardPPMTest {
 
   @Test
   public void testExportImageValidImageFile() {
-    IImage image = new CheckerboardPPM("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard.ppm", 2, 5,
+    IImage image = new CheckerboardPPM("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5"
+        + "\\TestImages\\checkerboard.ppm", 5, 40,
         new int [] {1, 1, 1}, new int [] {2, 2, 2}, 25);
 
     image.exportImage();
-    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard-output.ppm");
-
-    assertEquals(1, outputImage.getPixel(2, 2)[0]);
-    assertEquals(1, outputImage.getPixel(2, 2)[1]);
-    assertEquals(1, outputImage.getPixel(2, 2)[2]);
-    /*
-    assertEquals(2, outputImage.getWidth());
-    assertEquals(2, outputImage.getHeight());
+    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
+        + "TestImages\\checkerboard-output.ppm");
+    assertEquals(5*40, outputImage.getWidth());
+    assertEquals(5*40, outputImage.getHeight());
     assertEquals(25, outputImage.getMaxColorValue());
-    assertEquals(1, outputImage.getPixel(0, 0)[0]);
-    assertEquals(1, outputImage.getPixel(0, 0)[1]);
-    assertEquals(1, outputImage.getPixel(0, 0)[2]);
-    assertEquals(2, outputImage.getPixel(1, 0)[0]);
-    assertEquals(2, outputImage.getPixel(1, 0)[1]);
-    assertEquals(2, outputImage.getPixel(1, 0)[2]);
-    assertEquals(2, outputImage.getPixel(0, 1)[0]);
-    assertEquals(2, outputImage.getPixel(0, 1)[1]);
-    assertEquals(2, outputImage.getPixel(0, 1)[2]);
-    assertEquals(1, outputImage.getPixel(1, 1)[0]);
-    assertEquals(1, outputImage.getPixel(1, 1)[1]);
-    assertEquals(1, outputImage.getPixel(1, 1)[2]);
-  */
+
   }
 }
