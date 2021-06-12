@@ -1,19 +1,22 @@
-package Model;
+package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import Image.IImage;
-import Image.PPMImage;
-import Manipulation.BlurManip;
-import Manipulation.GrayscaleManip;
-import Manipulation.SepiatoneManip;
-import Manipulation.SharpenManip;
+import image.IImage;
+import image.PPMImage;
+import manipulation.BlurManip;
+import manipulation.GrayscaleManip;
+import manipulation.SepiatoneManip;
+import manipulation.SharpenManip;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test class for our Image Model.
+ */
 public class ImageModelImplTest {
 
   //applyManipulation TESTS
@@ -321,7 +324,6 @@ Test a case where the image number is negative.
     exportImageModel4.exportImage(10);
   }
 
-
   //addImage TESTS
 
 
@@ -360,16 +362,16 @@ Test a case where the image number is negative.
     assertEquals(0, imgNum);
   }
 
-   /*
-  Test a case where a valid image is successfully added to the list if the list was not empty.
-   */
-   @Test
-   public void testAddImageValidImageToNonEmpty() {
-     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
-         + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
-     addImageModel1.addImage(image);
-     assertEquals(image, addImageModel1.getImage(2));
-   }
+  /*
+ Test a case where a valid image is successfully added to the list if the list was not empty.
+  */
+  @Test
+  public void testAddImageValidImageToNonEmpty() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
+    addImageModel1.addImage(image);
+    assertEquals(image, addImageModel1.getImage(2));
+  }
 
   //exception tests
 
@@ -380,7 +382,6 @@ Test a case where the image number is negative.
   public void testAddImageNullImage() {
     addImageModel2.addImage(null);
   }
-
 
   //removeImage TESTS
 
@@ -456,7 +457,6 @@ Test a case where the image number is negative.
   public void testRemoveImageEmptyImageList() {
     removeImageModel2.removeImage(0);
   }
-
 
   //getImage TESTS
 

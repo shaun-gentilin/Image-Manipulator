@@ -1,19 +1,17 @@
-package Manipulation;
+package manipulation;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import Image.IImage;
-import Image.PPMImage;
+import image.IImage;
+import image.PPMImage;
 import org.junit.Test;
 
+/**
+ * Test class for a Gray Scale Manipulation.
+ */
 public class GrayscaleManipTest {
 
-  //apply TESTS
 
-  /*
-  Test where the method is given valid image to be sure that the pixel was set to the proper
-  grayscale value.
-   */
   @Test
   public void testApplyValidImage() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "

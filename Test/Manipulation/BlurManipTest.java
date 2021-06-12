@@ -1,12 +1,15 @@
-package Manipulation;
+package manipulation;
 
 import static org.junit.Assert.assertEquals;
-import Image.IImage;
-import Image.PPMImage;
+
+import image.IImage;
+import image.PPMImage;
 import org.junit.Test;
 
+/**
+ * Test class for a Blur Manipulation.
+ */
 public class BlurManipTest {
-
 
   //apply TESTS
 

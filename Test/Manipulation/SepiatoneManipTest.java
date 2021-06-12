@@ -1,11 +1,15 @@
-package Manipulation;
+package manipulation;
 
-import static org.junit.Assert.*;
 
-import Image.IImage;
-import Image.PPMImage;
+import static org.junit.Assert.assertEquals;
+
+import image.IImage;
+import image.PPMImage;
 import org.junit.Test;
 
+/**
+ * Test class for a Sepiatone Manipulation.
+ */
 public class SepiatoneManipTest {
 
   //apply TESTS
