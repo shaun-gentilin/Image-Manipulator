@@ -1,7 +1,5 @@
 package manipulation;
 
-import image.IImage;
-
 /**
  * Class representing a Grayscale Manipulation.
  */
