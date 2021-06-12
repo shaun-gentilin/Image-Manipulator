@@ -43,21 +43,27 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
     }
     try {
       writer.write("P3\n");
-      writer.write(tiles + " " + tiles + "\n");
+      writer.write(tiles*width + " " + tiles*width + "\n");
       writer.write(maxColorValue + "\n");
-      for (int i = 0; i < tiles; i++) {
-        for (int j = 0; j < tiles; j++) {
-          for(int x = 0; x < width; x++) {
-            for(int y = 0; y < width; y++) {
-              int [] pixel = this.getPixel(i, j);
-              writer.write(" " + pixel[0] + "  " + pixel[1] + "  " + pixel[2] + "\n");
+      int [] color1 = this.getPixel(0, 0);
+      int [] color2 = this.getPixel(0, 1);
+      int count = 0;
+        for(int x = 0; x < tiles*width; x ++) {
+          for(int y = 0; y < tiles*width; y ++) {
+            for(int t = 0; t < width; t++) {
+              int [] pixel = new int[3];
+              if(count % 2 == 0) {
+                pixel = color1;
+              }
+              if(count % 2 == 1) {
+                pixel = color2;
+              }
+              writer.write(" " + pixel[0] +  " " + pixel[1] + " " + pixel[2] + "\t");
             }
-            writer.write("\t");
+            count++;
           }
-          writer.write("\t");
+          count++;
         }
-        writer.write("\n");
-      }
       writer.close();
     } catch (IOException error) {
       System.out.println("Error occurred.");
