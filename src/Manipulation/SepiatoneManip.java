@@ -21,8 +21,28 @@ public class SepiatoneManip implements IManipulation {
         int[] colors = image.getPixel(j, i);
 
         int newR = (int)((0.393 * colors[0]) + (0.769 * colors[1]) + (0.189 * colors[2]));
+        if (newR < 0) {
+          newR = 0;
+        }
+        else if (newR > image.getMaxColorValue()) {
+          newR = image.getMaxColorValue();
+        }
+
         int newG = (int)((0.349 * colors[0]) + (0.686 * colors[1]) + (0.168 * colors[2]));
+        if (newG < 0) {
+          newG = 0;
+        }
+        else if (newG > image.getMaxColorValue()) {
+          newG = image.getMaxColorValue();
+        }
+
         int newB = (int)((0.272 * colors[0]) + (0.534 * colors[1]) + (0.131 * colors[2]));
+        if (newB < 0) {
+          newB = 0;
+        }
+        else if (newB > image.getMaxColorValue()) {
+          newB = image.getMaxColorValue();
+        }
 
         int [] newColors = {newR, newG, newB};
         image.setPixel(j, i, newColors);

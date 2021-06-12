@@ -20,6 +20,12 @@ public class GrayscaleManip implements IManipulation {
       for (int j = 0; j < image.getWidth(); j++) {
         int[] colors = image.getPixel(j, i);
         int newColor = (int) (0.2126 * colors[0] + 0.7152 * colors[1] + 0.0722 * colors[2]);
+        if (newColor < 0) {
+          newColor = 0;
+        }
+        else if (newColor > image.getMaxColorValue()) {
+          newColor = image.getMaxColorValue();
+        }
         int[] newColors = {newColor, newColor, newColor};
         image.setPixel(j, i, newColors);
       }
