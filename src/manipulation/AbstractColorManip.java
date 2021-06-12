@@ -2,12 +2,23 @@ package manipulation;
 
 import image.IImage;
 
+/**
+ * Abstract class to represent a manipulation of an image in how it is colored.  An example of this
+ * type of manipulation would be a grayscale manipulation.
+ */
 public abstract class AbstractColorManip implements IManipulation {
   double [][] colorMatrix; //a 3x3 color matrix to multiply each pixel with
 
-  public AbstractColorManip(double [][] colorMatrix) {
+  /**
+   * Constructor for a color manipulation.  Takes a 3x3 matrix representing the color matrix to be
+   * applied to each pixel in an image.
+   *
+   * @param colorMatrix - the matrix to be applied to each pixel in the image.
+   * @throws IllegalArgumentException if the matrix is not a valid color matrix.
+   */
+  public AbstractColorManip(double[][] colorMatrix) throws IllegalArgumentException {
     if (colorMatrix == null || colorMatrix.length != 3
-    || colorMatrix[0].length != 3
+        || colorMatrix[0].length != 3
         || colorMatrix[1].length != 3
         || colorMatrix[2].length != 3) {
       throw new IllegalArgumentException("Not a valid color matrix.");
@@ -21,7 +32,7 @@ public abstract class AbstractColorManip implements IManipulation {
    * @param maxColorValue - the value the colors are to be clamped to.
    * @return a new color array with clamped values.
    */
-  private int clamp (int color, int maxColorValue) {
+  private int clamp(int color, int maxColorValue) {
     if (color < 0) {
       color = 0;
     }
