@@ -46,4 +46,24 @@ public class BlurManipTest {
     IManipulation blur = new BlurManip();
     blur.apply(null);
   }
+
+  @Test
+  public void testApplyCheckerBoardImage() {
+    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
+        + "TestImages\\checkerboard-output.ppm");
+    IManipulation blur = new BlurManip();
+    blur.apply(outputImage);
+    assertEquals(31, outputImage.getPixel(0, 0)[0]);
+    assertEquals(31, outputImage.getPixel(0, 0)[1]);
+    assertEquals(31, outputImage.getPixel(0, 0)[2]);
+    assertEquals(33, outputImage.getPixel(1, 0)[0]);
+    assertEquals(33, outputImage.getPixel(1, 0)[1]);
+    assertEquals(33, outputImage.getPixel(1, 0)[2]);
+    assertEquals(31, outputImage.getPixel(1, 1)[0]);
+    assertEquals(31, outputImage.getPixel(1, 1)[1]);
+    assertEquals(31, outputImage.getPixel(1, 1)[2]);
+    assertEquals(33, outputImage.getPixel(0, 1)[0]);
+    assertEquals(33, outputImage.getPixel(0, 1)[1]);
+    assertEquals(33, outputImage.getPixel(0, 1)[2]);
+  }
 }

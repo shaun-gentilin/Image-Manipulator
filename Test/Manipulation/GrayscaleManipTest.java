@@ -42,4 +42,24 @@ public class GrayscaleManipTest {
     IManipulation gray = new GrayscaleManip();
     gray.apply(null);
   }
+
+  @Test
+  public void testApplyCheckerBoardImage() {
+    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
+        + "TestImages\\checkerboard-output.ppm");
+    IManipulation gray = new GrayscaleManip();
+    gray.apply(outputImage);
+    assertEquals(44, outputImage.getPixel(0, 0)[0]);
+    assertEquals(44, outputImage.getPixel(0, 0)[1]);
+    assertEquals(44, outputImage.getPixel(0, 0)[2]);
+    assertEquals(76, outputImage.getPixel(1, 0)[0]);
+    assertEquals(76, outputImage.getPixel(1, 0)[1]);
+    assertEquals(76, outputImage.getPixel(1, 0)[2]);
+    assertEquals(44, outputImage.getPixel(1, 1)[0]);
+    assertEquals(44, outputImage.getPixel(1, 1)[1]);
+    assertEquals(44, outputImage.getPixel(1, 1)[2]);
+    assertEquals(76, outputImage.getPixel(0, 1)[0]);
+    assertEquals(76, outputImage.getPixel(0, 1)[1]);
+    assertEquals(76, outputImage.getPixel(0, 1)[2]);
+  }
 }

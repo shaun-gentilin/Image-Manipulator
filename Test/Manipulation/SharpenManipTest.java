@@ -46,4 +46,24 @@ public class SharpenManipTest {
     IManipulation sharpen = new SharpenManip();
     sharpen.apply(null);
   }
+
+  @Test
+  public void testApplyCheckerBoardImage() {
+    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
+        + "TestImages\\checkerboard-output.ppm");
+    IManipulation sharpen = new SharpenManip();
+    sharpen.apply(outputImage);
+    assertEquals(93, outputImage.getPixel(0, 0)[0]);
+    assertEquals(93, outputImage.getPixel(0, 0)[1]);
+    assertEquals(93, outputImage.getPixel(0, 0)[2]);
+    assertEquals(100, outputImage.getPixel(1, 0)[0]);
+    assertEquals(100, outputImage.getPixel(1, 0)[1]);
+    assertEquals(100, outputImage.getPixel(1, 0)[2]);
+    assertEquals(93, outputImage.getPixel(1, 1)[0]);
+    assertEquals(93, outputImage.getPixel(1, 1)[1]);
+    assertEquals(93, outputImage.getPixel(1, 1)[2]);
+    assertEquals(100, outputImage.getPixel(0, 1)[0]);
+    assertEquals(100, outputImage.getPixel(0, 1)[1]);
+    assertEquals(100, outputImage.getPixel(0, 1)[2]);
+  }
 }
