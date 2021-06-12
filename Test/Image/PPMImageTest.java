@@ -1,8 +1,6 @@
 package Image;
 
 import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
 import org.junit.Test;
 
 public class PPMImageTest {
@@ -138,7 +136,7 @@ public class PPMImageTest {
   public void testGetWidth() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
-    assertEquals(1024, image.getWidth());
+    assertEquals(640, image.getWidth());
   }
 
   //getHeight TESTS
@@ -151,7 +149,7 @@ public class PPMImageTest {
   public void testGetHeight() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
-    assertEquals(768, image.getHeight());
+    assertEquals(427, image.getHeight());
   }
 
   //setPixel TESTS

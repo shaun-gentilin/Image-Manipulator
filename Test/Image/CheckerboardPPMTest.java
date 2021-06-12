@@ -1,11 +1,11 @@
 package Image;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 public class CheckerboardPPMTest {
-//Constructor
+
+  //Constructor
 
   //EXCEPTIONS
 
@@ -82,14 +82,14 @@ public class CheckerboardPPMTest {
     IImage emptyFile = new CheckerboardPPM("TestName", 4, 4,
         new int [] {1, 1, 1},new int [] {2, 1, 1}, -2);
   }
-    /*
- maxColorValue greater than 65536
-   */
-    @Test(expected=IllegalArgumentException.class)
-    public void constructorTestInvalidMaxColorValueUpperBound() {
-      IImage emptyFile = new CheckerboardPPM("TestName", 4, 4,
-          new int [] {1, 1, 1},new int [] {2, 1, 1}, 1000000000);
-    }
+  /*
+maxColorValue greater than 65536
+ */
+  @Test(expected=IllegalArgumentException.class)
+  public void constructorTestInvalidMaxColorValueUpperBound() {
+    IImage emptyFile = new CheckerboardPPM("TestName", 4, 4,
+        new int [] {1, 1, 1},new int [] {2, 1, 1}, 1000000000);
+  }
 
   //LOADIMAGE
   /*
@@ -271,13 +271,13 @@ public class CheckerboardPPMTest {
 
   @Test
   public void testExportImageValidImageFile() {
-    IImage image = new CheckerboardPPM("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5"
-        + "\\TestImages\\checkerboard.ppm", 5, 40,
+    IImage image = new CheckerboardPPM("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard.ppm", 5, 40,
         new int [] {1, 1, 1}, new int [] {2, 2, 2}, 25);
 
     image.exportImage();
-    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
-        + "TestImages\\checkerboard-output.ppm");
+    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard-output.ppm");
     assertEquals(5*40, outputImage.getWidth());
     assertEquals(5*40, outputImage.getHeight());
     assertEquals(25, outputImage.getMaxColorValue());
