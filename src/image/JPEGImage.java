@@ -1,5 +1,15 @@
 package image;
 
+import image.hw5.IImage;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.Color;
+import java.awt.image.PixelGrabber;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
+
 public class JPEGImage  implements IImage {
 
   private final String filePath;

@@ -1,5 +1,7 @@
 package image;
 
+import image.hw5.IImage;
+
 public interface ILayeredImage {
 
   /**
@@ -31,7 +33,7 @@ public interface ILayeredImage {
    * Export the top-most layer as an image to a new output file path.
    * @return a string representing the filename of the layer that was exported.
    */
-  String exportImage() throws IllegalArgumentException;
+  void exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this layered image.
@@ -47,7 +49,7 @@ public interface ILayeredImage {
   String getImageFormat(String filename);
 
   /**
-   * Add a new layer to this image at the top which is a copy of the main layer (layer 0).
+   * Add a new layer to this image at the top which is a copy of the primary layer.
    */
   void addLayer() throws IllegalArgumentException;
 

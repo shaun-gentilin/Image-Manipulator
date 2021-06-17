@@ -3,8 +3,8 @@ package model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import image.IImage;
-import image.PPMImage;
+import image.hw5.IImage;
+import image.hw5.PPMImage;
 import manipulation.BlurManip;
 import manipulation.GrayscaleManip;
 import manipulation.SepiatoneManip;

@@ -1,5 +1,12 @@
 package image;
 
+import image.hw5.IImage;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+
 public class PNGImage implements IImage {
   private final String filePath;
   private int width;

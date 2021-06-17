@@ -1,4 +1,4 @@
-package image;
+package image.hw5;
 
 /**
  * Interface to represent different types of images in different formats (e.g. PPM) and outline what

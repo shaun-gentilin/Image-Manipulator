@@ -1,6 +1,6 @@
 package model;
 
-import image.IImage;
+import image.hw5.IImage;
 import manipulation.IManipulation;
 
 /**

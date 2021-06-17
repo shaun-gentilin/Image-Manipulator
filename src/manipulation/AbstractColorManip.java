@@ -1,6 +1,6 @@
 package manipulation;
 
-import image.IImage;
+import image.hw5.IImage;
 
 /**
  * Abstract class to represent a manipulation of an image in how it is colored.  An example of this

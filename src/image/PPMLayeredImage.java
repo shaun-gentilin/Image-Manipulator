@@ -1,5 +1,6 @@
 package image;
 
+import image.hw5.PPMImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class PPMLayeredImage extends AbstractLayeredImage {
   }
 
   /**
-   * Add a new layer to this image at the top which is a copy of the main layer (layer 0).
+   * Add a new layer to this image at the top which is a copy of the primary layer.
    */
   @Override
   public void addLayer() throws IllegalArgumentException {
@@ -40,8 +41,9 @@ public class PPMLayeredImage extends AbstractLayeredImage {
         throw new IllegalArgumentException("No main file to copy.");
       }
       else {
-        layers.add(new PPMImage(reader.next()));
+        layers.add(new PPMImage(reader.nextLine()));
       }
+      reader.close();
     } catch(FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }

@@ -1,7 +1,6 @@
 package image;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
+import image.hw5.IImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -111,9 +110,8 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * Export the top-most layer as an image to a new output file path.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException {
+  public void exportImage() throws IllegalArgumentException {
     this.layers.get(this.layers.size() - 1).exportImage();
-
   }
 
   /**
@@ -127,7 +125,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   }
 
   /**
-   * Add a new layer to this image at the top which is a copy of the main layer (layer 0).
+   * Add a new layer to this image at the top which is a copy of the primary layer.
    */
   @Override
   public abstract void addLayer() throws IllegalArgumentException;
