@@ -2,8 +2,8 @@ package manipulation;
 
 import static org.junit.Assert.assertEquals;
 
-import image.hw5.IImage;
-import image.hw5.PPMImage;
+import image.IImage;
+import image.PPMImage;
 import org.junit.Test;
 
 /**
