@@ -99,8 +99,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
     try {
       newFile.createNewFile();
       FileWriter write = new FileWriter(newFile);
-      for(int x = 0; x < layers.size()-1; x++) {
-        write.write(layers.get(x).exportImage() + "\n");
+      for(int i = 0; i < layers.size() - 1; i++) {
       }
     } catch (IOException error) {
     }
