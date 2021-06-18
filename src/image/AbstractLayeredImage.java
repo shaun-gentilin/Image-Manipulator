@@ -1,6 +1,5 @@
 package image;
 
-import image.hw5.IImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

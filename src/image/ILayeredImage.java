@@ -1,7 +1,5 @@
 package image;
 
-import image.hw5.IImage;
-
 public interface ILayeredImage {
 
   /**

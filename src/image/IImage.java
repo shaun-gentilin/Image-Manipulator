@@ -1,4 +1,4 @@
-package image.hw5;
+package image;
 
 /**
  * Interface to represent different types of images in different formats (e.g. PPM) and outline what
@@ -7,8 +7,8 @@ package image.hw5;
 public interface IImage {
 
   /**
-   * Load the image at filename into the class.
-   *
+   * Load the image at filename into the class.  Should initialize parameters for image width,
+   * height, maxColorValue, and pixels.
    * @param filename - the path name of the image to be loaded into the image class.
    * @throws IllegalArgumentException if the file does not exist or is in the wrong format.
    */

@@ -1,6 +1,5 @@
 package image;
 
-import image.hw5.PPMImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

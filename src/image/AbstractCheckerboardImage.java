@@ -1,4 +1,4 @@
-package image.hw5;
+package image;
 
 import java.io.IOException;
 

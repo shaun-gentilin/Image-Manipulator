@@ -1,6 +1,5 @@
 package image;
 
-import image.hw5.IImage;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;

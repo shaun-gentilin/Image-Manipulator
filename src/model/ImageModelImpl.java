@@ -1,7 +1,7 @@
 package model;
 
 
-import image.hw5.IImage;
+import image.IImage;
 import java.util.ArrayList;
 import java.util.List;
 import manipulation.IManipulation;

@@ -1,6 +1,6 @@
 package manipulation;
 
-import image.hw5.IImage;
+import image.IImage;
 
 /**
  * Interface representing a manipulation.
