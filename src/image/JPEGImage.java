@@ -8,11 +8,16 @@ import java.awt.Color;
 
 public class JPEGImage extends AbstractImage {
 
+  private final String filePath;
+  private int width;
+  private int height;
+  private int maxColorValue;
+  private int[][][] pixels;
+
   public JPEGImage(String filePath) {
     super(filePath);
+    this.filePath = filePath;
   }
-
-
 
   /**
    * Load the image at filename into the class.
@@ -25,7 +30,7 @@ public class JPEGImage extends AbstractImage {
     BufferedImage img;
     try {
       img = ImageIO.read(new File(filename));
-      width = img.getWidth();
+      this.width = img.getWidth();
       this.height = img.getHeight();
       for(int x = 0; x < this.width; x++) {
         for(int y = 0; y < this.height; y++) {
@@ -58,7 +63,7 @@ public class JPEGImage extends AbstractImage {
    * Export this image to the existing file path.
    */
   @Override
-  public void exportImage() throws IllegalArgumentException {
+  public String exportImage() throws IllegalArgumentException {
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     for(int x = 0; x < this.width; x++) {
       for(int y = 0; y < this.height; y++) {
@@ -76,5 +81,6 @@ public class JPEGImage extends AbstractImage {
     } catch (IOException ioException) {
       ioException.printStackTrace();
     }
+    return output;
   }
 }
