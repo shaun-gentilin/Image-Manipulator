@@ -58,7 +58,7 @@ public class PPMLayeredImage extends AbstractLayeredImage {
       //this will be a valid file path.  Add in information about the layer so that the path will
       //be unique to the new layer.
       String newPath = primaryLayerPath.substring(0, primaryLayerPath.length() - 5)
-          + "-layer" + layerNum;
+          + "-layer" + layerNum + ".ppm";
 
       //create the new file so that we can create a new PPMImage object with the new name.
       File newLayer = new File(newPath);
