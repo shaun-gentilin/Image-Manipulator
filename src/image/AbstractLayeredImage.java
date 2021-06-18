@@ -100,6 +100,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
       newFile.createNewFile();
       FileWriter write = new FileWriter(newFile);
       for(int i = 0; i < layers.size() - 1; i++) {
+
       }
     } catch (IOException error) {
     }
@@ -124,10 +125,13 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   }
 
   /**
-   * Add a new layer to this image at the top which is a copy of the primary layer.
+   * Add a new layer to this image at the top which is a copy of the primary layer (layer 0).
+   * Change the pathname to include information about the layer (e.g. the number of the layer) so
+   * that the path name will be unique to this layer (i.e. no repeated path names if there are
+   * multiple copies).
    */
   @Override
-  public abstract void addLayer() throws IllegalArgumentException;
+  public abstract void addLayer(int layerNum) throws IllegalArgumentException;
 
   /**
    * Remove the specified layer from the layered image.

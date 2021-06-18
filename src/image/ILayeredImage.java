@@ -49,9 +49,12 @@ public interface ILayeredImage {
   String getImageFormat(String filename);
 
   /**
-   * Add a new layer to this image at the top which is a copy of the primary layer.
+   * Add a new layer to this image at the top which is a copy of the primary layer (layer 0).
+   * Change the pathname to include information about the layer (e.g. the number of the layer) so
+   * that the path name will be unique to this layer (i.e. no repeated path names if there are
+   * multiple copies).
    */
-  void addLayer() throws IllegalArgumentException;
+  void addLayer(int layerNum) throws IllegalArgumentException;
 
   /**
    * Remove the specified layer from the layered image.
