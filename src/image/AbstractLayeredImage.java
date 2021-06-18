@@ -23,7 +23,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   public AbstractLayeredImage(String filename, String imgType) {
     String type = this.getImageFormat(filename);
     this.filename = filename;
-    if (type != imgType) {
+    if (!(type.equals(imgType))) {
       throw new IllegalArgumentException("The image type is invalid.");
     }
     this.layers = new ArrayList<>();
@@ -51,7 +51,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   public abstract void loadImageLayers(String filename);
 
   /**
-   * Analyses and returns the formot of an input image file.
+   * Analyses and returns the format of an input image file.
    *
    * @param filename image file.
    * @return format of filename.
@@ -148,23 +148,22 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
 
   @Override
   public void removeLayer(int layerNum) throws IllegalArgumentException {
-    IImage layer = this.layers.get(layerNum);
     if (layerNum >= this.layers.size()) {
       throw new IllegalArgumentException("Not a valid layer.");
     }
-    else if (this.transparentLayers.contains(layer)) {
-      this.transparentLayers.remove(layer);
-    }
+
+    this.transparentLayers.remove(this.layers.get(layerNum));
     this.layers.remove(layerNum);
   }
 
   @Override
   public void toggleLayerTransparency(int layerNum) throws IllegalArgumentException {
-    IImage layer = this.layers.get(layerNum);
     if (layerNum >= this.layers.size()) {
       throw new IllegalArgumentException("Not a valid layer.");
     }
-    else if (this.transparentLayers.contains(layer)) {
+
+    IImage layer = this.layers.get(layerNum);
+    if (this.transparentLayers.contains(layer)) {
       this.transparentLayers.remove(layer);
     }
     else {
