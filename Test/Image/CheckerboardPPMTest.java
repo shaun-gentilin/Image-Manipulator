@@ -2,9 +2,6 @@ package image;
 
 import static org.junit.Assert.assertEquals;
 
-import image.hw5.CheckerboardPPM;
-import image.hw5.IImage;
-import image.hw5.PPMImage;
 import org.junit.Test;
 
 /**
@@ -205,16 +202,16 @@ public class CheckerboardPPMTest {
 
   @Test
   public void testExportImageValidImageFile() {
-    IImage image = new CheckerboardPPM("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5"
-        + "\\TestImages\\checkerboard.ppm", 1, 2,
-        new int[]{44, 44, 44}, new int[]{76, 76, 76}, 100);
+    IImage image = new CheckerboardPPM("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard.ppm", 5, 40,
+        new int[]{1, 1, 1}, new int[]{2, 2, 2}, 25);
 
     image.exportImage();
-    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
-        + "TestImages\\checkerboard-output.ppm");
-    assertEquals(2, outputImage.getWidth());
-    assertEquals(2, outputImage.getHeight());
-    assertEquals(100, outputImage.getMaxColorValue());
+    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\checkerboard-output.ppm");
+    assertEquals(5 * 40, outputImage.getWidth());
+    assertEquals(5 * 40, outputImage.getHeight());
+    assertEquals(25, outputImage.getMaxColorValue());
 
   }
 }

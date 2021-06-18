@@ -3,11 +3,24 @@ package image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PPMLayeredImage extends AbstractLayeredImage {
+
+  private final String filename;
+  private List<PPMImage> layers;
+  private List<PPMImage> transparentLayers;
+  private int width;
+  private int height;
+  private int maxColorValue;
+
   public PPMLayeredImage(String filename) {
     super(filename, "PPM");
+    this.filename = filename;
+    this.layers = new ArrayList<>();
+    this.transparentLayers = new ArrayList<>();
   }
 
   /**
@@ -21,26 +34,33 @@ public class PPMLayeredImage extends AbstractLayeredImage {
       File input = new File(filename);
       Scanner reader = new Scanner(input);
       while (reader.hasNextLine()) {
-        layers.add(new PPMImage(reader.nextLine()));
+        this.layers.add(new PPMImage(reader.nextLine()));
       }
       reader.close();
     } catch(FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
+
+    //make sure all of the images have the same parameters
+    this.height = this.layers.get(0).getHeight();
+    this.width = this.layers.get(0).getWidth();
+    this.maxColorValue = this.layers.get(0).getMaxColorValue();
+
+    for (PPMImage i : this.layers) {
+      if (i.getHeight() != this.height
+      || i.getWidth() != this.width
+      || i.getMaxColorValue() != this.maxColorValue) {
+        throw new IllegalArgumentException("Images did not have the same dimensions.");
+      }
+    }
   }
 
-  /**
-   * Add a new layer to this image at the top which is a copy of the primary layer (layer 0).
-   * Change the pathname to include information about the layer (e.g. the number of the layer) so
-   * that the path name will be unique to this layer (i.e. no repeated path names if there are
-   * multiple copies).
-   */
   @Override
   public void addLayer(int layerNum) throws IllegalArgumentException {
     //initialize the reader
     Scanner reader;
     try {
-      File input = new File(filename);
+      File input = new File(this.filename);
       reader = new Scanner(input);
     } catch(FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
@@ -74,7 +94,7 @@ public class PPMLayeredImage extends AbstractLayeredImage {
       newLayerImage.loadImage(primaryLayerPath);
 
       //add the new layer to the list of layers
-      layers.add(newLayerImage);
+      this.layers.add(newLayerImage);
     }
     reader.close();
   }

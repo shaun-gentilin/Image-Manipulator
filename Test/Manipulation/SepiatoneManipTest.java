@@ -3,8 +3,8 @@ package manipulation;
 
 import static org.junit.Assert.assertEquals;
 
-import image.hw5.IImage;
-import image.hw5.PPMImage;
+import image.IImage;
+import image.PPMImage;
 import org.junit.Test;
 
 /**
@@ -46,25 +46,5 @@ public class SepiatoneManipTest {
   public void testApplyNullImage() {
     IManipulation sep = new SepiatoneManip();
     sep.apply(null);
-  }
-
-  @Test
-  public void testApplyCheckerBoardImage() {
-    IImage outputImage = new PPMImage("C:\\Users\\1235k\\IdeaProjects\\merlino_homework5\\"
-        + "TestImages\\checkerboard-output.ppm");
-    IManipulation sepia = new SepiatoneManip();
-    sepia.apply(outputImage);
-    assertEquals(59, outputImage.getPixel(0, 0)[0]);
-    assertEquals(52, outputImage.getPixel(0, 0)[1]);
-    assertEquals(41, outputImage.getPixel(0, 0)[2]);
-    assertEquals(100, outputImage.getPixel(1, 0)[0]);
-    assertEquals(91, outputImage.getPixel(1, 0)[1]);
-    assertEquals(71, outputImage.getPixel(1, 0)[2]);
-    assertEquals(59, outputImage.getPixel(1, 1)[0]);
-    assertEquals(52, outputImage.getPixel(1, 1)[1]);
-    assertEquals(41, outputImage.getPixel(1, 1)[2]);
-    assertEquals(100, outputImage.getPixel(0, 1)[0]);
-    assertEquals(91, outputImage.getPixel(0, 1)[1]);
-    assertEquals(71, outputImage.getPixel(0, 1)[2]);
   }
 }

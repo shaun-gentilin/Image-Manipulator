@@ -12,12 +12,12 @@ import javax.imageio.stream.ImageInputStream;
 
 public abstract class AbstractLayeredImage implements ILayeredImage {
 
-  String filename;
-  List<IImage> layers;
-  List<IImage> transparentLayers;
-  int width;
-  int height;
-  int maxColorValue;
+  private final String filename;
+  private List<IImage> layers;
+  private List<IImage> transparentLayers;
+  private int width;
+  private int height;
+  private int maxColorValue;
 
   public AbstractLayeredImage(String filename, String imgType) {
     String type = this.getImageFormat(filename);
