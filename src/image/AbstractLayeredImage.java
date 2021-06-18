@@ -4,6 +4,7 @@ import image.hw5.IImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -14,6 +15,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
 
   String filename;
   List<IImage> layers;
+  List<IImage> transparentLayers;
   int width;
   int height;
   int maxColorValue;
@@ -24,6 +26,8 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
     if (type != imgType) {
       throw new IllegalArgumentException("The image type is invalid.");
     }
+    this.layers = new ArrayList<>();
+    this.transparentLayers = new ArrayList<>();
     loadImageLayers(this.filename);
   }
 
@@ -113,8 +117,13 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * Export the top-most layer as an image to a new output file path.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException {
-    return this.layers.get(this.layers.size() - 1).exportImage();
+  public String exportImage() throws IllegalArgumentException, IllegalStateException {
+    for (int i = this.layers.size() - 1; i >= 0; i--) {
+      if (!(this.transparentLayers.contains(this.layers.get(i)))) {
+        return this.layers.get(i).exportImage();
+      }
+    }
+    throw new IllegalStateException("All layers were transparent.");
   }
 
   /**
@@ -136,12 +145,30 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   @Override
   public abstract void addLayer(int layerNum) throws IllegalArgumentException;
 
-  /**
-   * Remove the specified layer from the layered image.
-   * @param layerNum - the integer number of the layer to be removed.
-   */
+
   @Override
-  public void removeLayer(int layerNum) {
+  public void removeLayer(int layerNum) throws IllegalArgumentException {
+    IImage layer = this.layers.get(layerNum);
+    if (layerNum >= this.layers.size()) {
+      throw new IllegalArgumentException("Not a valid layer.");
+    }
+    else if (this.transparentLayers.contains(layer)) {
+      this.transparentLayers.remove(layer);
+    }
     this.layers.remove(layerNum);
+  }
+
+  @Override
+  public void toggleLayerTransparency(int layerNum) throws IllegalArgumentException {
+    IImage layer = this.layers.get(layerNum);
+    if (layerNum >= this.layers.size()) {
+      throw new IllegalArgumentException("Not a valid layer.");
+    }
+    else if (this.transparentLayers.contains(layer)) {
+      this.transparentLayers.remove(layer);
+    }
+    else {
+      this.transparentLayers.add(layer);
+    }
   }
 }
