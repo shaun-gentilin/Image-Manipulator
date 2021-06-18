@@ -150,7 +150,7 @@ public abstract class AbstractCheckerboardImage implements IImage {
    * @throws IOException if creating file / writing to file fails.
    */
   @Override
-  public abstract void exportImage() throws IllegalArgumentException;
+  public abstract String exportImage() throws IllegalArgumentException;
 
   /**
    * Observer method to obtain maximum pixel color value.

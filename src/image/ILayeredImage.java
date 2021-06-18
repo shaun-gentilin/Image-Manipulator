@@ -33,7 +33,7 @@ public interface ILayeredImage {
    * Export the top-most layer as an image to a new output file path.
    * @return a string representing the filename of the layer that was exported.
    */
-  void exportImage() throws IllegalArgumentException;
+  String exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this layered image.

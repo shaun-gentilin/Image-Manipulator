@@ -27,4 +27,9 @@ public class PNGLayeredImage extends AbstractLayeredImage {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
+
+  @Override
+  public void addLayer(int layerNum) throws IllegalArgumentException {
+
+  }
 }

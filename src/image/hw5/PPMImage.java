@@ -151,11 +151,11 @@ public class PPMImage implements IImage {
 
   /**
    * Exports image to PPM format.
-   *
+   * @return the file path for the exported image.
    * @throws IllegalArgumentException if creating file / writing to file fails.
    */
   @Override
-  public void exportImage() throws IllegalArgumentException {
+  public String exportImage() throws IllegalArgumentException {
     String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
     File output = new File(path);
 
@@ -195,6 +195,7 @@ public class PPMImage implements IImage {
     } catch (IOException error) {
       System.out.println("Error occurred.");
     }
+    return path;
   }
 
   /**

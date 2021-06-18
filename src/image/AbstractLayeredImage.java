@@ -98,11 +98,14 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
     File newFile = new File(this.filename);
     try {
       newFile.createNewFile();
-      FileWriter write = new FileWriter(newFile);
-      for(int i = 0; i < layers.size() - 1; i++) {
-
+      FileWriter writer = new FileWriter(newFile);
+      for(int i = 0; i < this.layers.size() - 1; i++) {
+        String outPath = this.layers.get(i).exportImage();
+        writer.write(outPath + "\n");
       }
+      writer.close();
     } catch (IOException error) {
+      throw new IllegalStateException("Cannot write to text file.");
     }
   }
 
@@ -110,8 +113,8 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * Export the top-most layer as an image to a new output file path.
    */
   @Override
-  public void exportImage() throws IllegalArgumentException {
-    this.layers.get(this.layers.size() - 1).exportImage();
+  public String exportImage() throws IllegalArgumentException {
+    return this.layers.get(this.layers.size() - 1).exportImage();
   }
 
   /**

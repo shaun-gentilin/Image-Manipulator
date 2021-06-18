@@ -51,8 +51,9 @@ public interface IImage {
 
   /**
    * Export this image to a new output file path.
+   * @return the file path for the exported image.
    */
-  void exportImage() throws IllegalArgumentException;
+  String exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this image.
