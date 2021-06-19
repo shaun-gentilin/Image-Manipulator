@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Class representing a layered image in the PNG image format.  A png layered image consists of many
+ * layers that are each their own individual png image.
+ */
 public class PNGLayeredImage extends AbstractLayeredImage {
 
   private final String filename;
@@ -16,6 +20,11 @@ public class PNGLayeredImage extends AbstractLayeredImage {
   private int height;
   private int maxColorValue;
 
+  /**
+   * A constructor for the PNGLayeredImage class.
+   * @param filename - the file path representing the text file that specifies where the layer
+   *                 images are being stored.
+   */
   public PNGLayeredImage(String filename) {
     super(filename, "PNG");
     this.filename = filename;

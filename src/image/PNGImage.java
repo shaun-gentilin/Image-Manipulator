@@ -6,6 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+/**
+ * A class to represent an image in the PNG format.  An image has a width, height, maxColorvalue,
+ * and a list of pixels that compose the image.
+ */
 public class PNGImage extends AbstractImage {
   private final String filePath;
   private int width;
@@ -13,6 +17,11 @@ public class PNGImage extends AbstractImage {
   private int maxColorValue;
   private int[][][] pixels;
 
+  /**
+   * Constructor for the PNGImage class.  Initializes the filepath and loads the image using the
+   * super constructor.
+   * @param filePath - the file path representing where the image came from.
+   */
   PNGImage(String filePath) {
     super(filePath);
     this.filePath = filePath;

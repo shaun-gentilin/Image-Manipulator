@@ -6,6 +6,10 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 
+/**
+ * Class to represent an image in the JPEG format.  An image has a width, height, maxColorValue,
+ * and consists of pixels that make up the image.
+ */
 public class JPEGImage extends AbstractImage {
 
   private final String filePath;
@@ -14,6 +18,11 @@ public class JPEGImage extends AbstractImage {
   private int maxColorValue;
   private int[][][] pixels;
 
+  /**
+   * Constructor for the JPEGImage class. Initializes the file path and loads the rest of the
+   * values using the parent constructor.
+   * @param filePath - the file path where the picture is being stored.
+   */
   public JPEGImage(String filePath) {
     super(filePath);
     this.filePath = filePath;

@@ -3,7 +3,8 @@ package image;
 import java.io.IOException;
 
 /**
- * Abstract class representing a checkerboard image.
+ * Abstract class representing a checkerboard image.  This class will allow for the
+ * programmatic creation of an image resembling a checkerboard.
  */
 public abstract class AbstractCheckerboardImage implements IImage {
 

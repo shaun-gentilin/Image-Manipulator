@@ -10,6 +10,11 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+/**
+ * Abstract class to represent an abstract version of a layered image.  A layered image consists of
+ * many image layers that are each themselves an image.  These layers can be manipulated, exported,
+ * and saved just like any individual image.
+ */
 public abstract class AbstractLayeredImage implements ILayeredImage {
 
   private final String filename;
@@ -19,6 +24,13 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   private int height;
   private int maxColorValue;
 
+  /**
+   * Constructor for the AbstractLayeredImage class.  Checks if the type of the image is correct
+   * then initializes and loads the correct values into the fields.
+   * @param filename - the file path representing where the image is stored.
+   * @param imgType - the type of the image to be loaded (each layer of this image has the same
+   *                type.
+   */
   public AbstractLayeredImage(String filename, String imgType) {
     String type = this.getImageFormat(filename);
     this.filename = filename;

@@ -5,7 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Class representing a Checkerboard as a PPM image.
+ * Class representing a Checkerboard as a PPM image.  This class will allow for the
+ * programmatic creation of an image resembling a checkerboard in the ppm format.
  */
 public class CheckerboardPPM extends AbstractCheckerboardImage {
 
@@ -15,7 +16,7 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
   private final int tiles; //amount of tiles on top row
 
   /**
-   * Constructo for Checkerboard PPM.
+   * Constructor for Checkerboard PPM.
    *
    * @param filePath      filePath
    * @param width         width of each tile in pixels

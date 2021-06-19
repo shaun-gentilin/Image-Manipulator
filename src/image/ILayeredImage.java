@@ -1,5 +1,11 @@
 package image;
 
+/**
+ * Interface to represent a layered image in different formats (e.g. ppm) and outline what methods
+ * these layered images should support.  A layered image consists of many layers that are each
+ * themselves individual images that all have the same dimensions (i.e. width, height, and
+ * maxColorValue).  These layers may then be manipulated just as individual images.
+ */
 public interface ILayeredImage {
 
   /**

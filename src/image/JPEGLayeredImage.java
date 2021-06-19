@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A class to represent a layered image in the JPEG format.  All layers of this image must be in
+ * this format and have the same dimensions.
+ */
 public class JPEGLayeredImage extends AbstractLayeredImage {
 
   private final String filename;
@@ -16,6 +20,10 @@ public class JPEGLayeredImage extends AbstractLayeredImage {
   private int height;
   private int maxColorValue;
 
+  /**
+   * The constructor for the JPEGLayeredImage class.
+   * @param filename - the file path where the image is being stored.
+   */
   public JPEGLayeredImage(String filename) {
     super(filename, "JPEG");
     this.filename = filename;

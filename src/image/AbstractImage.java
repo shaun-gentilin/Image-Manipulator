@@ -1,5 +1,9 @@
 package image;
 
+/**
+ * Abstract class representing an abstract version of an individual image.  An image has a width,
+ * height, maxColorValue, and consists of pixels that make up the image.
+ */
 public abstract class AbstractImage implements IImage {
 
   private final String filePath;
@@ -8,6 +12,11 @@ public abstract class AbstractImage implements IImage {
   private int maxColorValue;
   private int[][][] pixels;
 
+  /**
+   * Constructor for the AbstractImage class.  Initializes the filename for the image and loads the
+   * image (which will initialize the rest of the values).
+   * @param filename - the file path of the image to be loaded.
+   */
   public AbstractImage(String filename) {
     this.filePath = filename;
     loadImage(filename);
