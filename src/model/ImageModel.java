@@ -8,6 +8,8 @@ import manipulation.IManipulation;
  */
 public interface ImageModel {
 
+
+
   /**
    * Apply the given manipulation on the specified image.
    *

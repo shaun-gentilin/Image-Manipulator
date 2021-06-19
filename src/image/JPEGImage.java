@@ -29,6 +29,19 @@ public class JPEGImage implements IImage {
   }
 
   /**
+   * Convenience constructor for a JPEGImage.  Specifies whether the image at the given file path
+   * should be loaded or not (if this parameter is left out,
+   * the image will be loaded automatically).  Useful for making copies of images and giving them
+   * unique file paths.
+   * @param filePath - the file path that this image should possess.
+   * @param dontLoadImage - a boolean flag to signify that the image at the given path should not
+   *                      be loaded.
+   */
+  public JPEGImage(String filePath, boolean dontLoadImage) {
+    this.filePath = filePath;
+  }
+
+  /**
    * Load the image at filename into the class.
    *
    * @param filename - the path name of the image to be loaded into the image class.
@@ -84,12 +97,12 @@ public class JPEGImage implements IImage {
         img.setRGB(x, y, color);
       }
     }
-    String output = this.filePath.substring(0, this.filePath.length()-5) + "-output.jpeg";
+    String output = this.filePath.substring(0, this.filePath.length()-4) + "-output.jpg";
     File outputPath = new File(output);
     try {
-      ImageIO.write(img, "jpeg", outputPath);
+      ImageIO.write(img, "jpg", outputPath);
     } catch (IOException ioException) {
-      ioException.printStackTrace();
+      throw new IllegalArgumentException("Could not write the new Image.");
     }
     return output;
   }

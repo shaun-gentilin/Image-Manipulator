@@ -58,7 +58,7 @@ public interface ILayeredImage {
    * that the path name will be unique to this layer (i.e. no repeated path names if there are
    * multiple copies).  New layers are automatically visible.
    */
-  void addLayer(int layerNum) throws IllegalArgumentException;
+  void addLayer() throws IllegalArgumentException;
 
   /**
    * Remove the specified layer from the layered image.
