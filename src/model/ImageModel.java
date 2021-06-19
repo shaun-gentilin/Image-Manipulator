@@ -3,6 +3,7 @@ package model;
 import image.IImage;
 import manipulation.IManipulation;
 
+
 /**
  * Interface to represent the model to be used to manipulate images.
  */

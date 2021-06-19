@@ -79,4 +79,18 @@ public interface ILayeredImage {
    * @throws IllegalArgumentException if the layer number given is not valid.
    */
   void toggleLayerTransparency(int layerNum) throws IllegalArgumentException;
+
+  /**
+   * Replaces given layer with given image.
+   * @param image       Image to be replaced.
+   * @param layer       Layer in which the Image shall be replaced.
+   * @throws IllegalArgumentException   If the image is null, or if the layer is invalid.
+   */
+  void replaceLayer(IImage image, int layer) throws IllegalArgumentException;
+
+  /**
+   * Observes the amount of layers in a layered Image.
+   * @returns the amount of layers in a layered Image as an int.
+   */
+  int getAmountLayers();
 }

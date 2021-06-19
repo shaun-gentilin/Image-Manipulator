@@ -45,17 +45,20 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    */
 
   @Override
-  public String getImageFormat(String filename) {
-    File inputFile = new File(filename);
+  public String getImageFormat(String filePath) {
+    String format = "";
     try {
-      ImageInputStream reader = ImageIO.createImageInputStream(new FileInputStream(inputFile));
-      Iterator<ImageReader> iter = ImageIO.getImageReaders(reader);
-      if (!iter.hasNext()) {
-        throw new IllegalArgumentException("No readers found.");
+    File inputFile = new File(filePath);
+    Scanner scan = new Scanner(inputFile);
+    while(scan.hasNextLine()) {
+      String data = scan.nextLine();
+      ImageInputStream iis = ImageIO.createImageInputStream(new File(data));
+      Iterator<ImageReader> imageReader = ImageIO.getImageReaders(iis);
+      if(!imageReader.hasNext()) {
+        throw new IllegalArgumentException("bad");
       }
-      ImageReader temp = iter.next();
-      String format = temp.getFormatName();
-      reader.close();
+      format = imageReader.next().getFormatName();
+      }
       return format;
     } catch (IOException error) {
       throw new IllegalArgumentException(error);
