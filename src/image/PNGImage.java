@@ -40,6 +40,7 @@ public class PNGImage implements IImage {
       img = ImageIO.read(new File(filename));
       this.width = img.getWidth();
       this.height = img.getHeight();
+      this.pixels = new int[width][height][3];
       for(int x = 0; x < this.width; x++) {
         for(int y = 0; y < this.height; y++) {
           int pixel = img.getRGB(x, y);
