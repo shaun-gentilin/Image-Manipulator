@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
  * A class to represent an image in the PNG format.  An image has a width, height, maxColorvalue,
  * and a list of pixels that compose the image.
  */
-public class PNGImage extends AbstractImage {
+public class PNGImage implements IImage {
   private final String filePath;
   private int width;
   private int height;
@@ -23,8 +23,8 @@ public class PNGImage extends AbstractImage {
    * @param filePath - the file path representing where the image came from.
    */
   PNGImage(String filePath) {
-    super(filePath);
     this.filePath = filePath;
+    this.loadImage(filePath);
   }
 
   /**
@@ -90,5 +90,42 @@ public class PNGImage extends AbstractImage {
       ioException.printStackTrace();
     }
     return output;
+  }
+
+  @Override
+  public int getMaxColorValue() {
+    return this.maxColorValue;
+  }
+
+  @Override
+  public int getWidth() {
+    return this.width;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.height;
+  }
+
+  @Override
+  public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
+    if (width < 0 || height < 0
+        || width > this.width
+        || height > this.height) {
+      throw new IllegalArgumentException("Invalid width or height.");
+    } else if (pixel.length != 3) {
+      throw new IllegalArgumentException("Not a valid pixel to set.");
+    }
+    this.pixels[width][height] = pixel.clone();
+  }
+
+  @Override
+  public int[] getPixel(int width, int height) {
+    if (width < 0 || height < 0
+        || width > this.width
+        || height > this.height) {
+      throw new IllegalArgumentException("Invalid width or height.");
+    }
+    return pixels[width][height];
   }
 }

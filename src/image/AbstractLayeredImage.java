@@ -1,11 +1,13 @@
 package image;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
@@ -67,11 +69,12 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * @param filename image file.
    * @return format of filename.
    */
+
   @Override
   public String getImageFormat(String filename) {
     File inputFile = new File(filename);
     try {
-      ImageInputStream reader = ImageIO.createImageInputStream(inputFile);
+      ImageInputStream reader = ImageIO.createImageInputStream(new FileInputStream(inputFile));
       Iterator<ImageReader> iter = ImageIO.getImageReaders(reader);
       if (!iter.hasNext()) {
         throw new IllegalArgumentException("No readers found.");
@@ -81,15 +84,17 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
       reader.close();
       return format;
     } catch (IOException error) {
-      throw new IllegalArgumentException("Failure.");
+      throw new IllegalArgumentException(error);
     }
   }
 
-  /**
-   * Get the width for the image.
-   *
-   * @return an int representing the width of the layered image in question.
-   */
+
+
+/**
+ * Get the width for the image.
+ *
+ * @return an int representing the width of the layered image in question.
+ */
   @Override
   public int getWidth() {
     return this.width;

@@ -10,7 +10,7 @@ import java.awt.Color;
  * Class to represent an image in the JPEG format.  An image has a width, height, maxColorValue,
  * and consists of pixels that make up the image.
  */
-public class JPEGImage extends AbstractImage {
+public class JPEGImage implements IImage {
 
   private final String filePath;
   private int width;
@@ -24,8 +24,8 @@ public class JPEGImage extends AbstractImage {
    * @param filePath - the file path where the picture is being stored.
    */
   public JPEGImage(String filePath) {
-    super(filePath);
     this.filePath = filePath;
+    this.loadImage(filePath);
   }
 
   /**
@@ -41,6 +41,7 @@ public class JPEGImage extends AbstractImage {
       img = ImageIO.read(new File(filename));
       this.width = img.getWidth();
       this.height = img.getHeight();
+      this.pixels = new int[width][height][3];
       for(int x = 0; x < this.width; x++) {
         for(int y = 0; y < this.height; y++) {
           int pixel = img.getRGB(x, y);
@@ -91,5 +92,42 @@ public class JPEGImage extends AbstractImage {
       ioException.printStackTrace();
     }
     return output;
+  }
+
+  @Override
+  public int getMaxColorValue() {
+    return this.maxColorValue;
+  }
+
+  @Override
+  public int getWidth() {
+    return this.width;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.height;
+  }
+
+  @Override
+  public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
+    if (width < 0 || height < 0
+        || width > this.width
+        || height > this.height) {
+      throw new IllegalArgumentException("Invalid width or height.");
+    } else if (pixel.length != 3) {
+      throw new IllegalArgumentException("Not a valid pixel to set.");
+    }
+    this.pixels[width][height] = pixel.clone();
+  }
+
+  @Override
+  public int[] getPixel(int width, int height) {
+    if (width < 0 || height < 0
+        || width > this.width
+        || height > this.height) {
+      throw new IllegalArgumentException("Invalid width or height.");
+    }
+    return pixels[width][height];
   }
 }
