@@ -279,8 +279,9 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImage();
 
+    String outPath = path.substring(0, path.length() - 4) + "-output.txt";
     try {
-      File input = new File(path);
+      File input = new File(outPath);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
           + "\\TestImagesHW06\\JPG\\save image jpg test no changes\\black0-output.jpg",
@@ -306,8 +307,9 @@ public class JPEGLayeredImageTest {
     image.addLayer();
     image.saveImage();
 
+    String outPath = path.substring(0, path.length() - 4) + "-output.txt";
     try {
-      File input = new File(path);
+      File input = new File(outPath);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
           + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-output.jpg",

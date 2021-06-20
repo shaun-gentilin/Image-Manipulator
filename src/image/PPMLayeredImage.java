@@ -29,7 +29,6 @@ public class PPMLayeredImage extends AbstractLayeredImage {
   public PPMLayeredImage(String filename) {
     super(filename, "PPM");
     this.filename = filename;
-    this.layers = new ArrayList<>();
     this.transparentLayers = new ArrayList<>();
   }
 
@@ -40,6 +39,7 @@ public class PPMLayeredImage extends AbstractLayeredImage {
    */
   @Override
   public void loadImageLayers(String filename) {
+    this.layers = new ArrayList<>();
     try {
       File input = new File(filename);
       Scanner reader = new Scanner(input);

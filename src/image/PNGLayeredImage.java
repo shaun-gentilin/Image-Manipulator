@@ -29,7 +29,7 @@ public class PNGLayeredImage extends AbstractLayeredImage {
   public PNGLayeredImage(String filename) {
     super(filename, "PNG");
     this.filename = filename;
-    this.layers = new ArrayList<>();
+
     this.transparentLayers = new ArrayList<>();
   }
 
@@ -40,11 +40,12 @@ public class PNGLayeredImage extends AbstractLayeredImage {
    */
   @Override
   public void loadImageLayers(String filename) {
+    this.layers = new ArrayList<>();
     try {
       File input = new File(filename);
       Scanner reader = new Scanner(input);
       while (reader.hasNextLine()) {
-        layers.add(new PNGImage(reader.nextLine()));
+        this.layers.add(new PNGImage(reader.nextLine()));
       }
       reader.close();
     } catch(FileNotFoundException error) {
@@ -142,7 +143,7 @@ public class PNGLayeredImage extends AbstractLayeredImage {
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
-      for(int i = 0; i < this.layers.size() - 1; i++) {
+      for(int i = 0; i < this.layers.size(); i++) {
         String outPath = this.layers.get(i).exportImage();
         writer.write(outPath + "\n");
       }

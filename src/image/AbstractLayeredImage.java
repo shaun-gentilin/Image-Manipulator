@@ -31,10 +31,10 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   public AbstractLayeredImage(String filename, String imgType) {
     String type = this.getImageFormat(filename);
     this.filename = filename;
-    if (!(type.equals(imgType))) {
+    if (!(type.equalsIgnoreCase(imgType))) {
       throw new IllegalArgumentException("The image type is invalid.");
     }
-    loadImageLayers(this.filename);
+    loadImageLayers(filename);
   }
 
   /**
