@@ -22,7 +22,7 @@ public class PNGImage implements IImage {
    * super constructor.
    * @param filePath - the file path representing where the image came from.
    */
-  PNGImage(String filePath) {
+  public PNGImage(String filePath) {
     this.filePath = filePath;
     this.loadImage(filePath);
   }
@@ -38,6 +38,24 @@ public class PNGImage implements IImage {
    */
   public PNGImage(String filePath, boolean dontLoadImage) {
     this.filePath = filePath;
+  }
+
+  /**
+   * Constructor that allows all parameters needed for the class to be loaded in without loading the
+   * image manually.  This allows for different image type to be converted by passing in all of
+   * their parameters.
+   * @param filePath - the file path of the image.
+   * @param width - the width of the image.
+   * @param height - the height of the image.
+   * @param maxColorValue - the maximum color value for the image.
+   * @param pixels - the list of pixels present in the image.
+   */
+  public PNGImage(String filePath, int width, int height, int maxColorValue, int [][][] pixels) {
+    this.filePath = filePath;
+    this.width = width;
+    this.height = height;
+    this.maxColorValue = maxColorValue;
+    this.pixels = pixels;
   }
 
   /**
@@ -109,6 +127,29 @@ public class PNGImage implements IImage {
   @Override
   public int getMaxColorValue() {
     return this.maxColorValue;
+  }
+
+  /**
+   * Convert this image to the given type and return the new image.
+   *
+   * @param type - the type for this image to be converted to.
+   * @return an IImage representing the newly converted image.
+   * @throws IllegalArgumentException if the ImageType is invalid.
+   */
+  @Override
+  public IImage convertTo(ImageType type) throws IllegalArgumentException {
+    switch (type) {
+      case PNG:
+        return this;
+      case PPM:
+        return new PPMImage(this.filePath, this.width, this.height,
+            this.maxColorValue, this.pixels);
+      case JPEG:
+        return new JPEGImage(this.filePath, this.width, this.height,
+            this.maxColorValue, this.pixels);
+      default:
+        throw new IllegalArgumentException("The image type was invalid.");
+    }
   }
 
   @Override

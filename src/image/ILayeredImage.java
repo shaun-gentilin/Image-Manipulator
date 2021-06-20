@@ -70,7 +70,7 @@ public interface ILayeredImage {
   /**
    * Save all layered images to text file.
    */
-  void saveImage();
+  String saveImage();
 
   /**
    * Make the specified layer transparent (will not be visible for exportation purposes) if it was
@@ -93,4 +93,12 @@ public interface ILayeredImage {
    * @returns the amount of layers in a layered Image as an int.
    */
   int getAmountLayers();
+
+  /**
+   * Save the current image in a different type specified by type.  If the type is the type that the
+   * current image already is, the normal saveImage method will be used.
+   * @param type - the type to convert this image to.
+   * @throws IllegalArgumentException if the type was invalid.
+   */
+  void saveImageAs(ImageType type) throws IllegalArgumentException;
 }

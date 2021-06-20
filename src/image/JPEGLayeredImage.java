@@ -41,6 +41,26 @@ public class JPEGLayeredImage implements ILayeredImage {
   }
 
   /**
+   * Constructor that allows for fields to be initialize from parameters.  Allows for conversion
+   * from one layered image type to another.
+   * @param filename - the file path for this image.
+   * @param layers - the layers for this image.
+   * @param transparentLayers - the layers that are transparent in this image.
+   * @param width - the width for this image.
+   * @param height - the height for this image.
+   * @param maxColorValue - the maximum color value for this image.
+   */
+  public JPEGLayeredImage(String filename, List<JPEGImage> layers,
+      List<JPEGImage> transparentLayers, int width, int height, int maxColorValue) {
+    this.transparentLayers = transparentLayers;
+    this.layers = layers;
+    this.filename = filename;
+    this.width = width;
+    this.height = height;
+    this.maxColorValue = maxColorValue;
+  }
+
+  /**
    * Loads a layered image based on the filename.
    *
    * @param filename - filename of the text file specifying where the images are stored.
@@ -150,7 +170,7 @@ public class JPEGLayeredImage implements ILayeredImage {
    * Save all layered images to text file.
    */
   @Override
-  public void saveImage() {
+  public String saveImage() {
     String path = this.filename.substring(0, this.filename.length() - 4) + "-output.txt";
     File newFile = new File(path);
     try {
@@ -164,6 +184,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     } catch (IOException error) {
       throw new IllegalStateException("Cannot write to text file.");
     }
+    return path;
   }
 
   /**
@@ -273,6 +294,49 @@ public class JPEGLayeredImage implements ILayeredImage {
       return format;
     } catch (IOException error) {
       throw new IllegalArgumentException(error);
+    }
+  }
+
+  /**
+   * Save the current image in a different type specified by type.  If the type is the type that the
+   * current image already is, the normal saveImage method will be used.
+   *
+   * @param type - the type to convert this image to.
+   * @throws IllegalArgumentException if the type was invalid.
+   */
+  @Override
+  public void saveImageAs(ImageType type) throws IllegalArgumentException {
+    switch (type) {
+      case JPEG:
+        this.saveImage();
+      case PPM:
+        List<PPMImage> newLayersPPM = new ArrayList<>();
+        List<PPMImage> newTransLayersPPM = new ArrayList<>();
+        for (JPEGImage i : this.layers) {
+          newLayersPPM.add((PPMImage) i.convertTo(ImageType.PPM));
+        }
+        for (JPEGImage i : this.transparentLayers) {
+          newTransLayersPPM.add((PPMImage) i.convertTo(ImageType.PPM));
+        }
+
+        ILayeredImage newLayeredImagePPM = new PPMLayeredImage(this.filename, newLayersPPM,
+            newTransLayersPPM, this.width, this.height, this.maxColorValue);
+        newLayeredImagePPM.saveImage();
+      case PNG:
+        List<PNGImage> newLayersPNG = new ArrayList<>();
+        List<PNGImage> newTransLayersPNG = new ArrayList<>();
+        for (JPEGImage i : this.layers) {
+          newLayersPNG.add((PNGImage) i.convertTo(ImageType.PNG));
+        }
+        for (JPEGImage i : this.transparentLayers) {
+          newTransLayersPNG.add((PNGImage) i.convertTo(ImageType.PNG));
+        }
+
+        ILayeredImage newLayeredImagePNG = new PNGLayeredImage(this.filename, newLayersPNG,
+            newTransLayersPNG, this.width, this.height, this.maxColorValue);
+        newLayeredImagePNG.saveImage();
+      default:
+        throw new IllegalArgumentException("The image type was invalid.");
     }
   }
 }

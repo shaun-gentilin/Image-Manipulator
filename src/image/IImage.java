@@ -61,4 +61,12 @@ public interface IImage {
    * @return an int representing the max color value for this image.
    */
   int getMaxColorValue();
+
+  /**
+   * Convert this image to the given type and return the new image.
+   * @param type - the type for this image to be converted to.
+   * @return an IImage representing the newly converted image.
+   * @throws IllegalArgumentException if the ImageType is null.
+   */
+  IImage convertTo(ImageType type) throws IllegalArgumentException;
 }
