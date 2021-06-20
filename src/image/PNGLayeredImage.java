@@ -115,7 +115,7 @@ public class PNGLayeredImage extends AbstractLayeredImage {
       //create the new image object and load the contents of the original image into the new object.
       //This will create a new image object with a new file path, but the same properties as the
       //original layer.
-      PNGImage newLayerImage = new PNGImage(newPath);
+      PNGImage newLayerImage = new PNGImage(newPath, true);
       newLayerImage.loadImage(primaryLayerPath);
 
       //add the new layer to the list of layers
@@ -137,7 +137,8 @@ public class PNGLayeredImage extends AbstractLayeredImage {
    */
   @Override
   public void saveImage() {
-    File newFile = new File(this.filename);
+    String path = this.filename.substring(0, this.filename.length() - 4) + "-output.txt";
+    File newFile = new File(path);
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);

@@ -28,6 +28,19 @@ public class PNGImage implements IImage {
   }
 
   /**
+   * Convenience constructor for a PNGImage.  Specifies whether the image at the given file path
+   * should be loaded or not (if this parameter is left out,
+   * the image will be loaded automatically).  Useful for making copies of images and giving them
+   * unique file paths.
+   * @param filePath - the file path that this image should possess.
+   * @param dontLoadImage - a boolean flag to signify that the image at the given path should not
+   *                      be loaded.
+   */
+  public PNGImage(String filePath, boolean dontLoadImage) {
+    this.filePath = filePath;
+  }
+
+  /**
    * Load the image at filename into the class.
    *
    * @param filename - the path name of the image to be loaded into the image class.

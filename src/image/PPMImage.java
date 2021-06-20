@@ -24,6 +24,19 @@ public class PPMImage implements IImage {
   }
 
   /**
+   * Convenience constructor for a PPMImage.  Specifies whether the image at the given file path
+   * should be loaded or not (if this parameter is left out,
+   * the image will be loaded automatically).  Useful for making copies of images and giving them
+   * unique file paths.
+   * @param filePath - the file path that this image should possess.
+   * @param dontLoadImage - a boolean flag to signify that the image at the given path should not
+   *                      be loaded.
+   */
+  public PPMImage(String filePath, boolean dontLoadImage) {
+    this.filePath = filePath;
+  }
+
+  /**
    * Read an image file in the PPM format and store image information in the fields for the class.
    *
    * @param filename the path of the file.

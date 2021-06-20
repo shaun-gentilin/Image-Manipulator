@@ -143,7 +143,8 @@ public class JPEGLayeredImage extends AbstractLayeredImage {
    */
   @Override
   public void saveImage() {
-    File newFile = new File(this.filename);
+    String path = this.filename.substring(0, this.filename.length() - 4) + "-output.txt";
+    File newFile = new File(path);
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
