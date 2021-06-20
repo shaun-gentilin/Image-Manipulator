@@ -5,14 +5,18 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 
 /**
  * Class representing a layered image in the PNG image format.  A png layered image consists of many
  * layers that are each their own individual png image.
  */
-public class PNGLayeredImage extends AbstractLayeredImage {
+public class PNGLayeredImage implements ILayeredImage {
 
   private final String filename;
   private List<PNGImage> layers;
@@ -27,10 +31,13 @@ public class PNGLayeredImage extends AbstractLayeredImage {
    *                 images are being stored.
    */
   public PNGLayeredImage(String filename) {
-    super(filename, "PNG");
     this.filename = filename;
-
     this.transparentLayers = new ArrayList<>();
+    String type = this.getImageFormat(filename);
+    if (!(type.equalsIgnoreCase("png"))) {
+      throw new IllegalArgumentException("The image type is invalid.");
+    }
+    loadImageLayers(filename);
   }
 
   /**
@@ -226,6 +233,43 @@ public class PNGLayeredImage extends AbstractLayeredImage {
    */
   @Override
   public int getAmountLayers() {
-    return 0;
+    return this.layers.size();
+  }
+
+  /**
+   * Analyses and returns the format of an input image file.
+   *
+   * @param filePath image file.
+   * @return format of filename.
+   */
+
+  @Override
+  public String getImageFormat(String filePath) {
+    String format = "";
+    int ctr = 0;
+    try {
+      File inputFile = new File(filePath);
+      Scanner scan = new Scanner(inputFile);
+      while (scan.hasNextLine()) {
+        String data = scan.nextLine();
+        ImageInputStream iis = ImageIO.createImageInputStream(new File(data));
+        Iterator<ImageReader> imageReader = ImageIO.getImageReaders(iis);
+        if (!imageReader.hasNext()) {
+          throw new IllegalArgumentException("There is no image reader that can read this.");
+        }
+        if (ctr == 0) {
+          format = imageReader.next().getFormatName();
+        }
+        else {
+          if (!(format.equalsIgnoreCase(imageReader.next().getFormatName()))) {
+            throw new IllegalArgumentException("All image types must be the same.");
+          }
+        }
+        ctr++;
+      }
+      return format;
+    } catch (IOException error) {
+      throw new IllegalArgumentException(error);
+    }
   }
 }

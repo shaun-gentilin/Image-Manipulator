@@ -493,7 +493,7 @@ public class PNGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\PNG\\valid image\\valid-png-image.txt";
     ILayeredImage image = new PNGLayeredImage(path);
-    IImage newImage = new JPEGImage("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500"
+    IImage newImage = new PNGImage("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500"
         + "\\hw05\\TestImagesHW06\\PNG\\invalid image mismatched dimensions\\woman.png");
     image.replaceLayer(newImage, 0);
   }
