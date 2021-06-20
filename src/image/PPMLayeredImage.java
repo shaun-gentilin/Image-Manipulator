@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Class representing an image in the PPM image format.  A PPM layered image consists of many layers
  * that are each an individual ppm image.
  */
-public class PPMLayeredImage implements ILayeredImage {
+public class PPMLayeredImage extends AbstractLayeredImage {
 
   private final String filename;
   private List<PPMImage> layers;
@@ -27,13 +27,9 @@ public class PPMLayeredImage implements ILayeredImage {
    *                  images are being stored.
    */
   public PPMLayeredImage(String filename) {
+    super(filename, "PPM");
     this.filename = filename;
     this.transparentLayers = new ArrayList<>();
-    String type = this.getImageFormat(filename);
-    if (!(type.equalsIgnoreCase("ppm"))) {
-      throw new IllegalArgumentException("The image type is invalid.");
-    }
-    loadImageLayers(filename);
   }
 
   /**
@@ -130,9 +126,6 @@ public class PPMLayeredImage implements ILayeredImage {
 
   @Override
   public IImage getLayer(int layerNum) {
-    if (layerNum >= this.layers.size() || layerNum < 0) {
-      throw new IllegalArgumentException("Not a valid layer.");
-    }
     return layers.get(layerNum);
   }
 
@@ -146,7 +139,7 @@ public class PPMLayeredImage implements ILayeredImage {
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
-      for(int i = 0; i < this.layers.size(); i++) {
+      for(int i = 0; i < this.layers.size() - 1; i++) {
         String outPath = this.layers.get(i).exportImage();
         writer.write(outPath + "\n");
       }
@@ -171,7 +164,7 @@ public class PPMLayeredImage implements ILayeredImage {
 
   @Override
   public void removeLayer(int layerNum) throws IllegalArgumentException {
-    if (layerNum >= this.layers.size() || layerNum < 0) {
+    if (layerNum >= this.layers.size()) {
       throw new IllegalArgumentException("Not a valid layer.");
     }
 
@@ -181,7 +174,7 @@ public class PPMLayeredImage implements ILayeredImage {
 
   @Override
   public void toggleLayerTransparency(int layerNum) throws IllegalArgumentException {
-    if (layerNum >= this.layers.size() || layerNum < 0) {
+    if (layerNum >= this.layers.size()) {
       throw new IllegalArgumentException("Not a valid layer.");
     }
 
@@ -230,31 +223,5 @@ public class PPMLayeredImage implements ILayeredImage {
   @Override
   public int getAmountLayers() {
     return this.layers.size();
-  }
-
-  @Override
-  public String getImageFormat(String filePath) {
-    String format = "";
-    int ctr = 0;
-    try {
-      File inputFile = new File(filePath);
-      Scanner scan = new Scanner(inputFile);
-      while (scan.hasNextLine()) {
-        String data = scan.nextLine();
-        String type = data.substring(data.length() - 3);
-        if (ctr == 0) {
-          format = type;
-        }
-        else {
-          if (!(format.equalsIgnoreCase(type))) {
-            throw new IllegalArgumentException("All image types must be the same.");
-          }
-        }
-        ctr++;
-      }
-      return format;
-    } catch (IOException error) {
-      throw new IllegalArgumentException(error);
-    }
   }
 }

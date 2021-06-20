@@ -6,18 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 
 /**
  * A class to represent a layered image in the JPEG format.  All layers of this image must be in
  * this format and have the same dimensions.
  */
-public class JPEGLayeredImage implements ILayeredImage {
+public class JPEGLayeredImage extends AbstractLayeredImage {
 
   private final String filename;
   private List<JPEGImage> layers;
@@ -31,13 +27,9 @@ public class JPEGLayeredImage implements ILayeredImage {
    * @param filename - the file path where the image is being stored.
    */
   public JPEGLayeredImage(String filename) {
+    super(filename, "JPEG");
     this.filename = filename;
     this.transparentLayers = new ArrayList<>();
-    String type = this.getImageFormat(filename);
-    if (!(type.equalsIgnoreCase("jpeg"))) {
-      throw new IllegalArgumentException("The image type is invalid.");
-    }
-    loadImageLayers(filename);
   }
 
   /**
@@ -237,42 +229,5 @@ public class JPEGLayeredImage implements ILayeredImage {
   @Override
   public int getAmountLayers() {
     return this.layers.size();
-  }
-
-  /**
-   * Analyses and returns the format of an input image file.
-   *
-   * @param filePath image file.
-   * @return format of filename.
-   */
-
-  @Override
-  public String getImageFormat(String filePath) {
-    String format = "";
-    int ctr = 0;
-    try {
-      File inputFile = new File(filePath);
-      Scanner scan = new Scanner(inputFile);
-      while (scan.hasNextLine()) {
-        String data = scan.nextLine();
-        ImageInputStream iis = ImageIO.createImageInputStream(new File(data));
-        Iterator<ImageReader> imageReader = ImageIO.getImageReaders(iis);
-        if (!imageReader.hasNext()) {
-          throw new IllegalArgumentException("There is no image reader that can read this.");
-        }
-        if (ctr == 0) {
-          format = imageReader.next().getFormatName();
-        }
-        else {
-          if (!(format.equalsIgnoreCase(imageReader.next().getFormatName()))) {
-            throw new IllegalArgumentException("All image types must be the same.");
-          }
-        }
-        ctr++;
-      }
-      return format;
-    } catch (IOException error) {
-      throw new IllegalArgumentException(error);
-    }
   }
 }

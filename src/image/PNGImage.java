@@ -22,7 +22,7 @@ public class PNGImage implements IImage {
    * super constructor.
    * @param filePath - the file path representing where the image came from.
    */
-  PNGImage(String filePath) {
+  public PNGImage(String filePath) {
     this.filePath = filePath;
     this.loadImage(filePath);
   }
