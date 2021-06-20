@@ -100,5 +100,5 @@ public interface ILayeredImage {
    * @param type - the type to convert this image to.
    * @throws IllegalArgumentException if the type was invalid.
    */
-  void saveImageAs(ImageType type) throws IllegalArgumentException;
+  String saveImageAs(ImageType type) throws IllegalArgumentException;
 }

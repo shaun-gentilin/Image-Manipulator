@@ -161,7 +161,7 @@ public class PPMLayeredImage implements ILayeredImage {
    */
   @Override
   public String saveImage() {
-    String path = this.filename.substring(0, this.filename.length() - 4) + "-output.txt";
+    String path = this.filename.substring(0, this.filename.length() - 4) + "-output-ppm.txt";
     File newFile = new File(path);
     try {
       newFile.createNewFile();
@@ -261,10 +261,10 @@ public class PPMLayeredImage implements ILayeredImage {
    * @throws IllegalArgumentException if the type was invalid.
    */
   @Override
-  public void saveImageAs(ImageType type) throws IllegalArgumentException {
+  public String saveImageAs(ImageType type) throws IllegalArgumentException {
     switch (type) {
       case PPM:
-        this.saveImage();
+        return this.saveImage();
       case PNG:
         List<PNGImage> newLayersPNG = new ArrayList<>();
         List<PNGImage> newTransLayersPNG = new ArrayList<>();
@@ -277,7 +277,7 @@ public class PPMLayeredImage implements ILayeredImage {
 
         ILayeredImage newLayeredImagePNG = new PNGLayeredImage(this.filename, newLayersPNG,
             newTransLayersPNG, this.width, this.height, this.maxColorValue);
-        newLayeredImagePNG.saveImage();
+        return newLayeredImagePNG.saveImage();
       case JPEG:
         List<JPEGImage> newLayersJPEG = new ArrayList<>();
         List<JPEGImage> newTransLayersJPEG = new ArrayList<>();
@@ -290,7 +290,7 @@ public class PPMLayeredImage implements ILayeredImage {
 
         ILayeredImage newLayeredImageJPEG = new JPEGLayeredImage(this.filename, newLayersJPEG,
             newTransLayersJPEG, this.width, this.height, this.maxColorValue);
-        newLayeredImageJPEG.saveImage();
+        return newLayeredImageJPEG.saveImage();
       default:
         throw new IllegalArgumentException("The image type was invalid.");
     }

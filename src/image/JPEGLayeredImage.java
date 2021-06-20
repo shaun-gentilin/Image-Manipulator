@@ -171,7 +171,7 @@ public class JPEGLayeredImage implements ILayeredImage {
    */
   @Override
   public String saveImage() {
-    String path = this.filename.substring(0, this.filename.length() - 4) + "-output.txt";
+    String path = this.filename.substring(0, this.filename.length() - 4) + "-output-jpeg.txt";
     File newFile = new File(path);
     try {
       newFile.createNewFile();
@@ -273,6 +273,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     int ctr = 0;
     try {
       File inputFile = new File(filePath);
+      boolean canRead = inputFile.canRead();
       Scanner scan = new Scanner(inputFile);
       while (scan.hasNextLine()) {
         String data = scan.nextLine();
@@ -305,10 +306,10 @@ public class JPEGLayeredImage implements ILayeredImage {
    * @throws IllegalArgumentException if the type was invalid.
    */
   @Override
-  public void saveImageAs(ImageType type) throws IllegalArgumentException {
+  public String saveImageAs(ImageType type) throws IllegalArgumentException {
     switch (type) {
       case JPEG:
-        this.saveImage();
+        return this.saveImage();
       case PPM:
         List<PPMImage> newLayersPPM = new ArrayList<>();
         List<PPMImage> newTransLayersPPM = new ArrayList<>();
@@ -321,7 +322,7 @@ public class JPEGLayeredImage implements ILayeredImage {
 
         ILayeredImage newLayeredImagePPM = new PPMLayeredImage(this.filename, newLayersPPM,
             newTransLayersPPM, this.width, this.height, this.maxColorValue);
-        newLayeredImagePPM.saveImage();
+        return newLayeredImagePPM.saveImage();
       case PNG:
         List<PNGImage> newLayersPNG = new ArrayList<>();
         List<PNGImage> newTransLayersPNG = new ArrayList<>();
@@ -334,7 +335,7 @@ public class JPEGLayeredImage implements ILayeredImage {
 
         ILayeredImage newLayeredImagePNG = new PNGLayeredImage(this.filename, newLayersPNG,
             newTransLayersPNG, this.width, this.height, this.maxColorValue);
-        newLayeredImagePNG.saveImage();
+        return newLayeredImagePNG.saveImage();
       default:
         throw new IllegalArgumentException("The image type was invalid.");
     }

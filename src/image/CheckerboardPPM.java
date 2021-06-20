@@ -89,4 +89,12 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
     }
     return path;
   }
+
+  /**
+   *  This functionality does not need to be supported as of now.
+   */
+  @Override
+  public IImage convertTo(ImageType type) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Cannot do this operation at the moment.");
+  }
 }

@@ -250,4 +250,61 @@ public class PNGImageTest {
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     image.exportImage();
   }
+
+  //convertTo TESTS
+
+
+  /*
+  Test converting the image to a JPEG.
+   */
+  @Test
+  public void testConvertToJPEG() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
+    IImage image = new PNGImage(path);
+    IImage newImage = image.convertTo(ImageType.JPEG);
+    assertTrue(newImage instanceof JPEGImage);
+    assertEquals(image.getWidth(), newImage.getWidth());
+    assertEquals(image.getHeight(), newImage.getHeight());
+    assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
+    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
+    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
+    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+  }
+
+  /*
+  Test converting the image to a PNG.
+   */
+  @Test
+  public void testConvertToPNG() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
+    IImage image = new PNGImage(path);
+    IImage newImage = image.convertTo(ImageType.PNG);
+    assertTrue(newImage instanceof PNGImage);
+    assertEquals(image.getWidth(), newImage.getWidth());
+    assertEquals(image.getHeight(), newImage.getHeight());
+    assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
+    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
+    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
+    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+  }
+
+  /*
+  Test converting the image to a PPM.
+   */
+  @Test
+  public void testConvertToPPM() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
+    IImage image = new PNGImage(path);
+    IImage newImage = image.convertTo(ImageType.PPM);
+    assertTrue(newImage instanceof PPMImage);
+    assertEquals(image.getWidth(), newImage.getWidth());
+    assertEquals(image.getHeight(), newImage.getHeight());
+    assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
+    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
+    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
+    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+  }
 }

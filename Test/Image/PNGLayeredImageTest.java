@@ -279,7 +279,7 @@ public class PNGLayeredImageTest {
     ILayeredImage image = new PNGLayeredImage(path);
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output.txt";
+    String outPath = path.substring(0, path.length() - 4) + "-output-png.txt";
     try {
       File input = new File(outPath);
       Scanner reader = new Scanner(input);
@@ -307,7 +307,7 @@ public class PNGLayeredImageTest {
     image.addLayer();
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output.txt";
+    String outPath = path.substring(0, path.length() - 4) + "-output-png.txt";
     try {
       File input = new File(outPath);
       Scanner reader = new Scanner(input);
@@ -524,5 +524,90 @@ public class PNGLayeredImageTest {
         + "\\PNG\\valid image\\valid-png-image.txt";
     ILayeredImage image = new PNGLayeredImage(path);
     assertEquals(2, image.getAmountLayers());
+  }
+
+
+  //saveImageAs TESTS
+
+
+  /*
+  Test saving an image as a JPEG.
+   */
+  @Test
+  public void testSaveImageAsJPEG() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
+        + "\\PNG\\valid image\\valid-png-image.txt";
+    ILayeredImage image = new PNGLayeredImage(path);
+    image.saveImageAs(ImageType.JPEG);
+
+    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
+    try {
+      File input = new File(outPath);
+      Scanner reader = new Scanner(input);
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black0-output.jpg",
+          reader.nextLine());
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black1-output.jpg",
+          reader.nextLine());
+      assertFalse(reader.hasNextLine());
+      reader.close();
+    } catch(FileNotFoundException error) {
+      throw new IllegalArgumentException("Cannot read file.");
+    }
+  }
+
+  /*
+  Test saving an image as a PNG.
+   */
+  @Test
+  public void testSaveImageAsPNG() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
+        + "\\PNG\\valid image\\valid-png-image.txt";
+    ILayeredImage image = new PNGLayeredImage(path);
+    image.saveImageAs(ImageType.PNG);
+
+    String outPath = path.substring(0, path.length() - 4) + "-output-png.txt";
+    try {
+      File input = new File(outPath);
+      Scanner reader = new Scanner(input);
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black0-output.png",
+          reader.nextLine());
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black1-output.png",
+          reader.nextLine());
+      assertFalse(reader.hasNextLine());
+      reader.close();
+    } catch(FileNotFoundException error) {
+      throw new IllegalArgumentException("Cannot read file.");
+    }
+  }
+
+  /*
+  Test saving an image as a PPM.
+   */
+  @Test
+  public void testSaveImageAsPPM() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
+        + "\\PNG\\valid image\\valid-png-image.txt";
+    ILayeredImage image = new PNGLayeredImage(path);
+    image.saveImageAs(ImageType.PPM);
+
+    String outPath = path.substring(0, path.length() - 4) + "-output-ppm.txt";
+    try {
+      File input = new File(outPath);
+      Scanner reader = new Scanner(input);
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black0-output.ppm",
+          reader.nextLine());
+      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
+              + "\\TestImagesHW06\\PNG\\valid image\\black1-output.ppm",
+          reader.nextLine());
+      assertFalse(reader.hasNextLine());
+      reader.close();
+    } catch(FileNotFoundException error) {
+      throw new IllegalArgumentException("Cannot read file.");
+    }
   }
 }
