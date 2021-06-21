@@ -10,25 +10,19 @@ import javax.imageio.ImageIO;
  * A class to represent an image in the PNG format.  An image has a width, height, maxColorvalue,
  * and a list of pixels that compose the image.
  */
-public class PNGImage implements IImage {
-  private final String filePath;
-  private int width;
-  private int height;
-  private int maxColorValue;
-  private int[][][] pixels;
+public class PNGImage extends AbstractIOImage {
 
   /**
-   * Constructor for the PNGImage class.  Initializes the filepath and loads the image using the
-   * super constructor.
-   * @param filePath - the file path representing where the image came from.
+   * Constructor for the JPEGImage class. Initializes the file path and loads the rest of the
+   * values using the parent constructor.
+   * @param filePath - the file path where the picture is being stored.
    */
   public PNGImage(String filePath) {
-    this.filePath = filePath;
-    this.loadImage(filePath);
+    super(filePath);
   }
 
   /**
-   * Convenience constructor for a PNGImage.  Specifies whether the image at the given file path
+   * Convenience constructor for a JPEGImage.  Specifies whether the image at the given file path
    * should be loaded or not (if this parameter is left out,
    * the image will be loaded automatically).  Useful for making copies of images and giving them
    * unique file paths.
@@ -37,7 +31,7 @@ public class PNGImage implements IImage {
    *                      be loaded.
    */
   public PNGImage(String filePath, boolean dontLoadImage) {
-    this.filePath = filePath;
+    super(filePath, dontLoadImage);
   }
 
   /**

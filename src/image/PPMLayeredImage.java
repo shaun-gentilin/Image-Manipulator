@@ -23,8 +23,9 @@ public class PPMLayeredImage implements ILayeredImage {
 
   /**
    * A constructor for the PPMLayeredImage class.
+   *
    * @param filename - the file path representing the text file that specifies where the layer
-   *                  images are being stored.
+   *                 images are being stored.
    */
   public PPMLayeredImage(String filename) {
     this.filename = filename;
@@ -39,12 +40,13 @@ public class PPMLayeredImage implements ILayeredImage {
   /**
    * Constructor that allows for fields to be initialize from parameters.  Allows for conversion
    * from one layered image type to another.
-   * @param filename - the file path for this image.
-   * @param layers - the layers for this image.
+   *
+   * @param filename          - the file path for this image.
+   * @param layers            - the layers for this image.
    * @param transparentLayers - the layers that are transparent in this image.
-   * @param width - the width for this image.
-   * @param height - the height for this image.
-   * @param maxColorValue - the maximum color value for this image.
+   * @param width             - the width for this image.
+   * @param height            - the height for this image.
+   * @param maxColorValue     - the maximum color value for this image.
    */
   public PPMLayeredImage(String filename, List<PPMImage> layers,
       List<PPMImage> transparentLayers, int width, int height, int maxColorValue) {
@@ -71,7 +73,7 @@ public class PPMLayeredImage implements ILayeredImage {
         this.layers.add(new PPMImage(reader.nextLine()));
       }
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -82,8 +84,8 @@ public class PPMLayeredImage implements ILayeredImage {
 
     for (PPMImage i : this.layers) {
       if (i.getHeight() != this.height
-      || i.getWidth() != this.width
-      || i.getMaxColorValue() != this.maxColorValue) {
+          || i.getWidth() != this.width
+          || i.getMaxColorValue() != this.maxColorValue) {
         throw new IllegalArgumentException("Images did not have the same dimensions.");
       }
     }
@@ -111,7 +113,7 @@ public class PPMLayeredImage implements ILayeredImage {
     try {
       File input = new File(this.filename);
       reader = new Scanner(input);
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -119,8 +121,7 @@ public class PPMLayeredImage implements ILayeredImage {
     //in the given text file (filename)
     if (!(reader.hasNextLine())) {
       throw new IllegalArgumentException("No main file to copy.");
-    }
-    else {
+    } else {
       String primaryLayerPath = reader.nextLine();
       //take the primary path without the .ppm at the end and add stuff to it so that we know
       //this will be a valid file path.  Add in information about the layer so that the path will
@@ -166,7 +167,7 @@ public class PPMLayeredImage implements ILayeredImage {
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
-      for(int i = 0; i < this.layers.size(); i++) {
+      for (int i = 0; i < this.layers.size(); i++) {
         String outPath = this.layers.get(i).exportImage();
         writer.write(outPath + "\n");
       }
@@ -209,8 +210,7 @@ public class PPMLayeredImage implements ILayeredImage {
     PPMImage layer = this.layers.get(layerNum);
     if (this.transparentLayers.contains(layer)) {
       this.transparentLayers.remove(layer);
-    }
-    else {
+    } else {
       this.transparentLayers.add(layer);
     }
   }
@@ -226,14 +226,11 @@ public class PPMLayeredImage implements ILayeredImage {
   public void replaceLayer(IImage image, int layer) throws IllegalArgumentException {
     if (!(image instanceof PPMImage)) {
       throw new IllegalArgumentException("Images must be in the correct format.");
-    }
-    else if (layer < 0 || layer > this.layers.size() - 1) {
+    } else if (layer < 0 || layer > this.layers.size() - 1) {
       throw new IllegalArgumentException("Not a valid layer number to replace.");
-    }
-    else if (image == null) {
+    } else if (image == null) {
       throw new IllegalArgumentException("Image cannot be null");
-    }
-    else if (image.getHeight() != this.height
+    } else if (image.getHeight() != this.height
         || image.getWidth() != this.width
         || image.getMaxColorValue() != this.maxColorValue) {
       throw new IllegalArgumentException("New image must have the same dimensions as the existing "
@@ -308,8 +305,7 @@ public class PPMLayeredImage implements ILayeredImage {
         String type = data.substring(data.length() - 3);
         if (ctr == 0) {
           format = type;
-        }
-        else {
+        } else {
           if (!(format.equalsIgnoreCase(type))) {
             throw new IllegalArgumentException("All image types must be the same.");
           }

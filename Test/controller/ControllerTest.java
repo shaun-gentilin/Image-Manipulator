@@ -1,9 +1,15 @@
 package controller;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import org.junit.Test;
 
+/**
+ * Test class for Controller.
+ */
 public class ControllerTest {
 
   /*

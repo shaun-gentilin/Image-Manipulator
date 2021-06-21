@@ -27,6 +27,7 @@ public class PNGLayeredImage implements ILayeredImage {
 
   /**
    * A constructor for the PNGLayeredImage class.
+   *
    * @param filename - the file path representing the text file that specifies where the layer
    *                 images are being stored.
    */
@@ -43,12 +44,13 @@ public class PNGLayeredImage implements ILayeredImage {
   /**
    * Constructor that allows for fields to be initialize from parameters.  Allows for conversion
    * from one layered image type to another.
-   * @param filename - the file path for this image.
-   * @param layers - the layers for this image.
+   *
+   * @param filename          - the file path for this image.
+   * @param layers            - the layers for this image.
    * @param transparentLayers - the layers that are transparent in this image.
-   * @param width - the width for this image.
-   * @param height - the height for this image.
-   * @param maxColorValue - the maximum color value for this image.
+   * @param width             - the width for this image.
+   * @param height            - the height for this image.
+   * @param maxColorValue     - the maximum color value for this image.
    */
   public PNGLayeredImage(String filename, List<PNGImage> layers,
       List<PNGImage> transparentLayers, int width, int height, int maxColorValue) {
@@ -75,7 +77,7 @@ public class PNGLayeredImage implements ILayeredImage {
         this.layers.add(new PNGImage(reader.nextLine()));
       }
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -115,7 +117,7 @@ public class PNGLayeredImage implements ILayeredImage {
     try {
       File input = new File(this.filename);
       reader = new Scanner(input);
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -123,8 +125,7 @@ public class PNGLayeredImage implements ILayeredImage {
     //in the given text file (filename)
     if (!(reader.hasNextLine())) {
       throw new IllegalArgumentException("No main file to copy.");
-    }
-    else {
+    } else {
       String primaryLayerPath = reader.nextLine();
       //take the primary path without the .ppm at the end and add stuff to it so that we know
       //this will be a valid file path.  Add in information about the layer so that the path will
@@ -170,7 +171,7 @@ public class PNGLayeredImage implements ILayeredImage {
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
-      for(int i = 0; i < this.layers.size(); i++) {
+      for (int i = 0; i < this.layers.size(); i++) {
         String outPath = this.layers.get(i).exportImage();
         writer.write(outPath + "\n");
       }
@@ -213,8 +214,7 @@ public class PNGLayeredImage implements ILayeredImage {
     PNGImage layer = this.layers.get(layerNum);
     if (this.transparentLayers.contains(layer)) {
       this.transparentLayers.remove(layer);
-    }
-    else {
+    } else {
       this.transparentLayers.add(layer);
     }
   }
@@ -230,16 +230,13 @@ public class PNGLayeredImage implements ILayeredImage {
   public void replaceLayer(IImage image, int layer) throws IllegalArgumentException {
     if (!(image instanceof PNGImage)) {
       throw new IllegalArgumentException("Images must be in the correct format.");
-    }
-    else if (layer < 0 || layer > this.layers.size() - 1) {
+    } else if (layer < 0 || layer > this.layers.size() - 1) {
       throw new IllegalArgumentException("Not a valid layer number to replace.");
-    }
-    else if (image == null) {
+    } else if (image == null) {
       throw new IllegalArgumentException("Image cannot be null");
-    }
-    else if (image.getHeight() != this.height
-    || image.getWidth() != this.width
-    || image.getMaxColorValue() != this.maxColorValue) {
+    } else if (image.getHeight() != this.height
+        || image.getWidth() != this.width
+        || image.getMaxColorValue() != this.maxColorValue) {
       throw new IllegalArgumentException("New image must have the same dimensions as the existing "
           + "layered image.");
     }
@@ -323,8 +320,7 @@ public class PNGLayeredImage implements ILayeredImage {
         }
         if (ctr == 0) {
           format = imageReader.next().getFormatName();
-        }
-        else {
+        } else {
           if (!(format.equalsIgnoreCase(imageReader.next().getFormatName()))) {
             throw new IllegalArgumentException("All image types must be the same.");
           }
