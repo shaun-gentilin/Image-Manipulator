@@ -343,16 +343,17 @@ public class Controller implements IController {
    * @param listIndex      index of list of layered images.
    */
   private void ifSaveAs(String format, int listIndex) {
-    if (!format.equals("jpeg") || !format.equals("ppm") || !format.equals("png")) {
+    if (!format.equalsIgnoreCase("jpeg") || !format.equalsIgnoreCase("ppm")
+        || !format.equalsIgnoreCase("png")) {
       throw new IllegalArgumentException("Invalid format");
     }
-    if (format.equals("jpeg")) {
+    if (format.equalsIgnoreCase("jpeg")) {
       String output = images.get(listIndex).saveImageAs(ImageType.JPEG);
       System.out.println("Layered Image exported to path: " + output);
-    } else if (format.equals("ppm")) {
+    } else if (format.equalsIgnoreCase("ppm")) {
       String output = images.get(listIndex).saveImageAs(ImageType.PPM);
       System.out.println("Layered Image exported to path: " + output);
-    } else if (format.equals("png")) {
+    } else if (format.equalsIgnoreCase("png")) {
       String output = images.get(listIndex).saveImageAs(ImageType.PNG);
       System.out.println("Layered Image exported to path: " + output);
     }

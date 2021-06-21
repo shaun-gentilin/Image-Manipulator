@@ -10,7 +10,7 @@ import java.util.Scanner;
 import org.junit.Test;
 
 /**
- * Test class for PNGLayeredImage
+ * Test class for PNGLayeredImage.
  */
 public class PNGLayeredImageTest {
 

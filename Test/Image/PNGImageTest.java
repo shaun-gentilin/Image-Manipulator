@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * Test class for PNGImage
+ * Test class for PNGImage.
  */
 public class PNGImageTest {
 

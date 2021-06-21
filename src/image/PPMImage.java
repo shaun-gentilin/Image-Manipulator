@@ -10,21 +10,19 @@ import java.util.Scanner;
 /**
  * Class to represent the specific PPM format for Images.
  */
-public class PPMImage implements IImage {
+public class PPMImage extends AbstractImage {
 
-  private final String filePath;
-  private int width;
-  private int height;
-  private int maxColorValue;
-  private int[][][] pixels;
-
-  public PPMImage(String filename) {
-    this.filePath = filename;
-    loadImage(filename);
+  /**
+   * Constructor for the JPEGImage class. Initializes the file path and loads the rest of the
+   * values using the parent constructor.
+   * @param filePath - the file path where the picture is being stored.
+   */
+  public PPMImage(String filePath) {
+    super(filePath);
   }
 
   /**
-   * Convenience constructor for a PPMImage.  Specifies whether the image at the given file path
+   * Convenience constructor for a JPEGImage.  Specifies whether the image at the given file path
    * should be loaded or not (if this parameter is left out,
    * the image will be loaded automatically).  Useful for making copies of images and giving them
    * unique file paths.
@@ -33,7 +31,7 @@ public class PPMImage implements IImage {
    *                      be loaded.
    */
   public PPMImage(String filePath, boolean dontLoadImage) {
-    this.filePath = filePath;
+    super(filePath, dontLoadImage);
   }
 
   /**
@@ -47,11 +45,7 @@ public class PPMImage implements IImage {
    * @param pixels - the list of pixels present in the image.
    */
   public PPMImage(String filePath, int width, int height, int maxColorValue, int [][][] pixels) {
-    this.filePath = filePath;
-    this.width = width;
-    this.height = height;
-    this.maxColorValue = maxColorValue;
-    this.pixels = pixels;
+    super(filePath, width, height, maxColorValue, pixels);
   }
 
   /**
@@ -122,65 +116,6 @@ public class PPMImage implements IImage {
   }
 
   /**
-   * Observer method for width of image.
-   *
-   * @return max width of Image.
-   */
-  @Override
-  public int getWidth() {
-    return this.width;
-  }
-
-  /**
-   * Observer method for height of image.
-   *
-   * @return max height of Image.
-   */
-  @Override
-  public int getHeight() {
-    return this.height;
-  }
-
-  /**
-   * Setter method for pixel colors.
-   *
-   * @param width  - the width of the pixel to be set.
-   * @param height - the height of the pixel to be set.
-   * @param pixel  - an array of 3 integers representing the colors that this pixel is to be set
-   *               to.
-   * @throws IllegalArgumentException If the width / height / or given pixel are invalid.
-   */
-  @Override
-  public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
-    if (width < 0 || height < 0
-        || width > this.width
-        || height > this.height) {
-      throw new IllegalArgumentException("Invalid width or height.");
-    } else if (pixel.length != 3) {
-      throw new IllegalArgumentException("Not a valid pixel to set.");
-    }
-    this.pixels[width][height] = pixel.clone();
-  }
-
-  /**
-   * Observer method for pixel colors.
-   *
-   * @param width  - the width of the pixel to be obtained.
-   * @param height - the height of the pixel to be obtained.
-   * @return Pixels at specific input position.
-   * @throws IllegalArgumentException if the width or height are too low or too high.
-   */
-  @Override
-  public int[] getPixel(int width, int height) throws IllegalArgumentException {
-    if (width < 0 || height < 0
-        || width > this.width
-        || height > this.height) {
-      throw new IllegalArgumentException("Invalid width or height.");
-    }
-    return pixels[width][height];
-  }
-
-  /**
    * Exports image to PPM format.
    * @return the file path for the exported image.
    * @throws IllegalArgumentException if creating file / writing to file fails.
@@ -227,38 +162,5 @@ public class PPMImage implements IImage {
       System.out.println("Error occurred.");
     }
     return path;
-  }
-
-  /**
-   * Observer method for maxColorValue.
-   *
-   * @return returns MaxColorValue of image
-   */
-  @Override
-  public int getMaxColorValue() {
-    return this.maxColorValue;
-  }
-
-  /**
-   * Convert this image to the given type and return the new image.
-   *
-   * @param type - the type for this image to be converted to.
-   * @return an IImage representing the newly converted image.
-   * @throws IllegalArgumentException if the ImageType is null.
-   */
-  @Override
-  public IImage convertTo(ImageType type) throws IllegalArgumentException {
-    switch (type) {
-      case PPM:
-        return this;
-      case PNG:
-        return new PNGImage(this.filePath, this.width, this.height,
-            this.maxColorValue, this.pixels);
-      case JPEG:
-        return new JPEGImage(this.filePath, this.width, this.height,
-            this.maxColorValue, this.pixels);
-      default:
-        throw new IllegalArgumentException("The image type was invalid.");
-    }
   }
 }
