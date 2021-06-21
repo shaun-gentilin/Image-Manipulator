@@ -20,16 +20,19 @@ import manipulation.IManipulation;
 import manipulation.SepiatoneManip;
 import manipulation.SharpenManip;
 
+/**
+ * Class to handle all input to the program.  Is able to parse commands and perform actions on
+ * images based on the given command.
+ */
 public class Controller implements IController {
 
   private Readable in;
-  private boolean loadedImage;
   private ArrayList<ILayeredImage> images;
 
   /**
-   * Simple Constructor for Controller
+   * Simple Constructor for Controller.
    *
-   * @param in Readable input
+   * @param in Readable input.
    */
 
   public Controller(Readable in) {
@@ -37,7 +40,6 @@ public class Controller implements IController {
       throw new IllegalArgumentException("Input is null.");
     }
     this.in = in;
-    this.loadedImage = false;
     this.images = new ArrayList<>();
   }
 
@@ -115,8 +117,9 @@ public class Controller implements IController {
             format = scan.next();
             String filePath = scan.next();
             ifLoad(format, listIndex, layerIndex, filePath);
-          } catch(NoSuchElementException e) {
-            throw new IllegalArgumentException("Current command must have 2 arguments following it.");
+          } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("Current command must have 2 arguments "
+                + "following it.");
           }
           break;
 
@@ -152,8 +155,9 @@ public class Controller implements IController {
           try {
             format = scan.next();
             ifSaveAs(format, listIndex);
-          } catch(NoSuchElementException e) {
-            throw new IllegalArgumentException("Current command must have 2 arguments following it.");
+          } catch (NoSuchElementException e) {
+            throw new IllegalArgumentException("Current command must have 2 arguments "
+                + "following it.");
           }
           break;
 
@@ -175,6 +179,7 @@ public class Controller implements IController {
           }
           path = path.substring(1);
           ifRun(path);
+          break;
 
         default:
           throw new IllegalArgumentException("Not a valid command.");
@@ -232,7 +237,8 @@ public class Controller implements IController {
    * @param filePath          FilePath to be loeaded into specific layer.
    * @throws IllegalArgumentException if format is invalid.
    */
-  private void ifLoad(String format, int listIndex, int layerIndex, String filePath) throws IllegalArgumentException {
+  private void ifLoad(String format, int listIndex, int layerIndex, String filePath)
+      throws IllegalArgumentException {
     if (format.equals("jpeg")) {
       this.images.get(listIndex)
           .replaceLayer(new JPEGImage(filePath), layerIndex); //load image and replace layer

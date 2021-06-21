@@ -1,6 +1,5 @@
 package image;
 
-import com.sun.jdi.connect.IllegalConnectorArgumentsException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -28,6 +27,7 @@ public class JPEGLayeredImage implements ILayeredImage {
 
   /**
    * The constructor for the JPEGLayeredImage class.
+   *
    * @param filename - the file path where the image is being stored.
    */
   public JPEGLayeredImage(String filename) {
@@ -43,12 +43,13 @@ public class JPEGLayeredImage implements ILayeredImage {
   /**
    * Constructor that allows for fields to be initialize from parameters.  Allows for conversion
    * from one layered image type to another.
-   * @param filename - the file path for this image.
-   * @param layers - the layers for this image.
+   *
+   * @param filename          - the file path for this image.
+   * @param layers            - the layers for this image.
    * @param transparentLayers - the layers that are transparent in this image.
-   * @param width - the width for this image.
-   * @param height - the height for this image.
-   * @param maxColorValue - the maximum color value for this image.
+   * @param width             - the width for this image.
+   * @param height            - the height for this image.
+   * @param maxColorValue     - the maximum color value for this image.
    */
   public JPEGLayeredImage(String filename, List<JPEGImage> layers,
       List<JPEGImage> transparentLayers, int width, int height, int maxColorValue) {
@@ -75,7 +76,7 @@ public class JPEGLayeredImage implements ILayeredImage {
         layers.add(new JPEGImage(reader.nextLine()));
       }
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -109,10 +110,10 @@ public class JPEGLayeredImage implements ILayeredImage {
   }
 
   /**
-   * Add a new layer to this image at the top which is a copy of the primary layer (layer 0).
-   * Change the pathname to include information about the layer (e.g. the number of the layer) so
-   * that the path name will be unique to this layer (i.e. no repeated path names if there are
-   * multiple copies).
+   * Add a new layer to this image at the top which is a copy of the primary layer (layer 0). Change
+   * the pathname to include information about the layer (e.g. the number of the layer) so that the
+   * path name will be unique to this layer (i.e. no repeated path names if there are multiple
+   * copies).
    */
   @Override
   public void addLayer() throws IllegalArgumentException {
@@ -121,7 +122,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     try {
       File input = new File(this.filename);
       reader = new Scanner(input);
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
 
@@ -129,8 +130,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     //in the given text file (filename)
     if (!(reader.hasNextLine())) {
       throw new IllegalArgumentException("No main file to copy.");
-    }
-    else {
+    } else {
       String primaryLayerPath = reader.nextLine();
       //take the primary path without the .ppm at the end and add stuff to it so that we know
       //this will be a valid file path.  Add in information about the layer so that the path will
@@ -176,7 +176,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     try {
       newFile.createNewFile();
       FileWriter writer = new FileWriter(newFile);
-      for(int i = 0; i < this.layers.size(); i++) {
+      for (int i = 0; i < this.layers.size(); i++) {
         String outPath = this.layers.get(i).exportImage();
         writer.append(outPath + "\n");
       }
@@ -219,8 +219,7 @@ public class JPEGLayeredImage implements ILayeredImage {
     JPEGImage layer = this.layers.get(layerNum);
     if (this.transparentLayers.contains(layer)) {
       this.transparentLayers.remove(layer);
-    }
-    else {
+    } else {
       this.transparentLayers.add(layer);
     }
   }
@@ -234,17 +233,17 @@ public class JPEGLayeredImage implements ILayeredImage {
    */
   @Override
   public void replaceLayer(IImage image, int layer) throws IllegalArgumentException {
-    if(image == null) {
+    if (image == null) {
       throw new IllegalArgumentException("Image cannot be null.");
     }
-    if(!(image instanceof JPEGImage)) {
+    if (!(image instanceof JPEGImage)) {
       throw new IllegalArgumentException("Image has to be a JPEG.");
     }
-    if(layer < 0 || layer >= this.layers.size()) {
+    if (layer < 0 || layer >= this.layers.size()) {
       throw new IllegalArgumentException("Layer is invalid.");
     }
-    if(image.getHeight() != this.height || image.getWidth() != this.width
-    || image.getMaxColorValue() != this.maxColorValue) {
+    if (image.getHeight() != this.height || image.getWidth() != this.width
+        || image.getMaxColorValue() != this.maxColorValue) {
       throw new IllegalArgumentException("Image does not have same height / width.");
     }
     this.layers.set(layer, (JPEGImage) image);
@@ -284,8 +283,7 @@ public class JPEGLayeredImage implements ILayeredImage {
         }
         if (ctr == 0) {
           format = imageReader.next().getFormatName();
-        }
-        else {
+        } else {
           if (!(format.equalsIgnoreCase(imageReader.next().getFormatName()))) {
             throw new IllegalArgumentException("All image types must be the same.");
           }

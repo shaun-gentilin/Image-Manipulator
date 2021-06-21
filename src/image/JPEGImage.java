@@ -73,8 +73,8 @@ public class JPEGImage implements IImage {
       this.width = img.getWidth();
       this.height = img.getHeight();
       this.pixels = new int[width][height][3];
-      for(int x = 0; x < this.width; x++) {
-        for(int y = 0; y < this.height; y++) {
+      for (int x = 0; x < this.width; x++) {
+        for (int y = 0; y < this.height; y++) {
           int pixel = img.getRGB(x, y);
           Color color = new Color(pixel, true);
           int red = color.getRed();
@@ -85,10 +85,10 @@ public class JPEGImage implements IImage {
         }
       }
       int max = 0;
-      for(int x = 0; x < this.width; x++) {
-        for(int y = 0; y < this.height; y++) {
-          for(int z = 0; z < 3; z++) {
-            if(max < this.pixels[x][y][z]) {
+      for (int x = 0; x < this.width; x++) {
+        for (int y = 0; y < this.height; y++) {
+          for (int z = 0; z < 3; z++) {
+            if (max < this.pixels[x][y][z]) {
               max = this.pixels[x][y][z];
             }
           }
@@ -106,8 +106,8 @@ public class JPEGImage implements IImage {
   @Override
   public String exportImage() throws IllegalArgumentException {
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    for(int x = 0; x < this.width; x++) {
-      for(int y = 0; y < this.height; y++) {
+    for (int x = 0; x < this.width; x++) {
+      for (int y = 0; y < this.height; y++) {
         int r = this.pixels[x][y][0];
         int g = this.pixels[x][y][1];
         int b = this.pixels[x][y][2];
@@ -115,7 +115,7 @@ public class JPEGImage implements IImage {
         img.setRGB(x, y, color);
       }
     }
-    String output = this.filePath.substring(0, this.filePath.length()-4) + "-output.jpg";
+    String output = this.filePath.substring(0, this.filePath.length() - 4) + "-output.jpg";
     File outputPath = new File(output);
     try {
       ImageIO.write(img, "jpg", outputPath);

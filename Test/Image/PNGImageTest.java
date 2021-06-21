@@ -1,9 +1,13 @@
 package image;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * Test class for PNGImage
+ */
 public class PNGImageTest {
 
   //loadImage TESTS
@@ -48,7 +52,6 @@ public class PNGImageTest {
     IImage png = new PNGImage(path);
     assertEquals(5, png.getWidth());
   }
-
 
   //getHeight TESTS
 
@@ -113,7 +116,6 @@ public class PNGImageTest {
     assertEquals(0, png.getPixel(0, png.getHeight() + 1)[2]);
   }
 
-
   //setPixel TESTS
 
 
@@ -122,19 +124,19 @@ public class PNGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     png.setPixel(0, 0, pixel);
     assertEquals(pixel[0], png.getPixel(0, 0)[0]);
     assertEquals(pixel[1], png.getPixel(0, 0)[1]);
     assertEquals(pixel[2], png.getPixel(0, 0)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidWidthLowerBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     png.setPixel(0, 0, pixel);
     assertEquals(pixel[0], png.getPixel(-1, 0)[0]);
     assertEquals(pixel[1], png.getPixel(-1, 0)[1]);
@@ -146,49 +148,48 @@ public class PNGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     png.setPixel(0, 0, pixel);
-    assertEquals(pixel[0], png.getPixel(png.getWidth()+1, 0)[0]);
-    assertEquals(pixel[1], png.getPixel(png.getWidth()+1, 0)[1]);
-    assertEquals(pixel[2], png.getPixel(png.getWidth()+1, 0)[2]);
+    assertEquals(pixel[0], png.getPixel(png.getWidth() + 1, 0)[0]);
+    assertEquals(pixel[1], png.getPixel(png.getWidth() + 1, 0)[1]);
+    assertEquals(pixel[2], png.getPixel(png.getWidth() + 1, 0)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidHeightLowerBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     png.setPixel(0, 0, pixel);
     assertEquals(pixel[0], png.getPixel(0, -1)[0]);
     assertEquals(pixel[1], png.getPixel(0, -1)[1]);
     assertEquals(pixel[2], png.getPixel(0, -1)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidHeightUpperBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     png.setPixel(0, 0, pixel);
-    assertEquals(pixel[0], png.getPixel(0, png.getHeight()+1)[0]);
-    assertEquals(pixel[1], png.getPixel(0, png.getHeight()+1)[1]);
-    assertEquals(pixel[2], png.getPixel(0, png.getHeight()+1)[2]);
+    assertEquals(pixel[0], png.getPixel(0, png.getHeight() + 1)[0]);
+    assertEquals(pixel[1], png.getPixel(0, png.getHeight() + 1)[1]);
+    assertEquals(pixel[2], png.getPixel(0, png.getHeight() + 1)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidPixelSize() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage png = new PNGImage(path);
-    int [] pixel = new int [] {1, 1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1, 1};
     png.setPixel(0, 0, pixel);
     assertEquals(pixel[0], png.getPixel(0, 0)[0]);
     assertEquals(pixel[1], png.getPixel(0, 0)[1]);
     assertEquals(pixel[2], png.getPixel(0, 0)[2]);
   }
-
 
   //getMaxColorValue TESTS
 
@@ -203,7 +204,6 @@ public class PNGImageTest {
     IImage jpeg = new JPEGImage(path);
     assertEquals(0, jpeg.getMaxColorValue());
   }
-
 
   //exportImage TESTS
 
@@ -267,9 +267,9 @@ public class PNGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 
   /*
@@ -285,9 +285,9 @@ public class PNGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 
   /*
@@ -303,8 +303,8 @@ public class PNGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 }

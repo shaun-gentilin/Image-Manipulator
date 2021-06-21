@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import org.junit.Test;
 
+/**
+ * Test class for PPMLayeredImage.
+ */
 public class PPMLayeredImageTest {
   //loadImageLayers TESTS
 
@@ -80,7 +83,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
   }
 
-
   //getWidth TESTS
 
 
@@ -91,7 +93,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
     assertEquals(5, image.getWidth());
   }
-
 
   //getHeight TESTS
 
@@ -104,7 +105,6 @@ public class PPMLayeredImageTest {
     assertEquals(5, image.getHeight());
   }
 
-
   //getMaxColorValue TESTS
 
 
@@ -115,7 +115,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
     assertEquals(255, image.getMaxColorValue());
   }
-
 
   //removeLayer TESTS
 
@@ -145,7 +144,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
     image.removeLayer(100);
   }
-
 
   //toggleLayerTransparency TESTS
 
@@ -205,7 +203,6 @@ public class PPMLayeredImageTest {
     image.toggleLayerTransparency(100);
   }
 
-
   //exportImage TESTS
 
 
@@ -255,7 +252,7 @@ public class PPMLayeredImageTest {
   /*
   Test a case where all layers are transparent, so there is nothing to export.
    */
-  @Test (expected = IllegalStateException.class)
+  @Test(expected = IllegalStateException.class)
   public void testExportImageAllTransparent() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\PPM\\valid image\\valid-image.txt";
@@ -264,7 +261,6 @@ public class PPMLayeredImageTest {
     image.toggleLayerTransparency(1);
     image.exportImage();
   }
-
 
   //saveImage TESTS
 
@@ -291,7 +287,7 @@ public class PPMLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
@@ -322,14 +318,12 @@ public class PPMLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
 
-
   //getLayer TESTS
-
 
 
   /*
@@ -347,15 +341,15 @@ public class PPMLayeredImageTest {
     assertEquals(expected.getHeight(), layer.getHeight());
     assertEquals(expected.getWidth(), layer.getWidth());
     assertEquals(expected.getMaxColorValue(), layer.getMaxColorValue());
-    assertEquals(expected.getPixel(0,0)[0], layer.getPixel(0,0)[0]);
-    assertEquals(expected.getPixel(0,0)[1], layer.getPixel(0,0)[1]);
-    assertEquals(expected.getPixel(0,0)[2], layer.getPixel(0,0)[2]);
+    assertEquals(expected.getPixel(0, 0)[0], layer.getPixel(0, 0)[0]);
+    assertEquals(expected.getPixel(0, 0)[1], layer.getPixel(0, 0)[1]);
+    assertEquals(expected.getPixel(0, 0)[2], layer.getPixel(0, 0)[2]);
   }
 
   /*
   Test passing a negative layer number to the method.
    */
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetLayerInvalidLayerLowerBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\PPM\\valid image\\valid-image.txt";
@@ -366,14 +360,13 @@ public class PPMLayeredImageTest {
   /*
   Test passing a layer number that is too high to the method.
    */
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetLayerInvalidLayerUpperBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\PPM\\valid image\\valid-image.txt";
     ILayeredImage image = new PPMLayeredImage(path);
     IImage layer = image.getLayer(100);
   }
-
 
   //addLayer TESTS
 
@@ -397,9 +390,9 @@ public class PPMLayeredImageTest {
     assertEquals(expected.getHeight(), layer.getHeight());
     assertEquals(expected.getWidth(), layer.getWidth());
     assertEquals(expected.getMaxColorValue(), layer.getMaxColorValue());
-    assertEquals(expected.getPixel(0,0)[0], layer.getPixel(0,0)[0]);
-    assertEquals(expected.getPixel(0,0)[1], layer.getPixel(0,0)[1]);
-    assertEquals(expected.getPixel(0,0)[2], layer.getPixel(0,0)[2]);
+    assertEquals(expected.getPixel(0, 0)[0], layer.getPixel(0, 0)[0]);
+    assertEquals(expected.getPixel(0, 0)[1], layer.getPixel(0, 0)[1]);
+    assertEquals(expected.getPixel(0, 0)[2], layer.getPixel(0, 0)[2]);
     assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PPM\\valid "
         + "image\\black0-layer1-output.ppm", outputPath);
@@ -426,7 +419,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
     image.addLayer();
   }
-
 
   //replaceLayer TESTS
 
@@ -511,7 +503,6 @@ public class PPMLayeredImageTest {
     image.replaceLayer(newImage, 0);
   }
 
-
   //getAmountLayers TESTS
 
 
@@ -525,7 +516,6 @@ public class PPMLayeredImageTest {
     ILayeredImage image = new PPMLayeredImage(path);
     assertEquals(2, image.getAmountLayers());
   }
-
 
   //saveImageAs TESTS
 
@@ -552,7 +542,7 @@ public class PPMLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
@@ -579,7 +569,7 @@ public class PPMLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
@@ -606,7 +596,7 @@ public class PPMLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch(FileNotFoundException error) {
+    } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }

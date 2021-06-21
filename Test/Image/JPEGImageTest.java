@@ -3,11 +3,12 @@ package image;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import controller.Controller;
-import controller.IController;
-import java.io.StringReader;
+
 import org.junit.Test;
 
+/**
+ * Test class for JPEGImage
+ */
 public class JPEGImageTest {
 
   //loadImage TESTS
@@ -41,7 +42,6 @@ public class JPEGImageTest {
     IImage badFile = new JPEGImage("badFile");
   }
 
-
   //getWidth TESTS
 
 
@@ -53,7 +53,6 @@ public class JPEGImageTest {
     assertEquals(5, jpeg.getWidth());
   }
 
-
   //getHeight TESTS
 
 
@@ -64,7 +63,6 @@ public class JPEGImageTest {
     IImage jpeg = new JPEGImage(path);
     assertEquals(5, jpeg.getHeight());
   }
-
 
   //getPixel TESTS
 
@@ -119,7 +117,6 @@ public class JPEGImageTest {
     assertEquals(0, jpeg.getPixel(0, jpeg.getHeight() + 1)[2]);
   }
 
-
   //setPixel TESTS
 
 
@@ -128,19 +125,19 @@ public class JPEGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
     assertEquals(pixel[0], jpeg.getPixel(0, 0)[0]);
     assertEquals(pixel[1], jpeg.getPixel(0, 0)[1]);
     assertEquals(pixel[2], jpeg.getPixel(0, 0)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidWidthLowerBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
     assertEquals(pixel[0], jpeg.getPixel(-1, 0)[0]);
     assertEquals(pixel[1], jpeg.getPixel(-1, 0)[1]);
@@ -152,35 +149,35 @@ public class JPEGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
-    assertEquals(pixel[0], jpeg.getPixel(jpeg.getWidth()+1, 0)[0]);
-    assertEquals(pixel[1], jpeg.getPixel(jpeg.getWidth()+1, 0)[1]);
-    assertEquals(pixel[2], jpeg.getPixel(jpeg.getWidth()+1, 0)[2]);
+    assertEquals(pixel[0], jpeg.getPixel(jpeg.getWidth() + 1, 0)[0]);
+    assertEquals(pixel[1], jpeg.getPixel(jpeg.getWidth() + 1, 0)[1]);
+    assertEquals(pixel[2], jpeg.getPixel(jpeg.getWidth() + 1, 0)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidHeightLowerBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
     assertEquals(pixel[0], jpeg.getPixel(0, -1)[0]);
     assertEquals(pixel[1], jpeg.getPixel(0, -1)[1]);
     assertEquals(pixel[2], jpeg.getPixel(0, -1)[2]);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetPixelInvalidHeightUpperBound() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
-    assertEquals(pixel[0], jpeg.getPixel(0, jpeg.getHeight()+1)[0]);
-    assertEquals(pixel[1], jpeg.getPixel(0, jpeg.getHeight()+1)[1]);
-    assertEquals(pixel[2], jpeg.getPixel(0, jpeg.getHeight()+1)[2]);
+    assertEquals(pixel[0], jpeg.getPixel(0, jpeg.getHeight() + 1)[0]);
+    assertEquals(pixel[1], jpeg.getPixel(0, jpeg.getHeight() + 1)[1]);
+    assertEquals(pixel[2], jpeg.getPixel(0, jpeg.getHeight() + 1)[2]);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -188,13 +185,12 @@ public class JPEGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    int [] pixel = new int [] {1, 1, 1, 1};
+    int[] pixel = new int[]{1, 1, 1, 1};
     jpeg.setPixel(0, 0, pixel);
     assertEquals(pixel[0], jpeg.getPixel(0, 0)[0]);
     assertEquals(pixel[1], jpeg.getPixel(0, 0)[1]);
     assertEquals(pixel[2], jpeg.getPixel(0, 0)[2]);
   }
-
 
   //getMaxColorValue TESTS
 
@@ -209,7 +205,6 @@ public class JPEGImageTest {
     IImage jpeg = new JPEGImage(path);
     assertEquals(0, jpeg.getMaxColorValue());
   }
-
 
   //exportImage TESTS
 
@@ -257,7 +252,6 @@ public class JPEGImageTest {
     image.exportImage();
   }
 
-
   //convertTo TESTS
 
 
@@ -274,9 +268,9 @@ public class JPEGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 
   /*
@@ -292,9 +286,9 @@ public class JPEGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 
   /*
@@ -310,8 +304,8 @@ public class JPEGImageTest {
     assertEquals(image.getWidth(), newImage.getWidth());
     assertEquals(image.getHeight(), newImage.getHeight());
     assertEquals(image.getMaxColorValue(), newImage.getMaxColorValue());
-    assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
-    assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
-    assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+    assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 }
