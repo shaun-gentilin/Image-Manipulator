@@ -49,8 +49,10 @@ public interface ILayeredImage {
    * Analyses and returns the formot of an input image file.
    * @param filename      image file.
    * @return              format of filename.
+   * @throws IllegalArgumentException if all images do not have the same type or if the input file
+   * cannot be read.
    */
-  String getImageFormat(String filename);
+  String getImageFormat(String filename) throws IllegalArgumentException;
 
   /**
    * Add a new layer to this image at the top which is a copy of the primary layer (layer 0).
