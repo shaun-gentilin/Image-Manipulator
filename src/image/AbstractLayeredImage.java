@@ -130,10 +130,10 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * @return a string representing the filename of the layer that was exported.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException, IllegalStateException {
+  public void exportImage() throws IllegalArgumentException, IllegalStateException {
     for (int i = this.layers.size() - 1; i >= 0; i--) {
       if (!(this.transparentLayers.contains(this.layers.get(i)))) {
-        return this.layers.get(i).exportImage();
+        this.layers.get(i).exportImage();
       }
     }
     throw new IllegalStateException("All layers were transparent.");
@@ -229,31 +229,13 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
   }
 
   /**
-   * Give the add-on for the file output path for the specific image type that we are working with.
-   * For example, for a ppm image, the addition should be "-output-ppm.txt".
-   * @return the String add-on.
-   */
-  protected abstract String saveImagePathAddition();
-
-  /**
    * Save all layered images to text file.
    */
   @Override
-  public String saveImage() {
-    String path = this.filename.substring(0, this.filename.length() - 4) + saveImagePathAddition();
-    File newFile = new File(path);
-    try {
-      newFile.createNewFile();
-      FileWriter writer = new FileWriter(newFile);
+  public void saveImage() {
       for (int i = 0; i < this.layers.size(); i++) {
-        String outPath = this.layers.get(i).exportImage();
-        writer.write(outPath + "\n");
+        this.layers.get(i).exportImage();
       }
-      writer.close();
-    } catch (IOException error) {
-      throw new IllegalStateException("Cannot write to text file.");
-    }
-    return path;
   }
 
   /**
@@ -318,7 +300,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * @throws IllegalArgumentException if the type was invalid.
    */
   @Override
-  public String saveImageAs(ImageType type) throws IllegalArgumentException {
+  public void saveImageAs(ImageType type) throws IllegalArgumentException {
     List<IImage> newLayers = new ArrayList<>();
     List<IImage> newTransLayers = new ArrayList<>();
     for (IImage i : this.layers) {
@@ -349,6 +331,6 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
         throw new IllegalArgumentException("The image type was invalid.");
     }
 
-    return newLayeredImage.saveImage();
+    newLayeredImage.saveImage();
   }
 }

@@ -66,15 +66,4 @@ public class PPMLayeredImage extends AbstractLayeredImage {
     //original layer.
     return new PPMImage(newPath, true);
   }
-
-  /**
-   * Give the add-on for the file output path for the specific image type that we are working with.
-   * For example, for a ppm image, the addition should be "-output-ppm.txt".
-   *
-   * @return the String add-on.
-   */
-  @Override
-  protected String saveImagePathAddition() {
-    return "-output-ppm.txt";
-  }
 }
