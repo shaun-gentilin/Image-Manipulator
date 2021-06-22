@@ -1,8 +1,19 @@
 package controller;
 
+import java.util.Objects;
+import model.ILayeredImageModel;
+import view.IView;
 import view.IViewListener;
 
 public class Controller implements IController, IViewListener {
+  ILayeredImageModel model;
+  IView view;
+
+  public Controller(ILayeredImageModel model, IView view) {
+    Objects.requireNonNull(model);
+    Objects.requireNonNull(view);
+    this.view.registerViewEventListener(this);
+  }
 
   @Override
   public void run() {

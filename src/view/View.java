@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -231,5 +232,14 @@ public class View extends JFrame implements IView, ActionListener {
     for (IViewListener listener : this.viewListners) {
       listener.handleMakeInvisibleEvent();
     }
+  }
+
+  /**
+   * Register the given listener as a view event listener for this view.
+   * @param listener - the listener to be registered.
+   */
+  @Override
+  public void registerViewEventListener(IViewListener listener){
+    this.viewListners.add(Objects.requireNonNull(listener));
   }
 }
