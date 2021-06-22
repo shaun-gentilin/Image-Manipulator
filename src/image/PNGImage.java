@@ -1,6 +1,5 @@
 package image;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -58,14 +57,12 @@ public class PNGImage extends AbstractIOImage {
    * @throws IllegalArgumentException if the file could not be written to.
    */
   @Override
-  protected String exportHelp(BufferedImage img) throws IllegalArgumentException {
-    String output = this.filePath.substring(0, this.filePath.length() - 4) + "-output.png";
-    File outputPath = new File(output);
+  protected void exportHelp(BufferedImage img) throws IllegalArgumentException {
+    File output = new File(super.filePath);
     try {
-      ImageIO.write(img, "png", outputPath);
+      ImageIO.write(img, "png", output);
     } catch (IOException ioException) {
       throw new IllegalArgumentException("Could not write the new Image.");
     }
-    return output;
   }
 }

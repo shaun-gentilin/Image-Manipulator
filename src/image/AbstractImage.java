@@ -88,7 +88,7 @@ public abstract class AbstractImage implements IImage {
    *                                  not valid for the type of image.
    */
   @Override
-  public void setPixel(int width, int height, int[] pixel) throws IllegalArgumentException {
+  public void setPixel(int width, int height, int [] pixel) throws IllegalArgumentException {
     if (width < 0 || height < 0
         || width > this.width
         || height > this.height) {
@@ -96,6 +96,14 @@ public abstract class AbstractImage implements IImage {
     } else if (pixel.length != 3) {
       throw new IllegalArgumentException("Not a valid pixel to set.");
     }
+
+    //check if the color values are within the proper range
+    for (int i : pixel) {
+      if (i < 0 || i > this.maxColorValue) {
+        throw new IllegalArgumentException("Pixel color values are not valid.");
+      }
+    }
+
     this.pixels[width][height] = pixel.clone();
   }
 
@@ -124,7 +132,7 @@ public abstract class AbstractImage implements IImage {
    * @return the file path for the exported image.
    */
   @Override
-  public abstract String exportImage() throws IllegalArgumentException;
+  public abstract void exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this image.

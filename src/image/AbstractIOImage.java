@@ -70,21 +70,11 @@ public abstract class AbstractIOImage extends AbstractImage {
           int red = color.getRed();
           int green = color.getGreen();
           int blue = color.getBlue();
+          this.maxColorValue = color.getAlpha();
           int [] singlePixel = new int [] {red, green, blue};
           this.pixels[x][y] = singlePixel;
         }
       }
-      int max = 0;
-      for (int x = 0; x < this.width; x++) {
-        for (int y = 0; y < this.height; y++) {
-          for (int z = 0; z < 3; z++) {
-            if (max < this.pixels[x][y][z]) {
-              max = this.pixels[x][y][z];
-            }
-          }
-        }
-      }
-      this.maxColorValue = max;
     } catch (IOException error) {
       throw new IllegalArgumentException("File does not exist.");
     }
@@ -96,27 +86,25 @@ public abstract class AbstractIOImage extends AbstractImage {
    * @return the file path for the exported image.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException {
+  public void exportImage() throws IllegalArgumentException {
     BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
     for (int x = 0; x < this.width; x++) {
       for (int y = 0; y < this.height; y++) {
-        int r = this.pixels[x][y][0];
-        int g = this.pixels[x][y][1];
-        int b = this.pixels[x][y][2];
+        int r = super.pixels[x][y][0];
+        int g = super.pixels[x][y][1];
+        int b = super.pixels[x][y][2];
         int color = (r << 16) | (g << 8) | b;
         img.setRGB(x, y, color);
       }
     }
-    return exportHelp(img);
+    exportHelp(img);
   }
 
   /**
-   * Help the export by creating the specific output file path based on the image type.  For
-   * example, a png will end with -output.png.  After this path is created export the image with
-   * the specific type to that path.
+   * Help the export by creating the specific output file path based on the image type.
    * @param img - the image to be exported.
    * @return a string representing the path that the image was exported to.
    * @throws IllegalArgumentException if the file could not be written to.
    */
-  protected abstract String exportHelp(BufferedImage img) throws IllegalArgumentException;
+  protected abstract void exportHelp(BufferedImage img) throws IllegalArgumentException;
 }

@@ -40,7 +40,7 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
    * @throws IllegalArgumentException for any IOExceptions.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException {
+  public void exportImage() throws IllegalArgumentException {
     String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
     File output = new File(path);
     boolean isFileCreated = false;
@@ -87,7 +87,6 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
     } catch (IOException error) {
       System.out.println("Error occurred.");
     }
-    return path;
   }
 
   /**

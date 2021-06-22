@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
+import javax.imageio.ImageIO;
 import org.junit.Test;
 
 /**
@@ -19,7 +20,7 @@ public class JPEGImageTest {
     IImage jpeg = new JPEGImage(path);
     assertEquals(5, jpeg.getHeight());
     assertEquals(5, jpeg.getWidth());
-    assertEquals(0, jpeg.getMaxColorValue());
+    assertEquals(255, jpeg.getMaxColorValue());
     assertEquals(0, jpeg.getPixel(0, 0)[0]);
     assertEquals(0, jpeg.getPixel(0, 0)[1]);
     assertEquals(0, jpeg.getPixel(0, 0)[2]);
@@ -130,6 +131,7 @@ public class JPEGImageTest {
     assertEquals(pixel[0], jpeg.getPixel(0, 0)[0]);
     assertEquals(pixel[1], jpeg.getPixel(0, 0)[1]);
     assertEquals(pixel[2], jpeg.getPixel(0, 0)[2]);
+    jpeg.setPixel(0, 0, new int[]{0,0,0});
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -203,7 +205,7 @@ public class JPEGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    assertEquals(0, jpeg.getMaxColorValue());
+    assertEquals(255, jpeg.getMaxColorValue());
   }
 
   //exportImage TESTS
@@ -213,18 +215,16 @@ public class JPEGImageTest {
   Test exporting a valid image.
    */
   @Test
-  public void testExportImageValidImage() {
+  public void testExportImageValidImageNoModification() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage image = new JPEGImage(path);
-    String outputPath = image.exportImage();
-    assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0-output.jpg", outputPath);
+    image.exportImage();
 
-    IImage outputImage = new JPEGImage(outputPath);
+    IImage outputImage = new JPEGImage(path);
     assertEquals(5, outputImage.getHeight());
     assertEquals(5, outputImage.getWidth());
-    assertEquals(0, outputImage.getMaxColorValue());
+    assertEquals(255, outputImage.getMaxColorValue());
     assertEquals(0, outputImage.getPixel(0, 0)[0]);
     assertEquals(0, outputImage.getPixel(0, 0)[1]);
     assertEquals(0, outputImage.getPixel(0, 0)[2]);
@@ -240,6 +240,43 @@ public class JPEGImageTest {
     assertEquals(0, outputImage.getPixel(0, 4)[0]);
     assertEquals(0, outputImage.getPixel(0, 4)[1]);
     assertEquals(0, outputImage.getPixel(0, 4)[2]);
+  }
+
+  /*
+  Test exporting after changing a pixel.
+   */
+  @Test
+  public void testExportImageValidImageAfterModification() {
+    String readFormats[] = ImageIO.getReaderFormatNames();
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
+    IImage image = new JPEGImage(path);
+    image.setPixel(0,1, new int [] {255, 255, 255});
+    image.exportImage();
+
+    IImage outputImage = new JPEGImage(path);
+    assertEquals(5, outputImage.getHeight());
+    assertEquals(5, outputImage.getWidth());
+    assertEquals(255, outputImage.getMaxColorValue());
+    assertEquals(0, outputImage.getPixel(0, 0)[0]);
+    assertEquals(0, outputImage.getPixel(0, 0)[1]);
+    assertEquals(0, outputImage.getPixel(0, 0)[2]);
+    assertEquals(1, outputImage.getPixel(0, 1)[0]);
+    assertEquals(2, outputImage.getPixel(0, 1)[1]);
+    assertEquals(3, outputImage.getPixel(0, 1)[2]);
+    assertEquals(0, outputImage.getPixel(0, 2)[0]);
+    assertEquals(0, outputImage.getPixel(0, 2)[1]);
+    assertEquals(0, outputImage.getPixel(0, 2)[2]);
+    assertEquals(0, outputImage.getPixel(0, 3)[0]);
+    assertEquals(0, outputImage.getPixel(0, 3)[1]);
+    assertEquals(0, outputImage.getPixel(0, 3)[2]);
+    assertEquals(0, outputImage.getPixel(0, 4)[0]);
+    assertEquals(0, outputImage.getPixel(0, 4)[1]);
+    assertEquals(0, outputImage.getPixel(0, 4)[2]);
+
+    //reset the image in case the test is run again
+    image.setPixel(0,0, new int [] {0, 0, 0});
+    image.exportImage();
   }
 
   /*

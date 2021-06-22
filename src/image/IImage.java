@@ -50,10 +50,10 @@ public interface IImage {
   int[] getPixel(int width, int height);
 
   /**
-   * Export this image to a new output file path.
+   * Export this image to its existing file path (save).
    * @return the file path for the exported image.
    */
-  String exportImage() throws IllegalArgumentException;
+  void exportImage() throws IllegalArgumentException;
 
   /**
    * Get the max color value for this image.

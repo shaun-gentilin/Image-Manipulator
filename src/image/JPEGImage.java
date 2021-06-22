@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import javax.imageio.ImageIO;
-import java.awt.Color;
 
 /**
  * Class to represent an image in the JPEG format.  An image has a width, height, maxColorValue,
@@ -17,9 +16,7 @@ public class JPEGImage extends AbstractIOImage {
    * values using the parent constructor.
    * @param filePath - the file path where the picture is being stored.
    */
-  public JPEGImage(String filePath) {
-    super(filePath);
-  }
+  public JPEGImage(String filePath) { super(filePath); }
 
   /**
    * Convenience constructor for a JPEGImage.  Specifies whether the image at the given file path
@@ -58,14 +55,12 @@ public class JPEGImage extends AbstractIOImage {
    * @throws IllegalArgumentException if the file could not be written to.
    */
   @Override
-  protected String exportHelp(BufferedImage img) throws IllegalArgumentException {
-    String output = this.filePath.substring(0, this.filePath.length() - 4) + "-output.jpg";
-    File outputPath = new File(output);
+  protected void exportHelp(BufferedImage img) throws IllegalArgumentException {
+    File output = new File(super.filePath);
     try {
-      ImageIO.write(img, "jpg", outputPath);
+      ImageIO.write(img, "jpg", output);
     } catch (IOException ioException) {
       throw new IllegalArgumentException("Could not write the new Image.");
     }
-    return output;
   }
 }

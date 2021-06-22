@@ -121,27 +121,11 @@ public class PPMImage extends AbstractImage {
    * @throws IllegalArgumentException if creating file / writing to file fails.
    */
   @Override
-  public String exportImage() throws IllegalArgumentException {
-    String path = this.filePath.substring(0, this.filePath.length() - 4) + "-output.ppm";
-    File output = new File(path);
-
-    boolean isFileCreated;
-
-    try {
-      isFileCreated = output.createNewFile();
-    } catch (IOException e) {
-      throw new IllegalArgumentException("Bad filename.");
-    }
-
-    if (isFileCreated) {
-      System.out.println("File was created.");
-    } else {
-      System.out.println("File already existed and is being overwritten.");
-    }
-
+  public void exportImage() throws IllegalArgumentException {
     FileWriter writer;
     try {
-      writer = new FileWriter(path, false);
+      writer = new FileWriter(this.filePath, false);
+      writer.flush();
     } catch (IOException ioException) {
       throw new IllegalArgumentException("Bad file.");
     }
@@ -161,6 +145,5 @@ public class PPMImage extends AbstractImage {
     } catch (IOException error) {
       System.out.println("Error occurred.");
     }
-    return path;
   }
 }

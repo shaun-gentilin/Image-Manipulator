@@ -20,7 +20,7 @@ public class PNGImageTest {
     IImage png = new PNGImage(path);
     assertEquals(5, png.getHeight());
     assertEquals(5, png.getWidth());
-    assertEquals(0, png.getMaxColorValue());
+    assertEquals(255, png.getMaxColorValue());
     assertEquals(0, png.getPixel(0, 0)[0]);
     assertEquals(0, png.getPixel(0, 0)[1]);
     assertEquals(0, png.getPixel(0, 0)[2]);
@@ -201,8 +201,8 @@ public class PNGImageTest {
   public void testGetMaxColorValue() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
-    IImage jpeg = new JPEGImage(path);
-    assertEquals(0, jpeg.getMaxColorValue());
+    IImage image = new PNGImage(path);
+    assertEquals(255, image.getMaxColorValue());
   }
 
   //exportImage TESTS
@@ -212,18 +212,16 @@ public class PNGImageTest {
   Test exporting a valid image.
    */
   @Test
-  public void testExportImageValidImage() {
+  public void testExportImageValidImageNoModification() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
     IImage image = new PNGImage(path);
-    String outputPath = image.exportImage();
-    assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0-output.png", outputPath);
+    image.exportImage();
 
-    IImage outputImage = new PNGImage(outputPath);
+    IImage outputImage = new PNGImage(path);
     assertEquals(5, outputImage.getHeight());
     assertEquals(5, outputImage.getWidth());
-    assertEquals(0, outputImage.getMaxColorValue());
+    assertEquals(255, outputImage.getMaxColorValue());
     assertEquals(0, outputImage.getPixel(0, 0)[0]);
     assertEquals(0, outputImage.getPixel(0, 0)[1]);
     assertEquals(0, outputImage.getPixel(0, 0)[2]);
@@ -239,6 +237,42 @@ public class PNGImageTest {
     assertEquals(0, outputImage.getPixel(0, 4)[0]);
     assertEquals(0, outputImage.getPixel(0, 4)[1]);
     assertEquals(0, outputImage.getPixel(0, 4)[2]);
+  }
+
+  /*
+  Test exporting after a modification.
+   */
+  @Test
+  public void testExportImageValidImageAfterMod() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
+    IImage image = new PNGImage(path);
+    image.setPixel(0,0, new int [] {1, 2, 3});
+    image.exportImage();
+
+    IImage outputImage = new PNGImage(path);
+    assertEquals(5, outputImage.getHeight());
+    assertEquals(5, outputImage.getWidth());
+    assertEquals(255, outputImage.getMaxColorValue());
+    assertEquals(1, outputImage.getPixel(0, 0)[0]);
+    assertEquals(2, outputImage.getPixel(0, 0)[1]);
+    assertEquals(3, outputImage.getPixel(0, 0)[2]);
+    assertEquals(0, outputImage.getPixel(0, 1)[0]);
+    assertEquals(0, outputImage.getPixel(0, 1)[1]);
+    assertEquals(0, outputImage.getPixel(0, 1)[2]);
+    assertEquals(0, outputImage.getPixel(0, 2)[0]);
+    assertEquals(0, outputImage.getPixel(0, 2)[1]);
+    assertEquals(0, outputImage.getPixel(0, 2)[2]);
+    assertEquals(0, outputImage.getPixel(0, 3)[0]);
+    assertEquals(0, outputImage.getPixel(0, 3)[1]);
+    assertEquals(0, outputImage.getPixel(0, 3)[2]);
+    assertEquals(0, outputImage.getPixel(0, 4)[0]);
+    assertEquals(0, outputImage.getPixel(0, 4)[1]);
+    assertEquals(0, outputImage.getPixel(0, 4)[2]);
+
+    //reset the image in case the test is run again
+    image.setPixel(0,0, new int [] {0, 0, 0});
+    image.exportImage();
   }
 
   /*

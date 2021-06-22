@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import org.junit.Test;
 
@@ -27,7 +28,7 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     assertEquals(5, image.getHeight());
     assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
     assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
     assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
     assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
@@ -115,7 +116,7 @@ public class JPEGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
     ILayeredImage image = new JPEGLayeredImage(path);
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
   }
 
   //removeLayer TESTS
@@ -151,37 +152,18 @@ public class JPEGLayeredImageTest {
 
 
   /*
-  Test the case where a layer is toggled to be transparent.  If the last file in the list of layers
-  is toggled to be transparent, it should not be exported (the next topmost visible layer should be
-  exported).
+  Test the case where all layers are toggled to be transparent.  If the last file in the list of
+  layers is toggled to be transparent, it should not be exported (the next topmost visible layer
+  should be exported).  So we should get an exception if all layers are toggled transparent.
    */
-  @Test
-  public void testToggleTransparencyOn() {
-    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
-    ILayeredImage image = new JPEGLayeredImage(path);
-    image.toggleLayerTransparency(1);
-    String outputPath = image.exportImage();
-    assertFalse(("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\"
-        + "black1-output.jpg").equals(outputPath));
-  }
-
-  /*
-  Test the case where a layer is toggled to be visible.  This image should be exported if it is the
-  topmost.
-   */
-  @Test
+  @Test(expected = IllegalStateException.class)
   public void testToggleTransparencyOff() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
     ILayeredImage image = new JPEGLayeredImage(path);
+    image.toggleLayerTransparency(0);
     image.toggleLayerTransparency(1);
-    image.toggleLayerTransparency(1);
-    String outputPath = image.exportImage();
-    assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\"
-        + "black1-output.jpg", outputPath);
+    image.exportImage();
   }
 
   /*
@@ -218,38 +200,34 @@ public class JPEGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
     ILayeredImage image = new JPEGLayeredImage(path);
-    String outputPath = image.exportImage();
-    assertTrue(("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\"
-        + "black1-output.jpg").equals(outputPath));
-    assertEquals(5, image.getHeight());
-    assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
-    assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 1)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 1)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(0).getPixel(1, 1)[0]);
+    //change one pixel so we know it worked
+    image.getLayer(1).setPixel(0,0, new int[]{1,2,3});
+    image.exportImage();
+    String exportPath = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\black1.jpg";
+    JPEGImage outputImage = new JPEGImage(exportPath);
+    assertEquals(5, outputImage.getHeight());
+    assertEquals(5, outputImage.getWidth());
+    assertEquals(255, outputImage.getMaxColorValue());
+    assertEquals(1, outputImage.getPixel(0, 0)[0]);
+    assertEquals(2, outputImage.getPixel(0, 0)[1]);
+    assertEquals(3, outputImage.getPixel(0, 0)[2]);
+    assertEquals(0, outputImage.getPixel(0, 1)[0]);
+    assertEquals(0, outputImage.getPixel(0, 1)[1]);
+    assertEquals(0, outputImage.getPixel(0, 1)[2]);
+    assertEquals(0, outputImage.getPixel(0, 2)[0]);
+    assertEquals(0, outputImage.getPixel(0, 2)[1]);
+    assertEquals(0, outputImage.getPixel(0, 2)[2]);
+    assertEquals(0, outputImage.getPixel(0, 3)[0]);
+    assertEquals(0, outputImage.getPixel(0, 3)[1]);
+    assertEquals(0, outputImage.getPixel(0, 3)[2]);
+    assertEquals(0, outputImage.getPixel(0, 4)[0]);
+    assertEquals(0, outputImage.getPixel(0, 4)[1]);
+    assertEquals(0, outputImage.getPixel(0, 4)[2]);
 
-    assertEquals(0, image.getLayer(1).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 1)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 1)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(0, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(0, 1)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 0)[0]);
-    assertEquals(0, image.getLayer(1).getPixel(1, 1)[0]);
+    //reset it for other tests
+    image.getLayer(1).setPixel(0,0, new int[]{0,0,0});
+    image.exportImage();
   }
 
   /*
@@ -276,19 +254,17 @@ public class JPEGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\JPG\\save image jpg test no changes\\save-image-text-test-no-changes.txt";
     ILayeredImage image = new JPEGLayeredImage(path);
+
+    //change one pixel so we know it works
+    image.getLayer(1).setPixel(0,0, new int[]{1,2,3});
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
     try {
-      File input = new File(outPath);
+      File input = new File(path);
       Scanner reader = new Scanner(input);
-      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test no changes\\black0-output.jpg",
-          reader.nextLine());
-      assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test no changes\\black1-output.jpg",
-          reader.nextLine());
-      assertFalse(reader.hasNextLine());
+      reader.nextLine();
+      JPEGImage savedImage = new JPEGImage(reader.nextLine());
+      assertEquals(1, savedImage.getPixel(0,0)[0]);
       reader.close();
     } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
@@ -306,18 +282,17 @@ public class JPEGLayeredImageTest {
     image.addLayer();
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
     try {
-      File input = new File(outPath);
+      File input = new File(path);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-output.jpg",
+              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0.jpg",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black1-output.jpg",
+              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black1.jpg",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-layer1-output.jpg",
+              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-layer2.jpg",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -384,8 +359,6 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.addLayer();
 
-    String outputPath = image.exportImage();
-
     IImage layer = image.getLayer(2);
     IImage expected = new JPEGImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\black0.jpg");
@@ -396,9 +369,6 @@ public class JPEGLayeredImageTest {
     assertEquals(expected.getPixel(0, 0)[0], layer.getPixel(0, 0)[0]);
     assertEquals(expected.getPixel(0, 0)[1], layer.getPixel(0, 0)[1]);
     assertEquals(expected.getPixel(0, 0)[2], layer.getPixel(0, 0)[2]);
-    assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid "
-        + "image\\black0-layer1-output.jpg", outputPath);
   }
 
   /*
@@ -437,10 +407,14 @@ public class JPEGLayeredImageTest {
     IImage newImage = new JPEGImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\black0.jpg");
     image.replaceLayer(newImage, 1);
-    String outputPath = image.exportImage();
-    assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
-            + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\black0-output.jpg",
-        outputPath);
+
+    IImage expected = image.getLayer(1);
+    assertEquals(expected.getHeight(), newImage.getHeight());
+    assertEquals(expected.getWidth(), newImage.getWidth());
+    assertEquals(expected.getMaxColorValue(), newImage.getMaxColorValue());
+    assertEquals(expected.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
+    assertEquals(expected.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
+    assertEquals(expected.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
   }
 
   /*
@@ -533,15 +507,14 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImageAs(ImageType.JPEG);
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
     try {
-      File input = new File(outPath);
+      File input = new File(path);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black0-output.jpg",
+              + "\\TestImagesHW06\\JPG\\valid image\\black0.jpg",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black1-output.jpg",
+              + "\\TestImagesHW06\\JPG\\valid image\\black1.jpg",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -560,15 +533,14 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImageAs(ImageType.PNG);
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-png.txt";
     try {
-      File input = new File(outPath);
+      File input = new File(path);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black0-output.png",
+              + "\\TestImagesHW06\\JPG\\valid image\\black0.png",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black1-output.png",
+              + "\\TestImagesHW06\\JPG\\valid image\\black1.png",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -587,15 +559,14 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImageAs(ImageType.PPM);
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-ppm.txt";
     try {
-      File input = new File(outPath);
+      File input = new File(path);
       Scanner reader = new Scanner(input);
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black0-output.ppm",
+              + "\\TestImagesHW06\\JPG\\valid image\\black0.ppm",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\valid image\\black1-output.ppm",
+              + "\\TestImagesHW06\\JPG\\valid image\\black1.ppm",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -603,5 +574,4 @@ public class JPEGLayeredImageTest {
       throw new IllegalArgumentException("Cannot read file.");
     }
   }
-
 }

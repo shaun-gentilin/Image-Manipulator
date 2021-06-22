@@ -11,6 +11,8 @@ import org.junit.Test;
  */
 public class PPMImageTest {
 
+  //loadImage TESTS
+
   @Test
   public void testLoadImageValidImageFile() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
@@ -110,6 +112,9 @@ public class PPMImageTest {
   }
 
 
+  //getWidth TESTS
+
+
   @Test
   public void testGetWidth() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
@@ -118,12 +123,17 @@ public class PPMImageTest {
   }
 
 
+  //getHeight TESTS
+
+
   @Test
   public void testGetHeight() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\Koala.ppm");
     assertEquals(427, image.getHeight());
   }
+
+  //setPixel TESTS
 
 
   @Test
@@ -143,13 +153,34 @@ public class PPMImageTest {
     assertEquals(24, image.getPixel(1, 1)[0]);
     assertEquals(68, image.getPixel(1, 1)[1]);
     assertEquals(255, image.getPixel(1, 1)[2]);
+    image.setPixel(0,0, new int [] {101, 90, 58});
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testSetPixelInvalidPixel() {
+  public void testSetPixelInvalidPixelTooManyValues() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     image.setPixel(1, 1, new int[]{0, 1, 2, 3});
+  }
+
+  /*
+  Test setting the pixel with a color value that is too low.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetPixelInvalidPixelTooLow() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.setPixel(1, 1, new int[]{0, 1, -5});
+  }
+
+  /*
+Test setting the pixel with a color value that is too high.
+ */
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetPixelInvalidPixelTooHigh() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.setPixel(1, 1, new int[]{0, 1, 300});
   }
 
 
@@ -181,6 +212,9 @@ public class PPMImageTest {
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     image.setPixel(1, image.getHeight() + 1, new int[]{1, 1, 1});
   }
+
+
+  //getPixel TESTS
 
 
   @Test
@@ -230,13 +264,15 @@ public class PPMImageTest {
     image.getPixel(1, image.getHeight() + 1);
   }
 
+  //exportImage TESTS
+
   @Test
-  public void testExportImageValidImageFile() {
+  public void testExportImageValidImageFileNotModified() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     image.exportImage();
     IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels-output.ppm");
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     assertEquals(2, outputImage.getWidth());
     assertEquals(2, outputImage.getHeight());
     assertEquals(255, outputImage.getMaxColorValue());
@@ -255,12 +291,47 @@ public class PPMImageTest {
   }
 
 
+  /*
+  Test export after changing a pixel.
+   */
+  @Test
+  public void testExportImageValidImageFileAfterModification() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    image.setPixel(0,0, new int [] {0, 0, 0});
+    image.exportImage();
+    IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    assertEquals(2, outputImage.getWidth());
+    assertEquals(2, outputImage.getHeight());
+    assertEquals(255, outputImage.getMaxColorValue());
+    assertEquals(0, outputImage.getPixel(0, 0)[0]);
+    assertEquals(0, outputImage.getPixel(0, 0)[1]);
+    assertEquals(0, outputImage.getPixel(0, 0)[2]);
+    assertEquals(200, outputImage.getPixel(1, 0)[0]);
+    assertEquals(44, outputImage.getPixel(1, 0)[1]);
+    assertEquals(87, outputImage.getPixel(1, 0)[2]);
+    assertEquals(56, outputImage.getPixel(0, 1)[0]);
+    assertEquals(120, outputImage.getPixel(0, 1)[1]);
+    assertEquals(43, outputImage.getPixel(0, 1)[2]);
+    assertEquals(24, outputImage.getPixel(1, 1)[0]);
+    assertEquals(68, outputImage.getPixel(1, 1)[1]);
+    assertEquals(255, outputImage.getPixel(1, 1)[2]);
+
+    //reset the image for other tests
+    image.setPixel(0,0, new int [] {101, 90, 58});
+    image.exportImage();
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testExportImageInvalidFile() {
     IImage image = new PPMImage("C:\\Users\\Shaun\\Clege\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     image.exportImage();
   }
+
+
+  //getMaxColorValueTests
 
 
   @Test

@@ -34,10 +34,10 @@ public interface ILayeredImage {
   int getHeight();
 
   /**
-   * Export the top-most layer as an image to a new output file path.
+   * Export the top-most layer as an image to its existing file path.
    * @return a string representing the filename of the layer that was exported.
    */
-  String exportImage() throws IllegalArgumentException, IllegalStateException;
+  void exportImage() throws IllegalArgumentException, IllegalStateException;
 
   /**
    * Get the max color value for this layered image.
@@ -70,9 +70,9 @@ public interface ILayeredImage {
   void removeLayer(int layerNum) throws IllegalArgumentException;
 
   /**
-   * Save all layered images to text file.
+   * Save all layered images to the existing text file text file.
    */
-  String saveImage();
+  void saveImage();
 
   /**
    * Make the specified layer transparent (will not be visible for exportation purposes) if it was
@@ -102,5 +102,5 @@ public interface ILayeredImage {
    * @param type - the type to convert this image to.
    * @throws IllegalArgumentException if the type was invalid.
    */
-  String saveImageAs(ImageType type) throws IllegalArgumentException;
+  void saveImageAs(ImageType type) throws IllegalArgumentException;
 }

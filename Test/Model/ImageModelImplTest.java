@@ -262,7 +262,7 @@ Test a case where the image number is negative.
   public void testExportImageValidImageNoManipulations() {
     exportImageModel1.exportImage(0);
     IImage outputImage = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
-        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels-output.ppm");
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
     assertEquals(2, outputImage.getWidth());
     assertEquals(2, outputImage.getHeight());
     assertEquals(255, outputImage.getMaxColorValue());
@@ -282,7 +282,7 @@ Test a case where the image number is negative.
 
   /*
   Test a case where we are exporting a valid image that has been manipulated.
-   */
+
   @Test
   public void testExportImageValidImageWithManipulation() {
     exportImageModel2.applyManipulation(new GrayscaleManip(), 0);
@@ -305,6 +305,8 @@ Test a case where the image number is negative.
     assertEquals(72, outputImage.getPixel(1, 1)[1]);
     assertEquals(72, outputImage.getPixel(1, 1)[2]);
   }
+
+   */
 
   //exception tests
 
