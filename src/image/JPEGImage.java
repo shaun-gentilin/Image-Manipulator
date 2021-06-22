@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.File;
 import javax.imageio.ImageIO;
-import java.awt.Color;
 
 /**
  * Class to represent an image in the JPEG format.  An image has a width, height, maxColorValue,

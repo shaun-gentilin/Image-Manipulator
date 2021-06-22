@@ -20,7 +20,7 @@ public class PNGImageTest {
     IImage png = new PNGImage(path);
     assertEquals(5, png.getHeight());
     assertEquals(5, png.getWidth());
-    assertEquals(0, png.getMaxColorValue());
+    assertEquals(255, png.getMaxColorValue());
     assertEquals(0, png.getPixel(0, 0)[0]);
     assertEquals(0, png.getPixel(0, 0)[1]);
     assertEquals(0, png.getPixel(0, 0)[2]);
@@ -201,8 +201,8 @@ public class PNGImageTest {
   public void testGetMaxColorValue() {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
-    IImage jpeg = new JPEGImage(path);
-    assertEquals(0, jpeg.getMaxColorValue());
+    IImage image = new PNGImage(path);
+    assertEquals(255, image.getMaxColorValue());
   }
 
   //exportImage TESTS
@@ -223,7 +223,7 @@ public class PNGImageTest {
     IImage outputImage = new PNGImage(outputPath);
     assertEquals(5, outputImage.getHeight());
     assertEquals(5, outputImage.getWidth());
-    assertEquals(0, outputImage.getMaxColorValue());
+    assertEquals(255, outputImage.getMaxColorValue());
     assertEquals(0, outputImage.getPixel(0, 0)[0]);
     assertEquals(0, outputImage.getPixel(0, 0)[1]);
     assertEquals(0, outputImage.getPixel(0, 0)[2]);
