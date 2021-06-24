@@ -74,17 +74,7 @@ public abstract class AbstractIOImage extends AbstractImage {
           this.pixels[x][y] = singlePixel;
         }
       }
-      int max = 0;
-      for (int x = 0; x < this.width; x++) {
-        for (int y = 0; y < this.height; y++) {
-          for (int z = 0; z < 3; z++) {
-            if (max < this.pixels[x][y][z]) {
-              max = this.pixels[x][y][z];
-            }
-          }
-        }
-      }
-      this.maxColorValue = max;
+      this.maxColorValue = 255;
     } catch (IOException error) {
       throw new IllegalArgumentException("File does not exist.");
     }

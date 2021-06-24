@@ -27,7 +27,7 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     assertEquals(5, image.getHeight());
     assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
     assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
     assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
     assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
@@ -115,7 +115,7 @@ public class JPEGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
     ILayeredImage image = new JPEGLayeredImage(path);
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
   }
 
   //removeLayer TESTS
@@ -224,7 +224,7 @@ public class JPEGLayeredImageTest {
         + "black1-output.jpg").equals(outputPath));
     assertEquals(5, image.getHeight());
     assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
     assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
     assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
     assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
@@ -290,8 +290,7 @@ public class JPEGLayeredImageTest {
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
-    } catch (FileNotFoundException error) {
-      throw new IllegalArgumentException("Cannot read file.");
+    } catch (FileNotFoundException error) { throw new IllegalArgumentException("Cannot read file.");
     }
   }
 

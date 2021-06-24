@@ -96,6 +96,12 @@ public abstract class AbstractImage implements IImage {
     } else if (pixel.length != 3) {
       throw new IllegalArgumentException("Not a valid pixel to set.");
     }
+
+    for (int i : pixel) {
+      if (i < 0 || i > this.maxColorValue) {
+        throw new IllegalArgumentException("Pixel does not have valid color values.");
+      }
+    }
     this.pixels[width][height] = pixel.clone();
   }
 
