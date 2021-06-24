@@ -70,7 +70,7 @@ public interface ILayeredImage {
   void removeLayer(int layerNum) throws IllegalArgumentException;
 
   /**
-   * Save all layered images to text file.
+   * Save all layered images to a new output text file.
    */
   String saveImage();
 

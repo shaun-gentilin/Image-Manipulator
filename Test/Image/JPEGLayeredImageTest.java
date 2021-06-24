@@ -278,7 +278,7 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
+    String outPath = path.substring(0, path.length() - 4) + "-output-jpg.txt";
     try {
       File input = new File(outPath);
       Scanner reader = new Scanner(input);
@@ -306,7 +306,7 @@ public class JPEGLayeredImageTest {
     image.addLayer();
     image.saveImage();
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
+    String outPath = path.substring(0, path.length() - 4) + "-output-jpg.txt";
     try {
       File input = new File(outPath);
       Scanner reader = new Scanner(input);
@@ -533,7 +533,7 @@ public class JPEGLayeredImageTest {
     ILayeredImage image = new JPEGLayeredImage(path);
     image.saveImageAs(ImageType.JPEG);
 
-    String outPath = path.substring(0, path.length() - 4) + "-output-jpeg.txt";
+    String outPath = path.substring(0, path.length() - 4) + "-output-jpg.txt";
     try {
       File input = new File(outPath);
       Scanner reader = new Scanner(input);

@@ -91,9 +91,6 @@ public class View extends JFrame implements IView, ActionListener {
       case "Create New Layer":
         emitCreateNewLayerEvent();
         break;
-      case "Set the Current Layer":
-        emitSetCurrentEvent();
-        break;
       case "Remove a Layer":
         emitRemoveLayerEvent();
         break;

@@ -6,7 +6,6 @@ package view;
 public interface IViewListener {
   void handleNewImageEvent();
   void handleCreateNewLayerEvent();
-  void handleSetCurrentEvent();
   void handleRemoveLayerEvent();
   void handleBlurEvent();
   void handleSharpenEvent();

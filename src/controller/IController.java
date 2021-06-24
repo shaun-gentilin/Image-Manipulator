@@ -1,5 +1,5 @@
 package controller;
 
 public interface IController {
-  void run();
+  void run(Readable in);
 }

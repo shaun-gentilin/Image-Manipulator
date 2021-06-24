@@ -1,6 +1,9 @@
 import controller.Controller;
 import controller.IController;
 import java.io.StringReader;
+import model.ILayeredImageModel;
+import model.LayeredImageModelImpl;
+import view.View;
 
 /**
  * A class to hold the main function that will be used in the jar to run the program.
@@ -14,8 +17,8 @@ public class MainRunner {
   public static void main(String[] args) {
     for (String i : args) {
       Readable reader = new StringReader(i);
-      IController controller = new Controller(reader);
-      controller.runScript();
+      IController controller = new Controller(new LayeredImageModelImpl(),
+          new View(), reader);
     }
   }
 }
