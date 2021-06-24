@@ -135,14 +135,22 @@ public class View extends JFrame implements IView, ActionListener {
     FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG PPM PNG Images",
         "jpeg", "ppm", "png");
     openBrowser.setFileFilter(filter);
+    String format;
     int retValue = openBrowser.showOpenDialog(View.this);
     if(retValue == JFileChooser.APPROVE_OPTION) {
       File file = openBrowser.getSelectedFile();
       file.getName();
       String filePath = file.getAbsolutePath();
-    }
-    for (IViewListener listener : this.viewListeners) {
-      listener.handleNewImageEvent();
+      int index = filePath.lastIndexOf(".");
+      if(index > 0) {
+        format = filePath.substring(index + 1);
+      }
+      else {
+        throw new IllegalArgumentException("FilePath is invalid, does not have an extension.");
+      }
+      for (IViewListener listener : this.viewListeners) {
+        listener.handleNewImageEvent(filePath, format);
+      }
     }
   }
 
