@@ -4,14 +4,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Class to handle the view for the image manipulation application.  This will function as a gui
@@ -19,7 +22,7 @@ import javax.swing.JMenuItem;
  */
 public class View extends JFrame implements IView, ActionListener {
 
-  private final List<IViewListener> viewListners;
+  private final List<IViewListener> viewListeners;
   private final JMenuBar menuBar;
   private final JMenu featuresMenu;
   private final List<JMenuItem> features;
@@ -30,7 +33,7 @@ public class View extends JFrame implements IView, ActionListener {
    */
   public View() {
     super();
-    this.viewListners = new ArrayList<>();
+    this.viewListeners = new ArrayList<>();
 
     setSize(new Dimension(600, 600));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -127,7 +130,17 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the new image event.
    */
   private void emitNewImageEvent() {
-    for (IViewListener listener : this.viewListners) {
+    JFileChooser openBrowser = new JFileChooser(".");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG PPM PNG Images",
+        "jpeg", "ppm", "png");
+    openBrowser.setFileFilter(filter);
+    int retValue = openBrowser.showOpenDialog(View.this);
+    if(retValue == JFileChooser.APPROVE_OPTION) {
+      File file = openBrowser.getSelectedFile();
+      file.getName();
+      String filePath = file.getAbsolutePath();
+    }
+    for (IViewListener listener : this.viewListeners) {
       listener.handleNewImageEvent();
     }
   }
@@ -136,7 +149,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the create new layer event.
    */
   private void emitCreateNewLayerEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleCreateNewLayerEvent();
     }
   }
@@ -145,7 +158,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the set current event.
    */
   private void emitSetCurrentEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleSetCurrentEvent();
     }
   }
@@ -154,7 +167,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the remove layer event.
    */
   private void emitRemoveLayerEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleRemoveLayerEvent();
     }
   }
@@ -163,7 +176,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the blur event.
    */
   private void emitBlurEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleBlurEvent();
     }
   }
@@ -172,7 +185,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the sharpen event.
    */
   private void emitSharpenEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleSharpenEvent();
     }
   }
