@@ -14,5 +14,5 @@ public interface IViewListener {
   void handleSaveEvent();
   void handleExportEvent();
   void handleSaveAsEvent(String format);
-  void handleMakeInvisibleEvent(int layerNum);
+  void handleToggleInvisibleEvent(int layerNum);
 }

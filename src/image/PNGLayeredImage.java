@@ -59,7 +59,7 @@ public class PNGLayeredImage extends AbstractLayeredImage {
     //this will be a valid file path.  Add in information about the layer so that the path will
     //be unique to the new layer.
     String newPath = primaryLayerPath.substring(0, primaryLayerPath.length() - 4)
-        + "-layer" + (this.layers.size() - 1) + ".png";
+        + "-layer" + this.layers.size() + ".png";
 
     //create the new image object and load the contents of the original image into the new object.
     //This will create a new image object with a new file path, but the same properties as the

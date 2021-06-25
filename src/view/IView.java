@@ -12,4 +12,11 @@ public interface IView {
    * @param listener - the listener to be registered.
    */
   void registerViewEventListener(IViewListener listener);
+
+  /**
+   * Updates the current image for the view so that the user can see the updates that they make.
+   * @param filepath - the file path of the image to be displayed.
+   * @throws IllegalArgumentException if the file path does not exist.
+   */
+  void updateImage(String filepath) throws IllegalArgumentException;
 }

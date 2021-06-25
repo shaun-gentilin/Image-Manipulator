@@ -2,19 +2,24 @@ package view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -27,7 +32,10 @@ public class View extends JFrame implements IView, ActionListener {
   private final JMenuBar menuBar;
   private final JMenu featuresMenu;
   private final List<JMenuItem> features;
-  private JLabel image;
+  private JPanel imagePanel; //the panel to display the image that involves scrolling
+  private JLabel imageLabel; //the image to be displayed on the imagePanel
+  private final JTextArea formatTextArea; //image format to be used when events are called
+  private final JTextArea layerNumTextArea; //layer number to be used when events are called
 
   /**
    * Initializes the view and all of its objects including the menu of features.
@@ -36,7 +44,7 @@ public class View extends JFrame implements IView, ActionListener {
     super();
     this.viewListeners = new ArrayList<>();
 
-    setSize(new Dimension(600, 600));
+    setSize(new Dimension(1000, 10000));
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     setLayout(new FlowLayout());
@@ -47,21 +55,19 @@ public class View extends JFrame implements IView, ActionListener {
 
     JMenuItem newImage = new JMenuItem("New Image");
     JMenuItem createNewLayer = new JMenuItem("Create New Layer");
-    JMenuItem setCurrent = new JMenuItem("Set the Current Layer");
     JMenuItem removeLayer = new JMenuItem("Remove a Layer");
     JMenuItem blur = new JMenuItem("Blur");
     JMenuItem sharpen = new JMenuItem("Sharpen");
     JMenuItem grayscale = new JMenuItem("Grayscale");
     JMenuItem sepiaTone = new JMenuItem("Sepia Tone");
     JMenuItem save = new JMenuItem("Save the Image");
-    JMenuItem export = new JMenuItem("Export the Current Layer");
+    JMenuItem export = new JMenuItem("Export the Top Layer");
     JMenuItem saveAs = new JMenuItem("Save the Image as a ...");
-    JMenuItem makeInvisible = new JMenuItem("Make the Current Layer Invisible");
+    JMenuItem makeInvisible = new JMenuItem("Toggle Invisible");
 
     this.features = new ArrayList<>();
     this.features.add(newImage);
     this.features.add(createNewLayer);
-    this.features.add(setCurrent);
     this.features.add(removeLayer);
     this.features.add(blur);
     this.features.add(sharpen);
@@ -78,6 +84,23 @@ public class View extends JFrame implements IView, ActionListener {
     }
 
     add(this.menuBar);
+
+    this.imagePanel = new JPanel();
+    this.imagePanel.setLayout(new GridLayout(0, 1, 10, 10));
+    add(this.imagePanel);
+
+    this.imageLabel = new JLabel();
+    JScrollPane scrollPane = new JScrollPane(this.imageLabel);
+    this.imagePanel.add(scrollPane);
+
+    this.formatTextArea = new JTextArea(1, 10);
+    this.formatTextArea.setBorder(BorderFactory.createTitledBorder("Image Format"));
+    add(this.formatTextArea);
+
+    this.layerNumTextArea = new JTextArea(1, 4);
+    this.layerNumTextArea.setBorder(BorderFactory.createTitledBorder("Layer Number"));
+    add(this.layerNumTextArea);
+
     pack();
   }
 
@@ -113,14 +136,14 @@ public class View extends JFrame implements IView, ActionListener {
       case "Save the Image":
         emitSaveEvent();
         break;
-      case "Export the Current Layer":
+      case "Export the Top Layer":
         emitExportEvent();
         break;
       case "Save the Image as a ...":
         emitSaveAsEvent();
         break;
-      case "Make the Current Layer Invisible":
-        emitMakeInvisibleEvent();
+      case "Toggle Invisible":
+        emitToggleInvisibleEvent();
         break;
       default:
         throw new IllegalArgumentException("Not a valid event."); //should never get here
@@ -131,26 +154,21 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the new image event.
    */
   private void emitNewImageEvent() {
+
     JFileChooser openBrowser = new JFileChooser(".");
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG PPM PNG Images",
-        "jpeg", "ppm", "png");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Text file for layered "
+        + "image", "txt");
     openBrowser.setFileFilter(filter);
-    String format;
+    String filePath = "";
     int retValue = openBrowser.showOpenDialog(View.this);
     if(retValue == JFileChooser.APPROVE_OPTION) {
       File file = openBrowser.getSelectedFile();
-      file.getName();
-      String filePath = file.getAbsolutePath();
-      int index = filePath.lastIndexOf(".");
-      if(index > 0) {
-        format = filePath.substring(index + 1);
-      }
-      else {
-        throw new IllegalArgumentException("FilePath is invalid, does not have an extension.");
-      }
-      for (IViewListener listener : this.viewListeners) {
-        listener.handleNewImageEvent(filePath, format);
-      }
+      filePath = file.getAbsolutePath();
+    }
+
+
+    for (IViewListener listener : this.viewListeners) {
+      listener.handleNewImageEvent(filePath, this.formatTextArea.getText());
     }
   }
 
@@ -176,8 +194,9 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the remove layer event.
    */
   private void emitRemoveLayerEvent() {
+    int layerNum = this.getLayerNum();
     for (IViewListener listener : this.viewListeners) {
-      listener.handleRemoveLayerEvent();
+      listener.handleRemoveLayerEvent(layerNum);
     }
   }
 
@@ -185,8 +204,9 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the blur event.
    */
   private void emitBlurEvent() {
+    int layerNum = this.getLayerNum();
     for (IViewListener listener : this.viewListeners) {
-      listener.handleBlurEvent();
+      listener.handleBlurEvent(layerNum);
     }
   }
 
@@ -194,8 +214,9 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the sharpen event.
    */
   private void emitSharpenEvent() {
+    int layerNum = this.getLayerNum();
     for (IViewListener listener : this.viewListeners) {
-      listener.handleSharpenEvent();
+      listener.handleSharpenEvent(layerNum);
     }
   }
 
@@ -260,5 +281,17 @@ public class View extends JFrame implements IView, ActionListener {
   @Override
   public void registerViewEventListener(IViewListener listener){
     this.viewListners.add(Objects.requireNonNull(listener));
+  }
+
+  public void updateImage(String filepath) {
+    this.imageLabel.setIcon(new ImageIcon(filepath));
+  }
+
+  private int getLayerNum() {
+    try {
+      return Integer.parseInt(this.layerNumTextArea.getText());
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Layer number must be a number.");
+    }
   }
 }

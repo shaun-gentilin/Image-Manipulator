@@ -8,7 +8,7 @@ import image.PPMLayeredImage;
 import manipulation.IManipulation;
 
 public class LayeredImageModelImpl implements ILayeredImageModel {
-  ILayeredImage image;
+  private ILayeredImage image;
 
   /**
    * Load the new image specified by path in the specified format to the model.

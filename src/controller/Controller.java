@@ -164,42 +164,48 @@ public class Controller implements IController, IViewListener {
   @Override
   public void handleNewImageEvent(String filePath, String format) {
     this.model.loadNewImage(format, filePath);
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleCreateNewLayerEvent() {
     this.model.addNewLayer();
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleRemoveLayerEvent(int layerNum) {
     this.model.removeLayer(layerNum);
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleBlurEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new BlurManip());
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleSharpenEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new SharpenManip());
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleGrayscaleEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new GrayscaleManip());
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleSepiaToneEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new SepiatoneManip());
+    this.view.updateImage(this.model.exportTopLayer());
   }
 
   @Override
   public void handleSaveEvent() {
     this.model.saveLayeredImage();
-
   }
 
   @Override
@@ -213,7 +219,8 @@ public class Controller implements IController, IViewListener {
   }
 
   @Override
-  public void handleMakeInvisibleEvent(int layerNum) {
+  public void handleToggleInvisibleEvent(int layerNum) {
     this.model.toggleTransparent(layerNum);
+    this.view.updateImage(this.model.exportTopLayer());
   }
 }
