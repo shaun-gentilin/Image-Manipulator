@@ -182,15 +182,6 @@ public class View extends JFrame implements IView, ActionListener {
   }
 
   /**
-   * Tell the listener to handle the set current event.
-   */
-  private void emitSetCurrentEvent() {
-    for (IViewListener listener : this.viewListeners) {
-      listener.handleSetCurrentEvent();
-    }
-  }
-
-  /**
    * Tell the listener to handle the remove layer event.
    */
   private void emitRemoveLayerEvent() {
@@ -224,8 +215,9 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the grayscale event.
    */
   private void emitGrayscaleEvent() {
-    for (IViewListener listener : this.viewListners) {
-      listener.handleGrayscaleEvent();
+    int layerNum = this.getLayerNum();
+    for (IViewListener listener : this.viewListeners) {
+      listener.handleGrayscaleEvent(layerNum);
     }
   }
 
@@ -233,8 +225,9 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the sepia tone event.
    */
   private void emitSepiaToneEvent() {
-    for (IViewListener listener : this.viewListners) {
-      listener.handleSepiaToneEvent();
+    int layerNum = this.getLayerNum();
+    for (IViewListener listener : this.viewListeners) {
+      listener.handleSepiaToneEvent(layerNum);
     }
   }
 
@@ -242,7 +235,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the save event.
    */
   private void emitSaveEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleSaveEvent();
     }
   }
@@ -251,7 +244,7 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the export event.
    */
   private void emitExportEvent() {
-    for (IViewListener listener : this.viewListners) {
+    for (IViewListener listener : this.viewListeners) {
       listener.handleExportEvent();
     }
   }
@@ -260,17 +253,27 @@ public class View extends JFrame implements IView, ActionListener {
    * Tell the listener to handle the save as event.
    */
   private void emitSaveAsEvent() {
-    for (IViewListener listener : this.viewListners) {
-      listener.handleSaveAsEvent();
+
+    /*
+    Code for a button chooser for the type of file to save it as
+
+    JFrame buttonFrame = new JFrame("Format Selector");
+    JButton jpegButton = new JButton("jpeg");
+    JButton ppmButton = new JButton("ppm");
+    JButton pngButton = new JButton("png");
+     */
+    for (IViewListener listener : this.viewListeners) {
+      listener.handleSaveAsEvent(this.formatTextArea.getText());
     }
   }
 
   /**
    * Tell the listener to handle the make invisible event.
    */
-  private void emitMakeInvisibleEvent() {
-    for (IViewListener listener : this.viewListners) {
-      listener.handleMakeInvisibleEvent();
+  private void emitToggleInvisibleEvent() {
+    int layerNum = this.getLayerNum();
+    for (IViewListener listener : this.viewListeners) {
+      listener.handleToggleInvisibleEvent(layerNum);
     }
   }
 
@@ -280,7 +283,7 @@ public class View extends JFrame implements IView, ActionListener {
    */
   @Override
   public void registerViewEventListener(IViewListener listener){
-    this.viewListners.add(Objects.requireNonNull(listener));
+    this.viewListeners.add(Objects.requireNonNull(listener));
   }
 
   public void updateImage(String filepath) {
