@@ -14,6 +14,9 @@ import model.ILayeredImageModel;
 import view.IView;
 import view.IViewListener;
 
+/**
+ * Class to run script and handle user events sent by the view.
+ */
 public class Controller implements IController, IViewListener {
   ILayeredImageModel model;
   IView view;
@@ -112,7 +115,6 @@ public class Controller implements IController, IViewListener {
                 + "command.  This argument should be the path to run the script from.");
           }
           path = path.substring(1); //to get rid of the space at the beginning caused by the while
-                                    // loop
           ifRun(path);
           break;
 
@@ -140,6 +142,7 @@ public class Controller implements IController, IViewListener {
 
   /**
    * Helper method if blur is parsed through readable.
+   *
    * @param layerNum - the number of the layer to apply blur to.
    */
   private void manipulation(int layerNum, String manip) {
@@ -164,28 +167,52 @@ public class Controller implements IController, IViewListener {
   @Override
   public void handleNewImageEvent(String filePath, String format) {
     this.model.loadNewImage(format, filePath);
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where a new layer is created.
+   */
   @Override
   public void handleCreateNewLayerEvent() {
     this.model.addNewLayer();
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Hanldes the event where a specific layer index is removed.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleRemoveLayerEvent(int layerNum) {
     this.model.removeLayer(layerNum);
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where a blur manipulation is applied on a specific layer.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleBlurEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new BlurManip());
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where a sharpen manipulation is applied on a specific layer.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleSharpenEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new SharpenManip());
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where a grayscale manipulation is applied on a specific layer.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleGrayscaleEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new GrayscaleManip());
@@ -195,25 +222,44 @@ public class Controller implements IController, IViewListener {
   @Override
   public void handleSepiaToneEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new SepiatoneManip());
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where the layered image is saved.
+   */
   @Override
   public void handleSaveEvent() {
     this.model.saveLayeredImage();
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where the topmost layer is exported.
+   */
   @Override
   public void handleExportEvent() {
     this.model.exportTopLayer();
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where the current layered image is saved as a new format.
+   * @param format        format type
+   */
   @Override
   public void handleSaveAsEvent(String format) {
     this.model.saveAsFormat(format);
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 
+  /**
+   * Handles the event where a specific layer's visibility is toggled.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleToggleInvisibleEvent(int layerNum) {
     this.model.toggleTransparent(layerNum);
-    this.view.updateImage(this.model.exportTopVisibleBufferedImage());  }
+    this.view.updateImage(this.model.exportTopVisibleBufferedImage());
+  }
 }

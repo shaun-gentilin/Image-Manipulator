@@ -44,7 +44,8 @@ public abstract class AbstractIOImage extends AbstractImage {
    * @param maxColorValue - the maximum color value for the image.
    * @param pixels - the list of pixels present in the image.
    */
-  public AbstractIOImage(String filePath, int width, int height, int maxColorValue, int [][][] pixels) {
+  public AbstractIOImage(String filePath, int width, int height, int maxColorValue,
+      int [][][] pixels) {
     super(filePath, width, height, maxColorValue, pixels);
   }
 

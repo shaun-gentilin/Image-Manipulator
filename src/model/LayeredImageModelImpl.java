@@ -8,6 +8,9 @@ import image.PPMLayeredImage;
 import java.awt.image.BufferedImage;
 import manipulation.IManipulation;
 
+/**
+ * Implementation for the model interface to handle the data for the image manipulator.
+ */
 public class LayeredImageModelImpl implements ILayeredImageModel {
   private ILayeredImage image;
 

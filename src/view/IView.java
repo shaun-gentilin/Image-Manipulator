@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 /**
  * Interface to outline what views for this application should be able to handle.

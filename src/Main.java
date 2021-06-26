@@ -3,7 +3,6 @@ import controller.IController;
 import java.io.StringReader;
 import model.ILayeredImageModel;
 import model.LayeredImageModelImpl;
-import view.IView;
 import view.View;
 
 /**
@@ -20,6 +19,10 @@ public class Main {
     View view = new View();
     IController controller = new Controller(model, view, null);
 
+    if (args.length < 1) {
+      throw new IllegalArgumentException("No mode selected.");
+    }
+
     switch (args[0]) {
       case "-script":
         String path = "";
@@ -33,12 +36,17 @@ public class Main {
         controller.run(readerScript);
         break;
       case "-text":
-        //TODO: (system.in)
+        if (args.length != 2) {
+          throw new IllegalArgumentException("Not the right amount of arguments for text mode.");
+        }
         Readable readerText = new StringReader(args[1]);
         controller.run(readerText);
         break;
       case "-interactive":
         view.setVisible(true);
+        break;
+      default:
+        throw new IllegalArgumentException("Not a valid mode.");
     }
   }
 }

@@ -1,7 +1,6 @@
 package image;
 
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 
 /**
  * Interface to represent different types of images in different formats (e.g. PPM) and outline what

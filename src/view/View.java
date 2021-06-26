@@ -30,9 +30,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class View extends JFrame implements IView, ActionListener {
 
   private final List<IViewListener> viewListeners;
-  private final JMenuBar menuBar;
-  private final JMenu featuresMenu;
-  private final List<JMenuItem> features;
   private JPanel imagePanel; //the panel to display the image that involves scrolling
   private JLabel imageLabel; //the image to be displayed on the imagePanel
   private final JTextArea formatTextArea; //image format to be used when events are called
@@ -50,9 +47,9 @@ public class View extends JFrame implements IView, ActionListener {
 
     setLayout(new FlowLayout());
 
-    this.menuBar = new JMenuBar();
-    this.featuresMenu = new JMenu("Features");
-    this.menuBar.add(this.featuresMenu);
+    JMenuBar menuBar = new JMenuBar();
+    JMenu featuresMenu = new JMenu("Features");
+    menuBar.add(featuresMenu);
 
     JMenuItem newImage = new JMenuItem("New Image");
     JMenuItem createNewLayer = new JMenuItem("Create New Layer");
@@ -66,25 +63,25 @@ public class View extends JFrame implements IView, ActionListener {
     JMenuItem saveAs = new JMenuItem("Save the Image as a ...");
     JMenuItem makeInvisible = new JMenuItem("Toggle Invisible");
 
-    this.features = new ArrayList<>();
-    this.features.add(newImage);
-    this.features.add(createNewLayer);
-    this.features.add(removeLayer);
-    this.features.add(blur);
-    this.features.add(sharpen);
-    this.features.add(grayscale);
-    this.features.add(sepiaTone);
-    this.features.add(save);
-    this.features.add(export);
-    this.features.add(saveAs);
-    this.features.add(makeInvisible);
+    List<JMenuItem> features = new ArrayList<>();
+    features.add(newImage);
+    features.add(createNewLayer);
+    features.add(removeLayer);
+    features.add(blur);
+    features.add(sharpen);
+    features.add(grayscale);
+    features.add(sepiaTone);
+    features.add(save);
+    features.add(export);
+    features.add(saveAs);
+    features.add(makeInvisible);
 
-    for (JMenuItem i : this.features) {
+    for (JMenuItem i : features) {
       i.addActionListener(this);
-      this.featuresMenu.add(i);
+      featuresMenu.add(i);
     }
 
-    add(this.menuBar);
+    add(menuBar);
 
     this.imagePanel = new JPanel();
     this.imagePanel.setLayout(new GridLayout(0, 1, 10, 10));

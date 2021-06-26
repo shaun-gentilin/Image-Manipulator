@@ -41,7 +41,8 @@ public abstract class AbstractImage implements IImage {
    * @param maxColorValue - the maximum color value for the image.
    * @param pixels - the list of pixels present in the image.
    */
-  public AbstractImage(String filePath, int width, int height, int maxColorValue, int [][][] pixels) {
+  public AbstractImage(String filePath, int width, int height, int maxColorValue,
+      int [][][] pixels) {
     this.filePath = filePath;
     this.width = width;
     this.height = height;

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Abstract class to represent a generic layered image for the image manipulator.
+ */
 public abstract class AbstractLayeredImage implements ILayeredImage {
 
   protected final String filename;
@@ -145,7 +148,7 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
    * @param filename      image file.
    * @return              format of filename.
    * @throws IllegalArgumentException if all images do not have the same type or if the input file
-   * cannot be read.
+   *     cannot be read.
    */
   @Override
   public String getImageFormat(String filename) throws IllegalArgumentException {
@@ -353,6 +356,11 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
     return newLayeredImage.saveImage();
   }
 
+  /**
+   * Export the topmost visible layer of this image and return a buffered image.
+   * @return a buffered image representing the exported topmost visible layer of this image.
+   */
+  @Override
   public BufferedImage exportTopVisibleBufferedImage() {
     for (int i = this.layers.size() - 1; i >= 0; i--) {
       if (!(this.transparentLayers.contains(this.layers.get(i)))) {

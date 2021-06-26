@@ -52,7 +52,7 @@ public interface ILayeredImage {
    * @param filename      image file.
    * @return              format of filename.
    * @throws IllegalArgumentException if all images do not have the same type or if the input file
-   * cannot be read.
+   *     cannot be read.
    */
   String getImageFormat(String filename) throws IllegalArgumentException;
 
