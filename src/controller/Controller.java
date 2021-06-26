@@ -164,6 +164,11 @@ public class Controller implements IController, IViewListener {
     }
   }
 
+  /**
+   * Handles the event where a new Image is displayed.
+   * @param filePath      filePath of image
+   * @param format        format of image
+   */
   @Override
   public void handleNewImageEvent(String filePath, String format) {
     this.model.loadNewImage(format, filePath);
@@ -219,6 +224,10 @@ public class Controller implements IController, IViewListener {
     this.view.updateImage(this.model.exportTopVisibleBufferedImage());
   }
 
+  /**
+   * Handles the event where a sepia manipulation is applied on a specific layer.
+   * @param layerNum      layer index
+   */
   @Override
   public void handleSepiaToneEvent(int layerNum) {
     this.model.applyManipulation(layerNum, new SepiatoneManip());

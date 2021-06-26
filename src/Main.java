@@ -12,6 +12,7 @@ public class Main {
 
   /**
    * A main function to run the program from the command line.
+   *
    * @param args - the arguments passed from the command line.
    */
   public static void main(String[] args) {

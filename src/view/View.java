@@ -24,8 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * Class to handle the view for the image manipulation application.  This will function as a gui
- * for the users of the application to interact with the program.
+ * Class to handle the view for the image manipulation application.  This will function as a gui for
+ * the users of the application to interact with the program.
  */
 public class View extends JFrame implements IView, ActionListener {
 
@@ -106,9 +106,10 @@ public class View extends JFrame implements IView, ActionListener {
    * Invoked when an action occurs.
    *
    * @param e the event to be processed
+   * @throws IllegalArgumentException if the action is invalid.
    */
   @Override
-  public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e) throws IllegalArgumentException {
     switch (e.getActionCommand()) {
       case "New Image":
         emitNewImageEvent();
@@ -159,11 +160,10 @@ public class View extends JFrame implements IView, ActionListener {
     openBrowser.setFileFilter(filter);
     String filePath = "";
     int retValue = openBrowser.showOpenDialog(View.this);
-    if(retValue == JFileChooser.APPROVE_OPTION) {
+    if (retValue == JFileChooser.APPROVE_OPTION) {
       File file = openBrowser.getSelectedFile();
       filePath = file.getAbsolutePath();
     }
-
 
     for (IViewListener listener : this.viewListeners) {
       listener.handleNewImageEvent(filePath, this.formatTextArea.getText());
@@ -277,10 +277,11 @@ public class View extends JFrame implements IView, ActionListener {
 
   /**
    * Register the given listener as a view event listener for this view.
+   *
    * @param listener - the listener to be registered.
    */
   @Override
-  public void registerViewEventListener(IViewListener listener){
+  public void registerViewEventListener(IViewListener listener) {
     this.viewListeners.add(Objects.requireNonNull(listener));
   }
 
