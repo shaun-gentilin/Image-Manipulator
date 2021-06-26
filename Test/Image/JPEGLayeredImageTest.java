@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -316,7 +318,7 @@ public class JPEGLayeredImageTest {
               + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black1-output.jpg",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-layer1-output.jpg",
+              + "\\TestImagesHW06\\JPG\\save image jpg test with changes\\black0-layer2-output.jpg",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -397,7 +399,7 @@ public class JPEGLayeredImageTest {
     assertEquals(expected.getPixel(0, 0)[2], layer.getPixel(0, 0)[2]);
     assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid "
-        + "image\\black0-layer1-output.jpg", outputPath);
+        + "image\\black0-layer2-output.jpg", outputPath);
   }
 
   /*
@@ -601,6 +603,39 @@ public class JPEGLayeredImageTest {
     } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
+  }
+
+
+  //exportTopVisibleBufferedImage TESTS
+
+
+  /*
+  Test the method on a valid image.
+   */
+  @Test
+  public void testExportTopVisibleBufferedImage() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
+    ILayeredImage image = new JPEGLayeredImage(path);
+    BufferedImage bufImg = image.exportTopVisibleBufferedImage();
+    assertEquals(5, bufImg.getHeight());
+    assertEquals(5, bufImg.getWidth());
+
+    int[] pixel = image.getLayer(1).getPixel(0,0);
+    assertEquals(new Color(pixel[0], pixel[1], pixel[2]).getRGB(), bufImg.getRGB(0,0));
+  }
+
+  /*
+  Test if all layers are invisible.
+   */
+  @Test(expected = IllegalStateException.class)
+  public void testExportTopVisibleBufferedImageAllLayersTransparent() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\valid image\\valid-image.txt";
+    ILayeredImage image = new JPEGLayeredImage(path);
+    image.toggleLayerTransparency(0);
+    image.toggleLayerTransparency(1);
+    image.exportTopVisibleBufferedImage();
   }
 
 }

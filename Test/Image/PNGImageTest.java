@@ -3,6 +3,8 @@ package image;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 
 /**
@@ -306,5 +308,23 @@ public class PNGImageTest {
     assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
     assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
     assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
+  }
+
+
+  //exportBufferedImage TESTS
+
+
+  /*
+  Test exporting a valid image.
+   */
+  @Test
+  public void testExportBufferedImage() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\black0.png";
+    IImage image = new PNGImage(path);
+    BufferedImage bufImg = image.exportBufferedImage();
+    assertEquals(5, bufImg.getHeight());
+    assertEquals(5, bufImg.getWidth());
+    assertEquals(new Color(0,0,0).getRGB(), bufImg.getRGB(0,0));
   }
 }

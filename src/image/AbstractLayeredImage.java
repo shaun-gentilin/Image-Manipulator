@@ -1,5 +1,6 @@
 package image;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -350,5 +351,14 @@ public abstract class AbstractLayeredImage implements ILayeredImage {
     }
 
     return newLayeredImage.saveImage();
+  }
+
+  public BufferedImage exportTopVisibleBufferedImage() {
+    for (int i = this.layers.size() - 1; i >= 0; i--) {
+      if (!(this.transparentLayers.contains(this.layers.get(i)))) {
+        return this.layers.get(i).exportBufferedImage();
+      }
+    }
+    throw new IllegalStateException("All layers were transparent.");
   }
 }

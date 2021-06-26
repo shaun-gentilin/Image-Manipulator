@@ -1,5 +1,7 @@
 package image;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Interface to represent a layered image in different formats (e.g. ppm) and outline what methods
  * these layered images should support.  A layered image consists of many layers that are each
@@ -103,4 +105,10 @@ public interface ILayeredImage {
    * @throws IllegalArgumentException if the type was invalid.
    */
   String saveImageAs(ImageType type) throws IllegalArgumentException;
+
+  /**
+   * Export the topmost visible layer of this image and return a buffered image.
+   * @return a buffered image representing the exported topmost visible layer of this image.
+   */
+  BufferedImage exportTopVisibleBufferedImage();
 }

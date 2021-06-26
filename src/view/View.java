@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class View extends JFrame implements IView, ActionListener {
     this.formatTextArea.setBorder(BorderFactory.createTitledBorder("Image Format"));
     add(this.formatTextArea);
 
-    this.layerNumTextArea = new JTextArea(1, 4);
+    this.layerNumTextArea = new JTextArea(1, 10);
     this.layerNumTextArea.setBorder(BorderFactory.createTitledBorder("Layer Number"));
     add(this.layerNumTextArea);
 
@@ -286,8 +287,24 @@ public class View extends JFrame implements IView, ActionListener {
     this.viewListeners.add(Objects.requireNonNull(listener));
   }
 
+  @Override
   public void updateImage(String filepath) {
-    this.imageLabel.setIcon(new ImageIcon(filepath));
+    this.imagePanel.remove(0); //remove whatever was in there
+    this.imageLabel = new JLabel(new ImageIcon(filepath));
+    JScrollPane scrollPane = new JScrollPane(this.imageLabel);
+    this.imagePanel.add(scrollPane);
+    repaint();
+    revalidate();
+  }
+
+  @Override
+  public void updateImage(BufferedImage img) {
+    this.imagePanel.remove(0); //remove whatever was in there
+    this.imageLabel = new JLabel(new ImageIcon(img));
+    JScrollPane scrollPane = new JScrollPane(this.imageLabel);
+    this.imagePanel.add(scrollPane);
+    repaint();
+    revalidate();
   }
 
   private int getLayerNum() {

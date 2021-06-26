@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 /**
@@ -19,4 +20,6 @@ public interface IView {
    * @throws IllegalArgumentException if the file path does not exist.
    */
   void updateImage(String filepath) throws IllegalArgumentException;
+
+  void updateImage(BufferedImage img);
 }

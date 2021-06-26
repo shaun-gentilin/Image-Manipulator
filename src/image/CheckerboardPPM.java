@@ -1,5 +1,6 @@
 package image;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -96,5 +97,15 @@ public class CheckerboardPPM extends AbstractCheckerboardImage {
   @Override
   public IImage convertTo(ImageType type) throws IllegalArgumentException {
     throw new IllegalArgumentException("Cannot do this operation at the moment.");
+  }
+
+  /**
+   * Export the image and return a buffered image.
+   *
+   * @return a buffered image representing the image that has been exported.
+   */
+  @Override
+  public BufferedImage exportBufferedImage() {
+    return null;
   }
 }

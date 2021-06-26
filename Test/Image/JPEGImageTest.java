@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 
 /**
@@ -19,7 +21,7 @@ public class JPEGImageTest {
     IImage jpeg = new JPEGImage(path);
     assertEquals(5, jpeg.getHeight());
     assertEquals(5, jpeg.getWidth());
-    assertEquals(0, jpeg.getMaxColorValue());
+    assertEquals(255, jpeg.getMaxColorValue());
     assertEquals(0, jpeg.getPixel(0, 0)[0]);
     assertEquals(0, jpeg.getPixel(0, 0)[1]);
     assertEquals(0, jpeg.getPixel(0, 0)[2]);
@@ -203,7 +205,7 @@ public class JPEGImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
     IImage jpeg = new JPEGImage(path);
-    assertEquals(0, jpeg.getMaxColorValue());
+    assertEquals(255, jpeg.getMaxColorValue());
   }
 
   //exportImage TESTS
@@ -224,7 +226,7 @@ public class JPEGImageTest {
     IImage outputImage = new JPEGImage(outputPath);
     assertEquals(5, outputImage.getHeight());
     assertEquals(5, outputImage.getWidth());
-    assertEquals(0, outputImage.getMaxColorValue());
+    assertEquals(255, outputImage.getMaxColorValue());
     assertEquals(0, outputImage.getPixel(0, 0)[0]);
     assertEquals(0, outputImage.getPixel(0, 0)[1]);
     assertEquals(0, outputImage.getPixel(0, 0)[2]);
@@ -307,5 +309,23 @@ public class JPEGImageTest {
     assertEquals(image.getPixel(0, 0)[0], newImage.getPixel(0, 0)[0]);
     assertEquals(image.getPixel(0, 0)[1], newImage.getPixel(0, 0)[1]);
     assertEquals(image.getPixel(0, 0)[2], newImage.getPixel(0, 0)[2]);
+  }
+
+
+  //exportBufferedImage TESTS
+
+
+  /*
+  Test exporting a valid image.
+   */
+  @Test
+  public void testExportBufferedImage() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\JPG\\black0.jpg";
+    IImage image = new JPEGImage(path);
+    BufferedImage bufImg = image.exportBufferedImage();
+    assertEquals(5, bufImg.getHeight());
+    assertEquals(5, bufImg.getWidth());
+    assertEquals(new Color(0,0,0).getRGB(), bufImg.getRGB(0,0));
   }
 }

@@ -5,6 +5,7 @@ import image.ImageType;
 import image.JPEGLayeredImage;
 import image.PNGLayeredImage;
 import image.PPMLayeredImage;
+import java.awt.image.BufferedImage;
 import manipulation.IManipulation;
 
 public class LayeredImageModelImpl implements ILayeredImageModel {
@@ -64,6 +65,9 @@ public class LayeredImageModelImpl implements ILayeredImageModel {
    */
   @Override
   public void applyManipulation(int layerNum, IManipulation manip) throws IllegalArgumentException {
+    if (manip == null) {
+      throw new IllegalArgumentException("Manipulation cannot be null.");
+    }
     manip.apply(this.image.getLayer(layerNum));
   }
 
@@ -121,5 +125,10 @@ public class LayeredImageModelImpl implements ILayeredImageModel {
   @Override
   public void toggleTransparent(int layerNum) throws IllegalArgumentException {
     this.image.toggleLayerTransparency(layerNum);
+  }
+
+  @Override
+  public BufferedImage exportTopVisibleBufferedImage() {
+    return this.image.exportTopVisibleBufferedImage();
   }
 }

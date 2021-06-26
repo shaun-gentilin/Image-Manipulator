@@ -1,5 +1,7 @@
 package image;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Class to represent a generic image that implements the IImage interface.  Implements methods
  * that should be the same for every image object.
@@ -164,5 +166,20 @@ public abstract class AbstractImage implements IImage {
       default:
         throw new IllegalArgumentException("The image type was invalid.");
     }
+  }
+
+  @Override
+  public BufferedImage exportBufferedImage() {
+    BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    for (int x = 0; x < this.width; x++) {
+      for (int y = 0; y < this.height; y++) {
+        int r = this.pixels[x][y][0];
+        int g = this.pixels[x][y][1];
+        int b = this.pixels[x][y][2];
+        int color = (r << 16) | (g << 8) | b;
+        img.setRGB(x, y, color);
+      }
+    }
+    return img;
   }
 }

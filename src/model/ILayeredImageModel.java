@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.image.BufferedImage;
 import manipulation.IManipulation;
 
 /**
@@ -64,4 +65,10 @@ public interface ILayeredImageModel {
    * @throws IllegalArgumentException if the layer number is invalid.
    */
   void toggleTransparent(int layerNum) throws IllegalArgumentException;
+
+  /**
+   * Export the topmost visible layer and return a buffered image.
+   * @return a buffered image representing the topmost visible layer of the layered image.
+   */
+  BufferedImage exportTopVisibleBufferedImage();
 }

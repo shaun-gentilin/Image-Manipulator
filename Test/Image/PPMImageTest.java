@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 
 /**
@@ -323,5 +325,22 @@ public class PPMImageTest {
     assertEquals(image.getPixel(0,0)[0], newImage.getPixel(0,0)[0]);
     assertEquals(image.getPixel(0,0)[1], newImage.getPixel(0,0)[1]);
     assertEquals(image.getPixel(0,0)[2], newImage.getPixel(0,0)[2]);
+  }
+
+
+  //exportBufferedImage TESTS
+
+
+  /*
+  Test exporting a valid image.
+   */
+  @Test
+  public void testExportBufferedImage() {
+    IImage image = new PPMImage("C:\\Users\\Shaun\\College\\Summer 2021 "
+        + "(Year 3)\\CS3500\\hw05\\TestImages\\valid-image-four-pixels.ppm");
+    BufferedImage bufImg = image.exportBufferedImage();
+    assertEquals(2, bufImg.getHeight());
+    assertEquals(2, bufImg.getWidth());
+    assertEquals(new Color(101,90,58).getRGB(), bufImg.getRGB(0,0));
   }
 }

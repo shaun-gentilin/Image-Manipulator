@@ -7,11 +7,7 @@ import org.junit.Test;
 public class LayeredImageModelImplTest {
 
 
-  //loadNewImage TESTS
-
-  /*
-  Test loading a jpeg.
-   */
+  //testing to see if doesnt break
   @Test
   public void testLoadImageJPEG() {
 

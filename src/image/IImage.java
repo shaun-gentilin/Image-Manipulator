@@ -1,5 +1,8 @@
 package image;
 
+import java.awt.image.BufferedImage;
+import java.nio.Buffer;
+
 /**
  * Interface to represent different types of images in different formats (e.g. PPM) and outline what
  * methods they should support.
@@ -69,4 +72,10 @@ public interface IImage {
    * @throws IllegalArgumentException if the ImageType is null.
    */
   IImage convertTo(ImageType type) throws IllegalArgumentException;
+
+  /**
+   * Export the image and return a buffered image.
+   * @return a buffered image representing the image that has been exported.
+   */
+  BufferedImage exportBufferedImage();
 }

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -26,7 +28,7 @@ public class PNGLayeredImageTest {
     ILayeredImage image = new PNGLayeredImage(path);
     assertEquals(5, image.getHeight());
     assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
     assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
     assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
     assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
@@ -114,7 +116,7 @@ public class PNGLayeredImageTest {
     String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
         + "\\PNG\\valid image\\valid-png-image.txt";
     ILayeredImage image = new PNGLayeredImage(path);
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
   }
 
   //removeLayer TESTS
@@ -222,7 +224,7 @@ public class PNGLayeredImageTest {
         + "black1-output.png", outputPath);
     assertEquals(5, image.getHeight());
     assertEquals(5, image.getWidth());
-    assertEquals(0, image.getMaxColorValue());
+    assertEquals(255, image.getMaxColorValue());
     assertEquals(0, image.getLayer(0).getPixel(0, 0)[0]);
     assertEquals(0, image.getLayer(0).getPixel(0, 1)[0]);
     assertEquals(0, image.getLayer(0).getPixel(1, 0)[0]);
@@ -315,7 +317,7 @@ public class PNGLayeredImageTest {
               + "\\TestImagesHW06\\PNG\\save image png test with changes\\black1-output.png",
           reader.nextLine());
       assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05"
-              + "\\TestImagesHW06\\PNG\\save image png test with changes\\black0-layer1-output.png",
+              + "\\TestImagesHW06\\PNG\\save image png test with changes\\black0-layer2-output.png",
           reader.nextLine());
       assertFalse(reader.hasNextLine());
       reader.close();
@@ -396,7 +398,7 @@ public class PNGLayeredImageTest {
     assertEquals(expected.getPixel(0, 0)[2], layer.getPixel(0, 0)[2]);
     assertEquals("C:\\Users\\Shaun\\College\\Summer 2021 "
         + "(Year 3)\\CS3500\\hw05\\TestImagesHW06\\PNG\\valid "
-        + "image\\black0-layer1-output.png", outputPath);
+        + "image\\black0-layer2-output.png", outputPath);
   }
 
   /*
@@ -600,5 +602,38 @@ public class PNGLayeredImageTest {
     } catch (FileNotFoundException error) {
       throw new IllegalArgumentException("Cannot read file.");
     }
+  }
+
+
+  //exportTopVisibleBufferedImage TESTS
+
+
+  /*
+  Test the method on a valid image.
+   */
+  @Test
+  public void testExportTopVisibleBufferedImage() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
+        + "\\PNG\\valid image\\valid-png-image.txt";
+    ILayeredImage image = new PNGLayeredImage(path);
+    BufferedImage bufImg = image.exportTopVisibleBufferedImage();
+    assertEquals(5, bufImg.getHeight());
+    assertEquals(5, bufImg.getWidth());
+
+    int[] pixel = image.getLayer(1).getPixel(0,0);
+    assertEquals(new Color(pixel[0], pixel[1], pixel[2]).getRGB(), bufImg.getRGB(0,0));
+  }
+
+  /*
+  Test if all layers are invisible.
+   */
+  @Test(expected = IllegalStateException.class)
+  public void testExportTopVisibleBufferedImageAllLayersTransparent() {
+    String path = "C:\\Users\\Shaun\\College\\Summer 2021 (Year 3)\\CS3500\\hw05\\TestImagesHW06"
+        + "\\PNG\\valid image\\valid-png-image.txt";
+    ILayeredImage image = new PNGLayeredImage(path);
+    image.toggleLayerTransparency(0);
+    image.toggleLayerTransparency(1);
+    image.exportTopVisibleBufferedImage();
   }
 }
